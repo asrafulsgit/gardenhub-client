@@ -1,12 +1,11 @@
 import React,{ useState } from 'react'
 import { useContext } from 'react';
 import { AuthContext } from '../config/AuthProvider';
-import { useNavigate } from 'react-router';
 import {  toast } from 'react-toastify';
 import { updateProfile } from 'firebase/auth';
 
 
-function isValidPassword(password) {
+const isValidPassword =(password)=> {
   const minLength = /.{8,}/;
   const uppercase = /[A-Z]/;
   const lowercase = /[a-z]/;
@@ -24,7 +23,7 @@ function isValidPassword(password) {
 const Register = ({userRegister}) => {
   const {register,setLoading,googleRegister } = useContext(AuthContext); 
 
-  const navigate = useNavigate();
+
   const [registerInfo,setRegister]= useState({name : '',photoURL : '', email : '', password : ''})
   
   const handleRegisterChange =(e)=>{
@@ -41,9 +40,6 @@ const Register = ({userRegister}) => {
       return;
     }
   
-    if (!isValidPassword) {
-      return;
-    }
   
     register(email, password)
       .then((res) => {

@@ -7,6 +7,8 @@ import Login_signIn from "../pages/Login_signIn";
 import My_tips from "../pages/My_tips";
 import Share_garden_tip from "../pages/Share_garden_tip";
 import NotFoundPage from "../components/NotFoundPage";
+import Auth_middleware from "../middlewares/Auth_middleware";
+import UnAuth_middleware from "../middlewares/UnAuth_middleware";
 
 const Router =createBrowserRouter([
     {
@@ -35,15 +37,15 @@ const Router =createBrowserRouter([
             },
             { 
                 path : 'share-garden-tip',
-                element :  <Share_garden_tip />
+                element : <Auth_middleware><Share_garden_tip /></Auth_middleware> 
             },
             { 
                 path : 'my-tips',
-                element :  <My_tips />  
+                element : <Auth_middleware><My_tips /></Auth_middleware> 
             },
             { 
                 path : 'login-signin',
-                element :  <Login_signIn />  
+                element : <UnAuth_middleware><Login_signIn />  </UnAuth_middleware> 
             }
         ]
     },

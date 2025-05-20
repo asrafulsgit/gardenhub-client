@@ -2,11 +2,14 @@ import React, { useContext } from 'react'
 import {AuthContext} from '../config/AuthProvider'
 import {useNavigate} from 'react-router'
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+
 const Login = () => {
 
-const { login,setLoading,setUser,setIsLoggedIn, googleRegister } = useContext(AuthContext);
+const { login,setLoading,setIsLoggedIn,setUserInfo, googleRegister } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginInfo({ ...loginInfo, [name]: value });
@@ -23,12 +26,17 @@ const { login,setLoading,setUser,setIsLoggedIn, googleRegister } = useContext(Au
 
     login(email, password)
       .then((res) => {
-        const {email,displayName,photoURL} = res;
-        setUser({email, name : displayName, url : photoURL})
+        const {email,displayName,photoURL} = res?.user;
+        setUserInfo((prev)=>(
+          {
+            ...prev,
+            email,displayName, photoURL
+          }
+        ))
         setIsLoggedIn(true)
-        setLoading(false) 
         toast.success("Login successful!");
         navigate("/"); 
+        setLoading(false) 
       })
       .catch((err) => {
         setLoading(false)
@@ -39,12 +47,18 @@ const { login,setLoading,setUser,setIsLoggedIn, googleRegister } = useContext(Au
   const handleGoogleLogin = () => {
     googleRegister()
       .then((res) => {
-        const {email,displayName,photoURL} = res;
-        setUser({email, name : displayName, url : photoURL})
-        setIsLoggedIn(true)
-        setLoading(false)
+        console.log(res)
+        const {email,displayName,photoURL} = res?.user;
+        setUserInfo((prev)=>(
+          {
+            ...prev,
+            email,displayName, photoURL
+          }
+        ))
         toast.success("Logged in with Google!");
+        setIsLoggedIn(true)
         navigate("/");
+        setLoading(false)
       })
       .catch((err) =>{ 
         toast.error(err.message)
@@ -75,7 +89,7 @@ const { login,setLoading,setUser,setIsLoggedIn, googleRegister } = useContext(Au
               </div>
               <div>
                 <button type="submit"  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                  Sign in
+                  Login
                 </button>
               </div>
             </form>

@@ -16,6 +16,7 @@ import { ToastContainer } from "react-toastify";
 
 const AuthContext = createContext(null)
 const auth = getAuth(app)
+
 const AuthProvider = ({children})=>{
     const [userInfo,setUserInfo]=useState(null)
     const [isLoggedIn,setIsLoggedIn]=useState(false)
