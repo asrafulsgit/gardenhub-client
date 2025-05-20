@@ -60,7 +60,7 @@ const Featured_gardeners = () => {
   ];
 
   return (
-    <div className="bg-[#1f29370e] py-12 ">
+    <div className="bg-[#1f29370e] py-12 px-5">
       <div className="container mx-auto text-center">
         <h2 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">Featured Gardeners</h2>
         <p className="text-[18px] font-[400] text-[#4b5563] mb-8 roboto-family">
@@ -81,7 +81,7 @@ const Featured_gardeners = () => {
                     <p className="text-[16px] font-[500] text-[#16a34a]">{gardener.expertise}</p>
                 </div>
               </div>
-              
+
               <p className="text-[16px] font-[400]  my-4 text-left text-[#4b5563] roboto-family">{gardener.description}</p>
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center text-green-500 text-xs">

@@ -60,7 +60,7 @@ const Trending_tips = () => {
   ];
 
   return (
-    <div className="bg-gray-50 py-12">
+    <div className="bg-gray-50 py-12 px-5">
       <div className="container mx-auto text-center">
         <h2 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">Top Trending Tips</h2>
         <p className="text-[18px] font-[400] text-[#4b5563] mb-8 roboto-family">
@@ -84,7 +84,7 @@ const Trending_tips = () => {
                     </div>
                     <p className="text-gray-700 text-[16px] mb-4 text-left font-[400] roboto-family">{tip.description}</p>
                <div className="py-3 flex items-center justify-between border-t border-gray-200">
-                    <div className="flex  gap-1 text-gray-600  text-[16px] text-left font-[400] roboto-family">
+                    <div className="flex  gap-1 text-gray-600   text-[16px] text-left font-[400] roboto-family">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
               </svg>
@@ -112,6 +112,20 @@ const Trending_tips = () => {
             </div>
           ))}
         </div>
+        
+        <button className="inline-flex items-center px-6 py-3 bg-green-600 mt-10 text-white rounded-lg text-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors cursor-pointer duration-300 nunito-family">
+      Browse All Tips
+      <svg
+        className="ml-2 w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+      </svg>
+    </button>
+
       </div>
     </div>
   );
