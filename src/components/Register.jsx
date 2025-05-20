@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Register = () => {
+    console.log('helo')
   return (
    <div className="p-6">
             <div className="mb-6">

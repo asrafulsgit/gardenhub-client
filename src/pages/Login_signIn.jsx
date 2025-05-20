@@ -24,8 +24,9 @@ const Login_signIn = () => {
           >
             Register
           </button>
+          
         </div>
-
+      
         {/* Login Form */}
         {activeTab === 'login' && (
           <Login />
