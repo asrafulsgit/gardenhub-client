@@ -1,14 +1,19 @@
-import React from 'react'
-import Home from './pages/Home'
+import React, { useContext } from 'react'
 import Navbar from './components/navbar/Navbar'
-import Hero from './components/Hero/Hero'
 import Asidebar from './components/asidebar/Asidebar'
 import { Outlet } from 'react-router'
 import Footer from './components/Footer'
-
+import Loader from './utils/Loader'
+import { AuthContext } from './config/AuthProvider'
+import Toastify from './config/Toastify'
 const App = () => {
+  const {loading}=useContext(AuthContext)
+  if(loading){
+    return <><Loader /></>
+  }
   return (
-    <>  
+    <> 
+    <Toastify /> 
     <div className="flex  w-[100%] ">
       {/* Sidebar  */}
       <aside className="w-64  h-screen text-white bg-[#166534] flex flex-col justify-between fixed  z-10">
@@ -34,8 +39,7 @@ const App = () => {
       </div>
 
       
-    </div>
-        
+    </div>   
     </>
     
   )
