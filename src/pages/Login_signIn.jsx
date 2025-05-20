@@ -6,7 +6,9 @@ const Login_signIn = () => {
   const [activeTab, setActiveTab] = useState('login');
 
   const handleTabChange = (tab) => setActiveTab(tab);
-
+  const userRegister =(tab)=>{
+      setActiveTab(tab)
+  }
   return (
     <section id="auth" className="page-section min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
@@ -34,7 +36,7 @@ const Login_signIn = () => {
 
         {/* Register Form */}
         {activeTab === 'register' && (
-          <Register />
+          <Register userRegister={userRegister}/>
         )}
 
       </div>
