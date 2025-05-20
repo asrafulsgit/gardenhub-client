@@ -38,8 +38,8 @@ const My_tips = () => {
     <section id="myTips" className="page-section min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8" style={{ display: 'block' }}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-900">My Tips</h2>
-          <p className="mt-2 text-lg text-gray-600">Manage your gardening tips and contributions</p>
+          <h2 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">My Tips</h2>
+          <p className="text-[18px] font-[400] text-[#4b5563] mb-8 roboto-family">Manage your gardening tips and contributions</p>
         </div>
 
         {/* Action Buttons */}
@@ -69,7 +69,7 @@ const My_tips = () => {
         </div>
 
         {/* Tips Table */}
-        <div className="bg-white shadow-sm overflow-hidden border border-gray-200 sm:rounded-lg">
+        <div className="bg-white shadow-xs overflow-hidden border border-gray-200 sm:rounded-lg">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">

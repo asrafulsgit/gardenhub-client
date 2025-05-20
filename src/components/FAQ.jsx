@@ -28,8 +28,8 @@ const FAQ = () => {
         }
     ]
   return (
-    <div class="mt-12 px-5 bg-white rounded-xl p-8 shadow-sm border border-gray-100">
-        <div class="text-center mb-8">
+    <div className="mt-12 px-5 bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div className="text-center mb-8">
           <h3 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">
             Frequently Asked <span className='text-green-600 font-[900]'>Questions</span></h3>
           <p className="text-[18px] font-[400] text-[#4b5563] mb-8 roboto-family">Find quick answers to common questions</p>
