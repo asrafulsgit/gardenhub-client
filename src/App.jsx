@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import Home from './pages/Home'
+import Navbar from './components/navbar/Navbar'
+import Hero from './components/Hero/Hero'
+import Asidebar from './components/asidebar/Asidebar'
+import { Outlet } from 'react-router'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <>  
+    <div className="flex  w-[100%] ">
+      {/* Sidebar  */}
+      <aside className="w-64  h-screen text-white bg-green-900 flex flex-col justify-between fixed  z-10">
+        <Asidebar />
+      </aside>
+
+      {/* Main Content Wrapper (with margin-left to account for sidebar width) */}
+      <div className=" w-[calc(100%-16rem)]  ml-64 flex flex-col">
+        {/* Topbar */}
+        <header className="bg-white  px-6 py-4 w-[calc(100%-16rem)] shadow flex justify-between items-center fixed  z-10">
+         <Navbar />
+        </header>
+
+        {/* Scrollable Content */}
+        <main className="pt-15">
+            
+              <Outlet />   
+           
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    </div>
+        
     </>
+    
   )
 }
+
+const MenuItem = ({ icon, label, active }) => (
+  <div className={`flex items-center gap-3 px-4 py-2 rounded-md cursor-pointer ${active ? 'bg-green-800' : 'hover:bg-green-800'}`}>
+    <span>{icon}</span>
+    <span>{label}</span>
+  </div>
+);
+
 
 export default App
