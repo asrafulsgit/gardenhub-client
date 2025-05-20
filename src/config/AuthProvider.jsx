@@ -18,6 +18,7 @@ const AuthContext = createContext(null)
 const auth = getAuth(app)
 
 const AuthProvider = ({children})=>{
+    const [isDark,setIsDark]=useState(JSON.parse(localStorage.getItem('isDark')))
     const [userInfo,setUserInfo]=useState(null)
     const [isLoggedIn,setIsLoggedIn]=useState(false)
     const [loading,setLoading]=useState(true)
@@ -56,10 +57,11 @@ const AuthProvider = ({children})=>{
         });
         return () => unsubscribe();
       }, []);
-    
+    console.log(isDark)
     return(
         <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,forget_password,
-        loading,setLoading,register,login,logout,googleRegister,userInfo,setUserInfo}}>
+        loading,setLoading,register,login,logout,
+        googleRegister,userInfo,setUserInfo,isDark,setIsDark}}>
             {children}
         </AuthContext.Provider>
     )

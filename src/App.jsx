@@ -7,7 +7,7 @@ import Loader from './utils/Loader'
 import { AuthContext } from './config/AuthProvider'
 import Toastify from './config/Toastify'
 const App = () => {
-  const {loading}=useContext(AuthContext)
+  const {loading,isDark}=useContext(AuthContext)
   if(loading){
     return <><Loader /></>
   }
@@ -23,7 +23,7 @@ const App = () => {
       {/* Main Content Wrapper (with margin-left to account for sidebar width) */}
       <div className=" w-[calc(100%-16rem)]  ml-64 flex flex-col">
         {/* Topbar */}
-        <header className="bg-white  px-6 py-4 w-[calc(100%-16rem)] shadow flex justify-between items-center fixed  z-10">
+        <header className={`${isDark ? 'bg-black border-b' : 'bg-white '} px-6 py-4 w-[calc(100%-16rem)] shadow flex justify-between items-center fixed  z-10`}>
          <Navbar />
         </header>
 
