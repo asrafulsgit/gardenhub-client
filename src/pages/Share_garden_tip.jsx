@@ -5,7 +5,6 @@ const Share_garden_tip = () => {
   const {isDark} = useContext(AuthContext)
   return (
     <section
-      id="shareTip"
       className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
       py-12 px-5 `}
     >
