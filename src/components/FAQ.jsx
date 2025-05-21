@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../config/AuthProvider'
 
 const FAQ = () => {
     const fapAns =[
@@ -27,20 +28,23 @@ const FAQ = () => {
             answer : 'Upon detection, we swiftly identify the specific pest or disease through careful inspection. We then implement targeted organic or least-toxic treatments, followed by recommendations for long-term cultural practices to prevent recurrence.'
         }
     ]
+    const {isDark} = useContext(AuthContext)
   return (
-    <div className="mt-12 px-5 bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+    <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
         <div className="text-center mb-8">
-          <h3 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">
+          <h3 className={`text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
+        nunito-family`}>
             Frequently Asked <span className='text-green-600 font-[900]'>Questions</span></h3>
-          <p className="text-[18px] font-[400] text-[#4b5563] mb-8 roboto-family">Find quick answers to common questions</p>
+          <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>Find quick answers to common questions</p>
         </div>
         
         {fapAns.map((item,index)=>(
-        <div key={index} className="collapse collapse-arrow bg-base-100 
-        border border-base-300 mt-1.5">
+        <div key={index} className={`collapse collapse-arrow ${isDark ? 'border-gray-800' : 'bg-base-100 border-base-300'} 
+        border  mt-1.5`}>
                 <input type="radio" name="my-accordion-2" defaultChecked />
-                <div className="collapse-title font-semibold nunito-family">{item.question}</div>
-                <div className="collapse-content text-sm roboto-family opacity-80">{item.answer}</div>
+                <div className={`collapse-title font-semibold ${isDark ? 'text-gray-500' : ''} nunito-family`}>{item.question}</div>
+                <div className={`collapse-content text-sm roboto-family ${isDark ? 'text-gray-600' : ''}
+                opacity-80`}>{item.answer}</div>
         </div>
        )) }
         

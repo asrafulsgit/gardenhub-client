@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router';
-
+import { AuthContext} from '../config/AuthProvider'
 const Featured_gardeners = () => {
   const gardeners = [
   {
@@ -92,26 +92,30 @@ const Featured_gardeners = () => {
     tags: ["Landscape Design", "Irrigation", "Hardscaping"],
   },
 ];
-
+  const {isDark} = useContext(AuthContext)
   return (
-    <div className="bg-[#1f29370e] py-12 px-5">
+    <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
       <div className="container mx-auto text-center">
-        <h2 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">Featured Gardeners</h2>
-        <p className="text-[18px] font-[400] text-[#4b5563] mb-8 roboto-family">
+        <h2 className={`text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
+        nunito-family`}>Featured Gardeners</h2>
+        <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
           Connect with our most active community members who are sharing valuable <br /> gardening knowledge
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0">
           {gardeners.map((gardener, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg border border-[#e5e7eb] py-6 px-4"
+              className={` rounded-lg border ${isDark ? 'bg-black' : 'bg-white border-[#e5e7eb]'}
+                py-6 px-4`}
             >
               <div className="flex items-center gap-3">
-                <div className="text-gray-500 w-[70px] rounded-[50%]   h-[70px] overflow-hidden">
+                <div className="text-gray-500 w-[70px] 
+                rounded-[50%]   h-[70px] overflow-hidden">
                     <img src={gardener.image} className='object-cover w-[100px]  h-[70px]'  alt="" />
                 </div>
                 <div className='text-left'>
-                    <p className="text-[20px] font-[600] nunito-family">{gardener.name}</p>
+                    <p className={`text-[20px] font-[600] ${isDark ? 'text-gray-400' : 'text-[#111827]'}
+                    nunito-family`}>{gardener.name}</p>
                     <p className="text-[16px] font-[500] text-[#16a34a]">{gardener.tags[0]}</p>
                 </div>
               </div>

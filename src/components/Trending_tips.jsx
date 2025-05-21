@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router';
+import { AuthContext } from '../config/AuthProvider';
 
 const Trending_tips = () => {
   const tips = [
@@ -58,32 +59,39 @@ const Trending_tips = () => {
       link: '#',
     },
   ];
-
+  const {isDark} = useContext(AuthContext)
   return (
-    <div className="bg-gray-50 py-12 px-5">
+    <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
       <div className="container mx-auto text-center">
-        <h2 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">Top Trending Tips</h2>
-        <p className="text-[18px] font-[400] text-[#4b5563] mb-8 roboto-family">
+        <h2 className={`text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
+        nunito-family`}>Top Trending Tips</h2>
+        <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
           Discover our community's most popular gardening advice and techniques
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0">
           {tips.map((tip, index) => (
             <div
               key={index}
-              className="bg-white border border-[#e5e7eb] rounded-lg  overflow-hidden flex flex-col"
+              className={` border ${isDark ? '' : 'bg-white border-[#e5e7eb]'}   rounded-lg  overflow-hidden flex flex-col`}
             >
-              <div className="bg-gray-200 h-32 flex items-center justify-center text-gray-500 text-xl font-semibold">
+              <div className={`bg-gray-200 h-32 flex items-center justify-center
+                text-xl font-semibold  `}>
                 {tip.title}
               </div>
                 <div className='px-2 py-3'>
                     <div className='flex justify-between items-center mb-3'>
-                    <h3 className="text-xl font-[600] text-left text-gray-800 nunito-family">{tip.topic}</h3>
-                    <p className=" bg-green-100 text-green-700 rounded-full px-2 py-1 text-xs  font-medium roboto-family">
+                    <h3 className={`text-xl font-[600] text-left
+                     ${isDark ? 'text-gray-400' : 'text-gray-800'}
+                     nunito-family`}>{tip.topic}</h3>
+                    <p className=" bg-green-100 text-green-700 rounded-full 
+                    px-2 py-1 text-xs  font-medium roboto-family">
                         {tip.level}
                     </p>
                     </div>
-                    <p className="text-gray-700 text-[16px] mb-4 text-left font-[400] roboto-family">{tip.description}</p>
-               <div className="py-3 flex items-center justify-between border-t border-gray-200">
+                    <p className="text-gray-700 text-[16px] mb-4 text-left font-[400]
+                     roboto-family">{tip.description}</p>
+               <div className={`py-3 flex items-center justify-between ${isDark ? '' : 'border-gray-200'}
+                 border-t `}>
                     <div className="flex  gap-1 text-gray-600   text-[16px] text-left font-[400] roboto-family">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd"></path>

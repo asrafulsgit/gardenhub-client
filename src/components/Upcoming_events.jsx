@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../config/AuthProvider';
 
 const Upcoming_events = () => {
   const events = [
@@ -40,19 +41,21 @@ const Upcoming_events = () => {
       featured: false,
     },
   ];
-
+  const {isDark} = useContext(AuthContext)
   return (
-    <div className="bg-white py-12">
-      <div className="container mx-auto text-center px-4">
-        <h2 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">Upcoming Garden Events</h2>
-        <p className="text-[18px] font-[400] text-[#4b5563] mb-8 roboto-family">
+    <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
+      <div className="container mx-auto text-center ">
+        <h2 className={`text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
+        nunito-family`}>Upcoming Garden Events</h2>
+        <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
           Join our community gardening events and workshops to learn new skills, meet <br />
           fellow gardeners, and grow together.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {events.map((event, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden relative">
+            <div key={index} className={` rounded-lg ${isDark ? 'bg-[#ffffff06]' : 'bg-white'}
+            shadow-sm overflow-hidden relative`}>
               <div className="relative">
                 
                 <img
@@ -89,16 +92,20 @@ const Upcoming_events = () => {
                   </svg>
                   {event.date} • {event.time}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-3 nunito-family">{event.title}</h3>
-                <p className="text-gray-700  mb-4 font-[400] text-[16px] roboto-family">{event.description}</p>
+                <h3 className={`text-xl font-[600] text-left
+                     ${isDark ? 'text-gray-400' : 'text-gray-800'}
+                     nunito-family`}>{event.title}</h3>
+                <p className="text-gray-700 text-[16px] mb-4 text-left font-[400]
+                     roboto-family">{event.description}</p>
                 <div className="flex items-center justify-between mt-auto ">
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-600 text-sm nunito-family">
                     {typeof event.spotsLeft === 'number'
                       ? `${event.spotsLeft} spots left`
                       : event.spotsLeft}
                   </p>
                   <button
-                    className={`px-4 py-2 rounded-md text-sm font-medium focus:outline-none transition-colors duration-300
+                    className={`px-4 py-2 rounded-md text-sm font-medium 
+                      focus:outline-none transition-colors duration-300 nunito-family
                       ${
                         event.buttonVariant === 'green'
                           ? 'bg-green-600 text-white hover:bg-green-700'
