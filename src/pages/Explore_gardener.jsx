@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { generatePath, NavLink } from 'react-router';
+import { AuthContext } from '../config/AuthProvider';
 
 const Explore_gardener = () => {
 
@@ -152,22 +153,23 @@ const Explore_gardener = () => {
     console.log(`Navigating to profile: ${id}`);
  
   };
-
+  const {isDark} = useContext(AuthContext)
   return (
     <section
       id="gardener-listings"
-      className="py-8 px-4 md:px-8 bg-white"
+      className={`py-8 px-4 md:px-8 ${isDark ? 'bg-black' : 'bg-white'}`}
       style={{ display: "block" }}
     >
-      <h2 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">
+      <h2 className={`text-[30px] ${isDark ? 'text-gray-400' : 'text-[#111827]'} mb-2 font-[700] nunito-family`}>
         Gardener Listings
       </h2>
 
       <div className="mb-6 flex justify-between items-center">
-        <p className="text-[18px] font-[400] text-[#4b5563]  roboto-family">Showing {gardeners.length} gardeners in your area</p>
+        <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' :"text-[#4b5563]"}  roboto-family`}>Showing {gardeners.length} gardeners in your area</p>
         <div className="flex items-center">
-          <span className="mr-2 text-sm text-gray-600">Sort by:</span>
-          <select className="border border-gray-300 rounded-lg py-1 px-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm">
+          <span className={`mr-2 text-sm ${isDark? 'text-gray-500' : 'text-gray-600'}`}>Sort by:</span>
+          <select className={`border nunito-family ${isDark ? 'border-gray-700 text-gray-500' : 'border-gray-300 '}  rounded-lg py-1 px-3 focus:ring-2
+           focus:ring-green-500 focus:border-green-500 text-sm`}>
             <option>Recommended</option>
             <option>Highest Rated</option>
             <option>Lowest Price</option>
@@ -181,7 +183,8 @@ const Explore_gardener = () => {
         {gardeners.map((gardener,index) => (
           <div
             key={ index}
-            className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition duration-300"
+            className={`border ${isDark ? 'border-gray-800': 'border-gray-200'} rounded-lg overflow-hidden 
+            shadow-sm hover:shadow-md transition duration-300`}
           >
             <div className="relative">
               <img
@@ -195,9 +198,9 @@ const Explore_gardener = () => {
                 </div>
               )}
             </div>
-            <div className="p-4">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold text-gray-800">{gardener.name}</h3>
+            <div className="p-4 ">
+              <div className="flex justify-between items-start mb-2 nunito-family">
+                <h3 className={`text-lg font-semibold ${isDark ? 'text-gray-400' :'text-gray-800'} `}>{gardener.name}</h3>
                 <div className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -213,12 +216,12 @@ const Explore_gardener = () => {
                   </span>
                 </div>
               </div>
-              <p className="text-gray-600 text-sm mb-3">{gardener?.description}</p>
+              <p className={`${isDark ? 'text-gray-500': 'text-gray-600'} text-sm mb-3 roboto-family`}>{gardener?.description}</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {gardener?.tags?.map((tag, index) => (
                   <span
                     key={index}
-                    className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full"
+                    className="bg-green-100  text-green-800 text-xs px-2 py-1 rounded-full nunito-family"
                   >
                     {tag}
                   </span>
@@ -226,7 +229,7 @@ const Explore_gardener = () => {
               </div>
               <div className="flex justify-between items-center">
                 <button
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-150"
+                  className="bg-green-600 hover:bg-green-700 nunito-family text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-150"
                   onClick={() => openGardenerProfile(gardener.id)}
                 >
                   View Profile
