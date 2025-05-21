@@ -4,7 +4,8 @@ import { AuthContext } from '../config/AuthProvider'
 const Browse_tips = () => {
   const {isDark} = useContext(AuthContext)
   return (
-    <section className={`page-section min-h-screen ${isDark ? 'bg-black' :'bg-gray-100'} py-12 px-4 sm:px-6 lg:px-8`}>
+    <section className={`page-section min-h-screen 
+    ${isDark ? 'bg-black' :'bg-gray-100'} py-12 px-5 `}>
       
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
@@ -80,7 +81,8 @@ const Browse_tips = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className={`text-sm font-medium ${isDark ? ' text-gray-400' : ' text-gray-900'}`}>Growing Perfect Tomatoes</div>
+                    <div className={`text-sm font-medium ${isDark ? ' text-gray-400' : 
+                      ' text-gray-900'}`}>Growing Perfect Tomatoes</div>
                     <div className="text-sm text-gray-500 roboto-family">By Sarah Johnson</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -97,7 +99,7 @@ const Browse_tips = () => {
                     248
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button href="#tipDetails" 
+                    <button  
                     className="text-green-600 hover:text-green-900 cursor-pointer inline-flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>

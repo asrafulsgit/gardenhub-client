@@ -157,7 +157,7 @@ const Explore_gardener = () => {
   return (
     <section
       id="gardener-listings"
-      className={`py-8 px-4 md:px-8 ${isDark ? 'bg-black' : 'bg-white'}`}
+      className={`py-8 px-5  ${isDark ? 'bg-black' : 'bg-white'}`}
       style={{ display: "block" }}
     >
       <h2 className={`text-[30px] ${isDark ? 'text-gray-400' : 'text-[#111827]'} mb-2 

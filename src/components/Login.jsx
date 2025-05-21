@@ -77,7 +77,8 @@ const { login,isDark,setLoading,setIsLoggedIn,setUserInfo, googleRegister } = us
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="email" className={`block text-sm font-medium ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1`}>Email</label>
+                <label htmlFor="email" className={`block text-sm font-medium 
+                  ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1 nunito-family`}>Email</label>
                 <input type="email" onChange={handleChange} value={loginInfo.email} id="email" 
                 name="email" className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 

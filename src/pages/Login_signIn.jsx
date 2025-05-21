@@ -13,7 +13,8 @@ const Login_signIn = () => {
       setActiveTab(tab)
   }
   return (
-    <section id="auth" className={`page-section pb-20 min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} py-12 px-4 sm:px-6 lg:px-8`}>
+    <section id="auth" className={`page-section pb-20 
+    min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} py-12 px-5 `}>
       <div className={`max-w-md mx-auto ${isDark ? 'bg-black border': 'bg-white'} rounded-lg shadow-md overflow-hidden`}>
         {/* Tabs */}
         <div className={`flex border-b  ${isDark ? 'border-gray-500':'border-gray-200'}`}>

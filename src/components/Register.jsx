@@ -75,42 +75,47 @@ const Register = ({userRegister}) => {
   return (
    <div className="p-6">
             <div className="mb-6">
-              <h2 className={`text-2xl font-bold  mb-2 ${isDark ? 'text-gray-400': 'text-gray-900'}`}>Create an account</h2>
-              <p className={`${isDark ? 'text-gray-400': 'text-gray-600'} `}>Join our gardening community to share tips and connect with other enthusiasts.</p>
+              <h2 className={`text-2xl font-bold  mb-2 
+                ${isDark ? 'text-gray-400': 'text-gray-900'}  nunito-family`}>Create an account</h2>
+              <p className={`${isDark ? 'text-gray-400': 'text-gray-600'} roboto-family`}>Join our gardening community to share tips and connect with other enthusiasts.</p>
             </div>
 
             <form onSubmit={handleRegister}>
               <div className="mb-4">
-                <label htmlFor="register-name" className={`block text-sm font-medium ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1`}>Full Name</label>
+                <label htmlFor="register-name" className={`block text-sm font-medium 
+                  ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1  nunito-family`}>Full Name</label>
                 <input type="text" onChange={handleRegisterChange} 
                 value={registerInfo.name} id="name" 
                 name="name" 
                 className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
-                focus:border-green-500`} required />
+                focus:border-green-500  nunito-family`} required />
               </div>
               <div className="mb-4">
-                <label htmlFor="register-email" className={`block text-sm font-medium ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1`}>Email</label>
+                <label htmlFor="register-email" className={`block text-sm font-medium 
+                  ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1  nunito-family`}>Email</label>
                 <input type="email" onChange={handleRegisterChange} value={registerInfo.email} id="register-email" name="email" className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
-                focus:border-green-500`} required />
+                focus:border-green-500  nunito-family`} required />
               </div>
               <div className="mb-4">
-                <label htmlFor="photo-url" className={`block text-sm font-medium ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1`}>Photo URL</label>
+                <label htmlFor="photo-url" className={`block text-sm font-medium 
+                  ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1  nunito-family`}>Photo URL</label>
                 <input type="text"
                  onChange={handleRegisterChange} 
                  value={registerInfo.photoURL} 
                  id="photo-url" name="photoURL" 
                  placeholder="https://example.com/your-photo.jpg" className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
-                focus:border-green-500`} />
+                focus:border-green-500  nunito-family`} />
               </div>
               <div className="mb-6">
-                <label htmlFor="register-password" className={`block text-sm font-medium ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1`}>Password</label>
+                <label htmlFor="register-password" className={`block text-sm font-medium 
+                  ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1  nunito-family`}>Password</label>
                 <input type="password" onChange={handleRegisterChange} value={registerInfo.password}
                  id="register-password" name="password" className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
-                focus:border-green-500`} required />
+                focus:border-green-500  nunito-family`} required />
                 <p className="mt-1 text-xs text-gray-500">Password must be at least 8 characters long</p>
               </div>
               <div>

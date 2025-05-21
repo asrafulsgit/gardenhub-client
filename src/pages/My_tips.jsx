@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../config/AuthProvider'
 
 const My_tips = () => {
   const tableHeader=['Image', 'Title', 'Category', 'Difficulty', 'Status', 'Likes', 'Actions']
@@ -34,32 +35,40 @@ const My_tips = () => {
                     image: 'https://placehold.co/100x100?text=Compost'
                   }
                 ]
+  const {isDark} = useContext(AuthContext)
   return (
-    <section id="myTips" className="page-section min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8" style={{ display: 'block' }}>
+    <section id="myTips" className={`page-section min-h-screen 
+    ${isDark ? 'bg-black' :'bg-gray-100'} py-12 px-5 `}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-[30px] text-[#111827] mb-2 font-[700] nunito-family">My Tips</h2>
-          <p className="text-[18px] font-[400] text-[#4b5563] mb-8 roboto-family">Manage your gardening tips and contributions</p>
+          <h2 className={`text-[30px] ${isDark ? 'text-gray-400' : 'text-[#111827]'} mb-2 
+      font-[700] nunito-family`}>My Tips</h2>
+          <p className={`text-[18px] font-[400] 
+            ${isDark ? 'text-gray-500' :"text-[#4b5563]"}  roboto-family`}>Manage your gardening tips and contributions</p>
         </div>
 
         {/* Action Buttons */}
         <div className="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-center">
           <div className="mb-4 sm:mb-0">
-            <a
-              href="#shareTip"
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            <button
+              className="inline-flex nunito-family font-medium items-center px-4 py-2 border 
+              border-transparent rounded-md shadow-sm text-sm text-gray-300 cursor-pointer bg-green-600
+               hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2
+                focus:ring-green-500"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
               Add New Tip
-            </a>
+            </button>
           </div>
           <div className="flex items-center">
-            <label htmlFor="filter-status" className="mr-2 text-sm font-medium text-gray-700">Filter by:</label>
+            <label htmlFor="filter-status" className={`mr-2 text-sm ${isDark? 'text-gray-500' : 'text-gray-600'}`}>Filter by:</label>
             <select
               id="filter-status"
-              className="rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              className={`border nunito-family ${isDark ? 'border-gray-700 text-gray-500' : 
+                'border-gray-300 '}  rounded-sm py-1 px-2 focus:ring-2
+           focus:ring-green-500 focus:border-green-500 text-sm`}
             >
               <option value="all">All Tips</option>
               <option value="public">Public Only</option>
@@ -69,10 +78,11 @@ const My_tips = () => {
         </div>
 
         {/* Tips Table */}
-        <div className="bg-white shadow-xs overflow-hidden border border-gray-200 sm:rounded-lg">
+        <div className={` shadow-xs overflow-hidden border
+          ${isDark ? 'bg-black' : 'bg-white border-gray-200'} sm:rounded-lg`}>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className={`min-w-full divide-y ${isDark ? 'divide-gray-900' : 'divide-gray-200'} `}>
+              <thead className={isDark ? 'bg-black' :  "bg-gray-50"}>
                 <tr>
                   {tableHeader.map((header) => (
                     <th
@@ -85,7 +95,7 @@ const My_tips = () => {
                   ))}
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className={`${isDark ? "bg-black divide-gray-900": 'bg-white divide-gray-200' } divide-y nunito-family`}>
                 {allTips.map((tip) => (
                   <tr key={tip.id} className="tip-row" data-status={tip.status.toLowerCase()}>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -94,8 +104,9 @@ const My_tips = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{tip.title}</div>
-                      <div className="text-sm text-gray-500">Added on {tip.date}</div>
+                      <div className={`text-sm font-medium ${isDark ? ' text-gray-400' : 
+                      ' text-gray-900'}`}>{tip.title}</div>
+                      <div className="text-sm text-gray-500 roboto-family">Added on {tip.date}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -112,20 +123,20 @@ const My_tips = () => {
                         {tip.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{tip.likes}</td>
+                    <td className={`px-6 py-4 whitespace-nowrap text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{tip.likes}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-2">
-                        <a href="#tipDetails" className="text-green-600 hover:text-green-900">
+                        <button   className="text-green-600 hover:text-green-900">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                           </svg>
-                        </a>
-                        <a href="#updateTip" className="text-indigo-600 hover:text-indigo-900">
+                        </button>
+                        <button  className="text-indigo-600 hover:text-indigo-900">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                           </svg>
-                        </a>
+                        </button>
                         <button type="button" className="text-red-600 hover:text-red-900" onClick={() => console.log(`Open delete modal for ${tip.title}, ${tip.id}`)}>
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

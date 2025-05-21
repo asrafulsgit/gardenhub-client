@@ -6,7 +6,8 @@ const Share_garden_tip = () => {
   return (
     <section
       id="shareTip"
-      className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} py-12 px-4 sm:px-6 lg:px-8`}
+      className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
+      py-12 px-5 `}
     >
       <div className={`max-w-3xl mx-auto ${isDark ? 'bg-black border-gray-800':'bg-white border-gray-100'} rounded-lg shadow-xs
        overflow-hidden border `}>
