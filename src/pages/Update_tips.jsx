@@ -8,24 +8,10 @@ import Loader from '../utils/Loader';
 const Update_tips = () => {
     const {id} = useParams()
    const {userInfo} = useContext(AuthContext)
-  const initalTipData ={
-  title: 'Growing Perfect Tomatoes',
-  plantType: 'Tomatoes (Solanum lycopersicum)',
-  difficulty: 'Easy',
-  description: `Growing tomatoes is one of the most rewarding experiences for any gardener. These versatile fruits are perfect for containers, raised beds, or traditional garden plots, making them accessible to everyone regardless of space limitations.
-Start with healthy seedlings or quality seeds. For beginners, I recommend starting with seedlings from a reputable nursery. Choose determinate varieties for containers (they stay compact) or indeterminate for gardens (they grow taller and produce longer).
-Tomatoes thrive in well-draining, nutrient-rich soil with a pH between 6.0 and 6.8. Mix in compost or aged manure before planting. Plant seedlings deeper than they were in their containers – bury them up to their first set of true leaves to encourage strong root development.`,
-  image:'https://placehold.co/1200x600?text=Tomato+Growing',
-  category: 'Plant Care',
-  availability: 'Public',
-  user: {
-    email: userInfo.email,
-    name: userInfo.displayName
-  }
-  }
+ 
   const [formData, setFormData] = useState({});
   const [successModal, setSuccessModal] = useState(false);
-  console.log(formData)
+
   // get tip
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState("");
@@ -43,6 +29,7 @@ Tomatoes thrive in well-draining, nutrient-rich soil with a pH between 6.0 and 6
           `/api/v1/tip-details/${id}`
         );
         setFormData(data?.tip);
+        console.log(data)
          setLoading(false)
       } catch (error) {
         console.log(error);
@@ -63,9 +50,21 @@ Tomatoes thrive in well-draining, nutrient-rich soil with a pH between 6.0 and 6
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-     console.log(formData) ///api/v1/tip-details/
+    if(!id){
+      return;
+    }
+    try {
+      await apiRequiest('put',`/api/v1/tip/${id}`,{formData})
+      toast.success('tip update successfully')
+    } catch (error) {
+      console.log(error)
+      toast.error('tip not update! try again.')
+    }
+
+
+     console.log(formData) ///
     // setSuccessModal(true);
   };
   const categories=[
@@ -232,7 +231,9 @@ if(loading){
                 <div>
                   <label className={`block text-sm font-medium ${isDark ?
                    'text-gray-500' : 'text-gray-700'} mb-1 nunito-family`}>Name</label>
-                  <input type="text"  disabled value={formData?.user?.name || ''} readOnly 
+                  <input type="text" 
+                   disabled value={formData?.user?.name || ''} 
+                   readOnly 
                   className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
                 focus:border-green-500 nunito-family`} />
@@ -240,7 +241,8 @@ if(loading){
                 <div>
                   <label className={`block text-sm font-medium ${isDark ?
                    'text-gray-500' : 'text-gray-700'} mb-1 nunito-family`}>Email</label>
-                  <input type="email" disabled  value={formData?.user?.email || ''} readOnly 
+                  <input type="email" disabled  
+                  value={formData?.user?.email || ''} readOnly 
                   className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
                 focus:border-green-500 nunito-family`} />

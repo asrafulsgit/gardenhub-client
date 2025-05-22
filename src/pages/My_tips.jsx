@@ -71,6 +71,7 @@ const My_tips = () => {
         {/* Action Buttons */}
         <div className="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-center">
           <div className="mb-4 sm:mb-0">
+            <Link to='/share-garden-tip' >
             <button
               className="inline-flex nunito-family font-medium items-center px-4 py-2 border 
               border-transparent rounded-md shadow-sm text-sm text-gray-300 cursor-pointer bg-green-600
@@ -92,7 +93,7 @@ const My_tips = () => {
                 />
               </svg>
               Add New Tip
-            </button>
+            </button></Link>
           </div>
           <div className="flex items-center">
             <label

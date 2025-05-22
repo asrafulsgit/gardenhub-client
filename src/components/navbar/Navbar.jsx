@@ -69,6 +69,7 @@ const Navbar = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                 </svg>
             </button>
+            
             {isLoggedIn ? <>
              <div onMouseEnter={()=> setIsHover(true)} 
              onMouseLeave={()=> setIsHover(false)} onClick={()=>{
@@ -76,10 +77,12 @@ const Navbar = () => {
               setIsHover(false)
             }}
              className="rounded-3xl w-8  md:w-10 overflow-hidden flex justify-center cursor-pointer  items-center">
+          
             <img
+              src={userInfo.photoURL || "https://i.ibb.co.com/hRGTZWdX/download.jpg"}
               alt="User"
-              src={userInfo.photoURL ||  "https://i.ibb.co.com/hRGTZWdX/download.jpg"}
             />
+
             {isHover && !isLoggoutBtnActive && <p className='absolute top-15 right-1
             text-sm sm:text-[16px] translate-y-2  transition-translate  
              rounded-lg p-1 border border-[#00000047] bg-white'>{userInfo?.displayName}</p>}

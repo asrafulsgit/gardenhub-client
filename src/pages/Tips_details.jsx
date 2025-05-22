@@ -12,7 +12,8 @@ const Tips_details = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState("");
   
-  const {isDark} = useContext(AuthContext) ///
+  const {isDark} = useContext(AuthContext) 
+
   const getTipDetials = async () => {
     if (!id) {
       toast.error("id is Required! please Reload your page or login again!");
@@ -36,9 +37,31 @@ const Tips_details = () => {
        setLoading(false)
     }
   };
+
   useEffect(()=>{
       getTipDetials()
   },[])
+
+  const handleLikeTip =async()=>{
+    try {
+      const data = await apiRequiest(
+        "put",
+        `/api/v1/like-tip/${id}`
+      );
+      setTip((prev) => ({
+        ...prev,
+        likes: prev.likes + 1
+      }));
+      
+      
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  }
+
+
+   
  if(loading){
   <><Loader /> </>
  }
@@ -74,7 +97,7 @@ const Tips_details = () => {
 
         <div id="likeButtonContainer" className="flex items-center">
           <button
-            id="likeButton"
+             onClick={handleLikeTip}
             className="inline-flex cursor-pointer nunito-family items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >
             <svg

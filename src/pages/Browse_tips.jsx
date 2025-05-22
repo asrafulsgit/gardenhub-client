@@ -1,8 +1,42 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../config/AuthProvider'
+import { apiRequiest } from '../utils/ApiCall';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import Loader from '../utils/Loader';
+import { Link } from 'react-router';
 
 const Browse_tips = () => {
   const {isDark} = useContext(AuthContext)
+  const [browseTips, setBrowseTips] = useState([]);
+  const [message, setMessage] = useState("");
+  const [loading,setLoading] = useState(true)
+  
+   
+    const getBrowseTips = async () => {
+      try {
+        const data = await apiRequiest(
+          "get",
+          '/api/v1/browse-tips'
+        );
+        setBrowseTips(data?.tips);
+        setLoading(false)
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+        setMessage("tips not found!");
+        setLoading(false)
+      }
+    };
+  
+    useEffect(() => {
+      getBrowseTips();
+    }, []);
+    console.log(browseTips)
+   if(loading){
+    return <> <Loader /> </>
+   }
+
   return (
     <section className={`page-section min-h-screen 
     ${isDark ? 'bg-black' :'bg-gray-100'} py-12 px-5 `}>
@@ -74,285 +108,57 @@ const Browse_tips = () => {
               </thead>
               <tbody className={`${isDark ? "bg-black divide-gray-900": 'bg-white divide-gray-200' } divide-y nunito-family`}>
           
-                <tr className="tip-row" data-difficulty="Easy">
+              {browseTips.map((tip,index)=>{
+                return(
+                  <tr className="tip-row" key={index} data-difficulty="Easy">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="h-16 w-16 rounded-md overflow-hidden">
-                      <img src="https://placehold.co/100x100?text=Tomatoes" alt="Growing Tomatoes" className="h-full w-full object-cover" />
+                      <img src={tip.image} 
+                      alt="Growing Tomatoes" 
+                      className="h-full w-full object-cover" />
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className={`text-sm font-medium ${isDark ? ' text-gray-400' : 
-                      ' text-gray-900'}`}>Growing Perfect Tomatoes</div>
-                    <div className="text-sm text-gray-500 roboto-family">By Sarah Johnson</div>
+                      ' text-gray-900'}`}>{tip.title}</div>
+                    <div className="text-sm text-gray-500 roboto-family">
+                      {tip?.user?.name}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Plant Care
+                      {tip.category}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Easy
+                      {tip.difficulty}
                     </span>
                   </td>
-                  <td className={`px-6 py-4 whitespace-nowrap text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                    248
+                  <td className={`px-6 py-4 
+                    whitespace-nowrap text-sm ${isDark 
+                    ? 'text-gray-400' : 
+                    'text-gray-500'}`}>
+                    {tip.likes}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button  
+                   <Link to={`/tip-details/${tip._id}`}> <button  
                     className="text-green-600 hover:text-green-900 cursor-pointer inline-flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                       </svg>
                       View
-                    </button>
+                    </button></Link>
                   </td>
                 </tr>
-
-                <tr className="tip-row" data-difficulty="Medium">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="h-16 w-16 rounded-md overflow-hidden">
-                      <img src="https://placehold.co/100x100?text=Compost" alt="Composting Basics" className="h-full w-full object-cover" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Composting htmlFor Beginners</div>
-                    <div className="text-sm text-gray-500">By Robert Thompson</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Composting
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                      Medium
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    215
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#tipDetails" className="text-green-600 hover:text-green-900 inline-flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                      </svg>
-                      View
-                    </a>
-                  </td>
-                </tr>
-
-                <tr className="tip-row" data-difficulty="Easy">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="h-16 w-16 rounded-md overflow-hidden">
-                      <img src="https://placehold.co/100x100?text=Herbs" alt="Indoor Herb Garden" className="h-full w-full object-cover" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Year-Round Herb Garden</div>
-                    <div className="text-sm text-gray-500">By Elena Rodriguez</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Indoor Gardening
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Easy
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    189
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#tipDetails" className="text-green-600 hover:text-green-900 inline-flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                      </svg>
-                      View
-                    </a>
-                  </td>
-                </tr>
-
-                <tr className="tip-row" data-difficulty="Medium">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="h-16 w-16 rounded-md overflow-hidden">
-                      <img src="https://placehold.co/100x100?text=Vertical" alt="Vertical Garden" className="h-full w-full object-cover" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Vertical Gardening Solutions</div>
-                    <div className="text-sm text-gray-500">By Michael Chen</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Vertical Gardening
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                      Medium
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    176
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#tipDetails" className="text-green-600 hover:text-green-900 inline-flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                      </svg>
-                      View
-                    </a>
-                  </td>
-                </tr>
-
-                <tr className="tip-row" data-difficulty="Hard">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="h-16 w-16 rounded-md overflow-hidden">
-                      <img src="https://placehold.co/100x100?text=Pest" alt="Natural Pest Control" className="h-full w-full object-cover" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Natural Pest Control</div>
-                    <div className="text-sm text-gray-500">By James Wilson</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Pest Control
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                      Hard
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    154
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#tipDetails" className="text-green-600 hover:text-green-900 inline-flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                      </svg>
-                      View
-                    </a>
-                  </td>
-                </tr>
-
-                <tr className="tip-row" data-difficulty="Medium">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="h-16 w-16 rounded-md overflow-hidden">
-                      <img src="https://placehold.co/100x100?text=Water" alt="Water Conservation" className="h-full w-full object-cover" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Water-Wise Gardening</div>
-                    <div className="text-sm text-gray-500">By Aisha Patel</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Organic Gardening
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                      Medium
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    142
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#tipDetails" className="text-green-600 hover:text-green-900 inline-flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                      </svg>
-                      View
-                    </a>
-                  </td>
-                </tr>
-
-                <tr className="tip-row" data-difficulty="Easy">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="h-16 w-16 rounded-md overflow-hidden">
-                      <img src="https://placehold.co/100x100?text=Seeds" alt="Seed Starting" className="h-full w-full object-cover" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">Seed Starting Guide</div>
-                    <div className="text-sm text-gray-500">By David Kim</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Plant Care
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Easy
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    128
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#tipDetails" className="text-green-600 hover:text-green-900 inline-flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                      </svg>
-                      View
-                    </a>
-                  </td>
-                </tr>
-
-                <tr className="tip-row" data-difficulty="Hard">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="h-16 w-16 rounded-md overflow-hidden">
-                      <img src="https://placehold.co/100x100?text=Hydro" alt="Hydroponics" className="h-full w-full object-cover" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">DIY Hydroponic Systems</div>
-                    <div className="text-sm text-gray-500">By Lisa Martinez</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Hydroponics
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                      Hard
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    115
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#tipDetails" className="text-green-600 hover:text-green-900 inline-flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                      </svg>
-                      View
-                    </a>
-                  </td>
-                </tr>
+                )
+              })}   
               </tbody>
             </table>
           </div>
         </div>
 
-        <div className={` ${isDark ? 'bg-black border-gray-700' : 'bg-white border-gray-200'} px-4 py-3 flex items-center 
+        {/* <div className={` ${isDark ? 'bg-black border-gray-700' : 'bg-white border-gray-200'} px-4 py-3 flex items-center 
         justify-between border  sm:px-6 mt-4 rounded-lg shadow-xs`}>
           
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
@@ -394,9 +200,9 @@ const Browse_tips = () => {
             </div>
           </div>
           
-        </div>
+        </div> */}
       </div>
-  </section>
+    </section>
   
   )
 }
