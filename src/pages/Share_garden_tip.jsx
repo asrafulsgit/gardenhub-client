@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../config/AuthProvider'
 import { useState } from 'react'
 import { apiRequiest } from '../utils/ApiCall'
+import { toast } from 'react-toastify'
 
 const Share_garden_tip = () => {
   const {userInfo} = useContext(AuthContext)
@@ -32,10 +33,12 @@ const Share_garden_tip = () => {
   const handleSubmit =async(e)=>{
     e.preventDefault();
     try {
-     const data = await apiRequiest('post','/api/v1/tip',tipData);
-     console.log(data)
+     await apiRequiest('post','/api/v1/tip',tipData);
+     toast.success('tip successfully added!')
+     setTipData(initalTipData)
     } catch (error) {
       console.log(error)
+      toast.error(error.message)
     }
   }
 
