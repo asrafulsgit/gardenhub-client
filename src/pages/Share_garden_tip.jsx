@@ -1,7 +1,37 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../config/AuthProvider'
+import { useState } from 'react'
 
 const Share_garden_tip = () => {
+  const {userInfo} = useContext(AuthContext)
+  const initalTipData ={
+  title: '',
+  plantType: '',
+  difficulty: '',
+  description: '',
+  image:'',
+  category: '',
+  availability: '',
+  user: {
+    email: userInfo.email,
+    name: userInfo.displayName
+  }
+  }
+  const [tipData,setTipData]= useState(initalTipData)
+  const handleChange =(e)=>{
+    const {name,value} = e.target;
+    setTipData((prev)=>({
+      ...prev,
+      [name] : value
+    }))
+  }
+  // console.log(tipData)
+
+  const handleSubmit =(e)=>{
+    e.preventDefault();
+    console.log(tipData)
+  }
+
   const {isDark} = useContext(AuthContext)
   return (
     <section
@@ -19,7 +49,7 @@ const Share_garden_tip = () => {
             </p>
           </div>
 
-          <form id="shareTipForm">
+          <form id="shareTipForm" onSubmit={handleSubmit}>
             <div className="mb-6">
               <label htmlFor="title" className={`block text-sm font-medium ${isDark ?
                    'text-gray-500' : 'text-gray-700'} mb-1 nunito-family`}>
@@ -29,6 +59,8 @@ const Share_garden_tip = () => {
                 type="text"
                 id="title"
                 name="title"
+                onChange={handleChange}
+                value={tipData.title}
                 placeholder="e.g., How I Grow Tomatoes Indoors"
                 className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
@@ -46,6 +78,8 @@ const Share_garden_tip = () => {
                 type="text"
                 id="plantType"
                 name="plantType"
+                onChange={handleChange}
+                value={tipData.plantType}
                 placeholder="e.g., Tomatoes, Succulents, Composting"
                 className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
@@ -60,13 +94,15 @@ const Share_garden_tip = () => {
                 Difficulty Level
               </label>
               <select
-                id="difficultyLevel"
-                name="difficultyLevel"
+                id="difficulty"
+                name="difficulty"
+                onChange={handleChange}
+                value={tipData.difficulty}
                 className={`w-full px-3 py-2 border ${isDark ? 'text-gray-700 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
                 focus:border-green-500 nunito-family`}
                 required
-                defaultValue=""
+            
               >
                 <option value="" disabled>
                   Select difficulty level
@@ -86,6 +122,8 @@ const Share_garden_tip = () => {
                 id="description"
                 name="description"
                 rows="6"
+                onChange={handleChange}
+                value={tipData.description}
                 placeholder="Share your detailed gardening tip here..."
                 className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
@@ -100,9 +138,11 @@ const Share_garden_tip = () => {
                 Image URL
               </label>
               <input
-                type="url"
-                id="imageUrl"
-                name="imageUrl"
+                type="text"
+                id="image"
+                name="image"
+                  onChange={handleChange}
+                value={tipData.image}
                 placeholder="https://example.com/your-garden-image.jpg"
                 className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
@@ -121,12 +161,13 @@ const Share_garden_tip = () => {
               </label>
               <select
                 id="category"
-                name="category"
+                name="category"  
+                onChange={handleChange}
+                value={tipData.category}
                 className={`w-full px-3 py-2 border ${isDark ? 'text-gray-700 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
                 focus:border-green-500 nunito-family`}
                 required
-                defaultValue=""
               >
                 <option value="" disabled>
                   Select category
@@ -150,11 +191,12 @@ const Share_garden_tip = () => {
               <select
                 id="availability"
                 name="availability"
+                  onChange={handleChange}
+                value={tipData.availability}
                 className={`w-full px-3 py-2 border ${isDark ? 'text-gray-700 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
                 focus:border-green-500 nunito-family`}
                 required
-                defaultValue=""
               >
                 <option value="" disabled>
                   Select availability
@@ -176,6 +218,10 @@ const Share_garden_tip = () => {
                   <input
                     type="text"
                     placeholder="John Doe"
+                      onChange={handleChange}
+                value={tipData.user.name}
+                readOnly
+                disabled
                     className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
                 focus:border-green-500 nunito-family`}
@@ -187,6 +233,10 @@ const Share_garden_tip = () => {
                    'text-gray-500' : 'text-gray-700'} mb-1 nunito-family`}>Email</label>
                   <input
                     type="email"
+                      onChange={handleChange}
+                      readOnly
+                      disabled
+                value={tipData.user.email}
                     placeholder="john.doe@example.com"
                     className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
@@ -200,7 +250,6 @@ const Share_garden_tip = () => {
             <div className="flex justify-end">
               <button
                 type="submit"
-                id="submitTipBtn"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
                 Submit Garden Tip
