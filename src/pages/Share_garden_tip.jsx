@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 const Share_garden_tip = () => {
   const {userInfo} = useContext(AuthContext)
-  const initalTipData ={
+  const initalTipData = {
   title: '',
   plantType: '',
   difficulty: '',

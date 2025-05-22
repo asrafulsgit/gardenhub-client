@@ -42,6 +42,8 @@ const My_tips = () => {
   useEffect(() => {
     getMyTips();
   }, []);
+
+  
   return (
     <section
       id="myTips"
@@ -225,7 +227,7 @@ const My_tips = () => {
                             </svg>
                           </button>
                         </Link>
-                        <Link >
+                        <Link to={`/update-tips/${tip._id}`}>
                         <button className="text-indigo-600 cursor-pointer
                          hover:text-indigo-900">
                           <svg
