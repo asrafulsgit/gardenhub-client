@@ -2,30 +2,33 @@ import React, { useContext, useState } from 'react'
 import { AuthContext } from '../config/AuthProvider';
 
 const Update_tips = () => {
-  const [formData, setFormData] = useState({
-    title: 'Growing Perfect Tomatoes',
-    plantType: 'Tomatoes (Solanum lycopersicum)',
-    difficultyLevel: 'Easy',
-    description: `Growing tomatoes is one of the most rewarding experiences for any gardener. These versatile fruits are perfect for containers, raised beds, or traditional garden plots, making them accessible to everyone regardless of space limitations.
-
+   const {userInfo} = useContext(AuthContext)
+  const initalTipData ={
+  title: 'Growing Perfect Tomatoes',
+  plantType: 'Tomatoes (Solanum lycopersicum)',
+  difficulty: 'Easy',
+  description: `Growing tomatoes is one of the most rewarding experiences for any gardener. These versatile fruits are perfect for containers, raised beds, or traditional garden plots, making them accessible to everyone regardless of space limitations.
 Start with healthy seedlings or quality seeds. For beginners, I recommend starting with seedlings from a reputable nursery. Choose determinate varieties for containers (they stay compact) or indeterminate for gardens (they grow taller and produce longer).
-
 Tomatoes thrive in well-draining, nutrient-rich soil with a pH between 6.0 and 6.8. Mix in compost or aged manure before planting. Plant seedlings deeper than they were in their containers – bury them up to their first set of true leaves to encourage strong root development.`,
-    imageUrl: 'https://placehold.co/1200x600?text=Tomato+Growing',
-    category: 'Plant Care',
-    availability: 'Public',
-  });
-
+  image:'https://placehold.co/1200x600?text=Tomato+Growing',
+  category: 'Plant Care',
+  availability: 'Public',
+  user: {
+    email: userInfo.email,
+    name: userInfo.displayName
+  }
+  }
+  const [formData, setFormData] = useState(initalTipData);
   const [successModal, setSuccessModal] = useState(false);
-
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const {name,value} = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate API call
-    setSuccessModal(true);
+     console.log(formData)
+    // setSuccessModal(true);
   };
 const {isDark} = useContext(AuthContext)
   return (
@@ -43,19 +46,15 @@ const {isDark} = useContext(AuthContext)
           </div>
 
           <form onSubmit={handleSubmit}>
-            {[
-              ['Title', 'title', 'text'],
-              ['Plant Type/Topic', 'plantType', 'text'],
-              ['Image URL', 'imageUrl', 'url']
-            ].map(([label, name, type]) => (
-              <div className="mb-6" key={name}>
-                <label htmlFor={name} className={`block text-sm font-medium ${isDark ?
-                   'text-gray-500' : 'text-gray-700'} mb-1 nunito-family`}>{label}</label>
+            <div className="mb-6" >
+                <label htmlFor='title' className={`block text-sm font-medium ${isDark ?
+                   'text-gray-500' : 'text-gray-700'} 
+                   mb-1 nunito-family`}>Title</label>
                 <input
-                  type={type}
-                  id={name}
-                  name={name}
-                  value={formData[name]}
+                  type='text'
+                  id='title'
+                  name='title'
+                  value={formData.title}
                   onChange={handleChange}
                   required
                   className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
@@ -63,15 +62,45 @@ const {isDark} = useContext(AuthContext)
                 focus:border-green-500 nunito-family`}
                 />
               </div>
-            ))}
-
+              <div className="mb-6" >
+                <label htmlFor='plantType' className={`block text-sm font-medium ${isDark ?
+                   'text-gray-500' : 'text-gray-700'} 
+                   mb-1 nunito-family`}>Plant Type/Topic</label>
+                <input
+                  type='text'
+                  id='plantType'
+                  name='plantType'
+                  value={formData.plantType}
+                  onChange={handleChange}
+                  required
+                  className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
+                rounded-md shadow-sm focus:outline-none focus:ring-green-500 
+                focus:border-green-500 nunito-family`}
+                />
+              </div>
+              <div className="mb-6" >
+                <label htmlFor='image' className={`block text-sm font-medium ${isDark ?
+                   'text-gray-500' : 'text-gray-700'} 
+                   mb-1 nunito-family`}>Image URL</label>
+                <input
+                  type='text'
+                  id='image'
+                  name='image'
+                  value={formData.image}
+                  onChange={handleChange}
+                  required
+                  className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
+                rounded-md shadow-sm focus:outline-none focus:ring-green-500 
+                focus:border-green-500 nunito-family`}
+                />
+              </div>
             <div className="mb-6">
               <label htmlFor="difficultyLevel" className={`block text-sm font-medium ${isDark ?
                    'text-gray-500' : 'text-gray-700'} mb-1 nunito-family`}>Difficulty Level</label>
               <select
                 id="difficultyLevel"
                 name="difficultyLevel"
-                value={formData.difficultyLevel}
+                value={formData.difficulty}
                 onChange={handleChange}
                 required
                 className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
@@ -103,7 +132,7 @@ const {isDark} = useContext(AuthContext)
             <div className="mb-6">
               <p className="text-sm text-gray-500 nunito-family">Current image:</p>
               <div className="mt-1 h-32 w-full overflow-hidden rounded-md ">
-                <img src={formData.imageUrl} alt="Current tip" 
+                <img src={formData.image} alt="Current tip" 
                 className="h-full w-auto rounded-md object-cover" />
               </div>
             </div>
@@ -123,7 +152,8 @@ const {isDark} = useContext(AuthContext)
               >
                 {[
                   'Plant Care', 'Composting', 'Vertical Gardening', 'Hydroponics',
-                  'Indoor Gardening', 'Organic Gardening', 'Container Gardening', 'Pest Control'
+                  'Indoor Gardening', 'Organic Gardening', 
+                  'Container Gardening'
                 ].map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}

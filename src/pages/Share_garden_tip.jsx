@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../config/AuthProvider'
 import { useState } from 'react'
+import { apiRequiest } from '../utils/ApiCall'
 
 const Share_garden_tip = () => {
   const {userInfo} = useContext(AuthContext)
@@ -14,7 +15,8 @@ const Share_garden_tip = () => {
   availability: '',
   user: {
     email: userInfo.email,
-    name: userInfo.displayName
+    name: userInfo.displayName,
+    photo : userInfo?.photoURL
   }
   }
   const [tipData,setTipData]= useState(initalTipData)
@@ -27,9 +29,14 @@ const Share_garden_tip = () => {
   }
   // console.log(tipData)
 
-  const handleSubmit =(e)=>{
+  const handleSubmit =async(e)=>{
     e.preventDefault();
-    console.log(tipData)
+    try {
+     const data = await apiRequiest('post','/api/v1/tip',tipData);
+     console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const {isDark} = useContext(AuthContext)

@@ -38,7 +38,7 @@ const Router =createBrowserRouter([
                 element : <Browse_tips /> 
             },
             { 
-                path : 'tips-details/:id',
+                path : 'tip-details/:id',
                 element : <Tips_details /> 
             },
             { 
