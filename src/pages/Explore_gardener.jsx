@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
-import { generatePath, NavLink } from 'react-router';
+import { generatePath, Link, NavLink } from 'react-router';
 import { AuthContext } from '../config/AuthProvider';
 import { useState } from 'react';
 import { apiRequiest } from '../utils/ApiCall';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
+import Loader from '../utils/Loader';
 
 const Explore_gardener = () => {
 
@@ -151,7 +152,7 @@ const Explore_gardener = () => {
 //   },
 // ];
 const [message, setMessage] = useState("");
-  
+    const [loading, setLoading] = useState(true);
   
    const [gardeners,setGardeners] = useState([])
   const getGardeners = async () => {
@@ -161,11 +162,14 @@ const [message, setMessage] = useState("");
         `/api/v1/gardeners`
       );
       setGardeners(data?.gardeners)
+      setLoading(false)
     } catch (error) {
       console.log(error);
       toast.error(error.message);
       setGardeners([]);
       setMessage("Active gardeners not found!");
+      setLoading(false)
+
     }
   };
 
@@ -179,6 +183,9 @@ const [message, setMessage] = useState("");
  
   };
   const {isDark} = useContext(AuthContext)
+   if(loading){
+    return <><Loader /> </>
+  }
   return (
     <section
       id="gardener-listings"
@@ -218,7 +225,7 @@ const [message, setMessage] = useState("");
                 alt={gardener.name}
                 className="w-full h-48 object-cover"
               />
-              {gardener.status = 'Active' && (
+              {gardener.status === 'Active' && (
                 <div className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                   Active
                 </div>
@@ -258,12 +265,12 @@ const [message, setMessage] = useState("");
                
               </div>
               <div className="flex justify-between items-center">
-                <button
-                  className="bg-green-600 hover:bg-green-700 nunito-family text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-150"
+              <Link to={`/gardener/${gardener._id}`}>  <button
+                  className="bg-green-600 cursor-pointer hover:bg-green-700 nunito-family text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-150"
                   onClick={() => openGardenerProfile(gardener._id)}
                 >
                   View Profile
-                </button>
+                </button></Link>
                 <span className= "px-2 py-0.5 rounded-sm text-sm  font-[400] text-green-800  bg-green-200  nunito-family">
                   {gardener.experiences} Years
                   </span>

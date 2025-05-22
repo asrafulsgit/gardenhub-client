@@ -165,7 +165,7 @@ const [gardeners,setGardeners] = useState([])
                   )}
                 </div>
                 <NavLink
-                   to=''
+                   to={`/gardener/${gardener._id}`}
                   className="text-green-600 hover:text-green-700 text-[16px] font-medium focus:outline-none"
                 >
                   View Profile

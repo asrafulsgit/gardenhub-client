@@ -10,7 +10,7 @@ const Tips_details = () => {
   const {id} = useParams()
   const [tip,setTip] = useState({})
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState(true);
   
   const {isDark} = useContext(AuthContext) 
 
@@ -21,7 +21,7 @@ const Tips_details = () => {
       setTip([]);
       return;
     }
-    setLoading(true)
+  
     try {
       const data = await apiRequiest(
         "get",
@@ -42,6 +42,8 @@ const Tips_details = () => {
       getTipDetials()
   },[])
 
+
+  
   const handleLikeTip =async()=>{
     try {
       const data = await apiRequiest(
@@ -60,11 +62,11 @@ const Tips_details = () => {
     }
   }
 
-
+if(loading){
+    return <><Loader /> </>
+  }
    
- if(loading){
-  <><Loader /> </>
- }
+ 
   return (
      <section id="tipDetails" className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
       py-12 px-5 `} >

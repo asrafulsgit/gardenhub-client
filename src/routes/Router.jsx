@@ -11,6 +11,7 @@ import Auth_middleware from "../middlewares/Auth_middleware";
 import UnAuth_middleware from "../middlewares/UnAuth_middleware";
 import Tips_details from "../pages/Tips_details";
 import Update_tips from "../pages/Update_tips";
+import Gardener_profile from "../components/Gardener_profile";
 
 const Router =createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const Router =createBrowserRouter([
                 element : <Auth_middleware><My_tips /></Auth_middleware> 
             },
             { 
+                path : 'gardener/:id',
+                element : <Auth_middleware><Gardener_profile /></Auth_middleware> 
+            },
+            { 
                 path : 'update-tips/:id',
                 element : <Auth_middleware><Update_tips /></Auth_middleware> 
             },
@@ -63,6 +68,5 @@ const Router =createBrowserRouter([
         path: '/*',
         Component : NotFoundPage
     }
-    
 ]) 
 export default Router;

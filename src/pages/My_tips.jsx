@@ -3,6 +3,7 @@ import { AuthContext } from "../config/AuthProvider";
 import { apiRequiest } from "../utils/ApiCall";
 import { toast } from "react-toastify";
 import {Link} from 'react-router-dom'
+import Loader from "../utils/Loader";
 
 const My_tips = () => {
   const tableHeader = [
@@ -17,8 +18,9 @@ const My_tips = () => {
 
   const [myTips, setMyTips] = useState([]);
   const [message, setMessage] = useState("");
-
+const [loading,setLoading] = useState(true)
   const { isDark, userInfo } = useContext(AuthContext);
+  const [deleteId, setDeleteId] = useState(null);
   const getMyTips = async () => {
     if (!userInfo.email) {
       toast.error("Email is Required! please Reload your page or login again!");
@@ -32,10 +34,12 @@ const My_tips = () => {
         `/api/v1/my-tips?email=${userInfo?.email}`
       );
       setMyTips(data?.tips);
+      setLoading(false)
     } catch (error) {
       console.log(error);
       toast.error(error.message);
       setMessage("You have no tips!");
+      setLoading(false)
     }
   };
 
@@ -43,8 +47,24 @@ const My_tips = () => {
     getMyTips();
   }, []);
 
-  
+  const deleteTip =async()=>{
+    const filterTips = myTips.filter(item=> item._id !== deleteId)
+    try {
+      await apiRequiest('delete',`/api/v1/delete-tip/${deleteId}`)
+      setMyTips(filterTips);
+      toast.success("Tip deleted successfully!");
+      document.getElementById('my_modal_1').close();
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message);
+    }
+  }
+
+   if(loading){
+    return <><Loader /> </>
+  }
   return (
+    <>
     <section
       id="myTips"
       className={`page-section min-h-screen 
@@ -248,7 +268,12 @@ const My_tips = () => {
                         </button>
                         </Link>
                         <div>
-                          <button
+                          <button onClick={
+                            ()=>{
+                              document.getElementById('my_modal_1')
+                              .showModal()
+                              setDeleteId(tip._id)
+                          }}
                             type="button" 
                             className="text-red-600 hover:text-red-900 cursor-pointer"
                           
@@ -280,6 +305,19 @@ const My_tips = () => {
         </div>
       </div>
     </section>
+    <dialog id="my_modal_1" className={`modal ${isDark ? 'bg-black' : ''}`}>
+      <div className={`modal-box ${isDark ? 'bg-black border-2' : ''}`}>
+        <h3 className={`font-bold text-lg ${isDark ? 'text-gray-400' : ''} nunito-family`}>Hello!</h3>
+        <p className={ `py-4 ${isDark ? 'text-gray-500' : ''} roboto-family`}>Are you sure to delete this tip</p>
+        <div className="modal-action">
+          <form method="dialog" className="flex gap-2">
+            <button className="btn bg-yellow-500 border-none shadow-none">Close</button>
+            <button onClick={() => deleteTip(deleteId)} className="btn bg-red-500 border-none shadow-none">Delete</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+    </>
   );
 };
 

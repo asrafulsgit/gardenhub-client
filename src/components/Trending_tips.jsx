@@ -1,6 +1,10 @@
 import React, { useContext } from 'react'
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../config/AuthProvider';
+import { useEffect } from 'react';
+import { apiRequiest } from '../utils/ApiCall';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Trending_tips = () => {
   const tips = [
@@ -60,6 +64,33 @@ const Trending_tips = () => {
     },
   ];
   const {isDark} = useContext(AuthContext)
+   const [trendingTips, setTrendingTips] = useState([]);
+    const [message, setMessage] = useState("");
+   
+    
+     
+      const getTrendingTips = async () => {
+        try {
+          const data = await apiRequiest(
+            "get",
+            '/api/v1/trending-tips'
+          );
+          setTrendingTips(data?.tips);
+          
+        } catch (error) {
+          console.log(error);
+          toast.error(error.message);
+          setMessage("tips not found!");
+           
+        }
+      };
+    
+      useEffect(() => {
+        getTrendingTips();
+      }, []);
+  
+  console.log(trendingTips)
+  
   return (
     <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
       <div className="container mx-auto text-center">
@@ -69,23 +100,25 @@ const Trending_tips = () => {
           Discover our community's most popular gardening advice and techniques
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0">
-          {tips.map((tip, index) => (
+          {trendingTips.map((tip, index) => (
             <div
               key={index}
-              className={` border ${isDark ? '' : 'bg-white border-[#e5e7eb]'}   rounded-lg  overflow-hidden flex flex-col`}
+              className={` border ${isDark ? '' : 
+                'bg-white border-[#e5e7eb]'}   rounded-lg 
+                 overflow-hidden flex flex-col`}
             >
-              <div className={`bg-gray-200 h-32 flex items-center justify-center
+              <div className={`bg-gray-200 h-40 flex items-center justify-center
                 text-xl font-semibold  `}>
-                {tip.title}
+                 <img src={tip.image} alt="tip-image" className='h-[100%] w-[100%] object-cover'  />
               </div>
-                <div className='px-2 py-3'>
+              <div className='px-2 py-3'>
                     <div className='flex justify-between items-center mb-3'>
                     <h3 className={`text-xl font-[600] text-left
                      ${isDark ? 'text-gray-400' : 'text-gray-800'}
-                     nunito-family`}>{tip.topic}</h3>
+                     nunito-family`}>{tip.plantType}</h3>
                     <p className=" bg-green-100 text-green-700 rounded-full 
                     px-2 py-1 text-xs  font-medium roboto-family">
-                        {tip.level}
+                        {tip.difficulty}
                     </p>
                     </div>
                     <p className="text-gray-700 text-[16px] mb-4 text-left font-[400]
@@ -98,8 +131,8 @@ const Trending_tips = () => {
               </svg>
                     {tip.likes} likes
                     </div>
-                   <div> <NavLink
-                    href={tip.link}
+                   <div> <Link
+                     to={`tip-details/${tip._id}`}
                     className="text-green-600 hover:text-green-700 text-[16px] font-medium  flex items-center"
                     >
                     Read More
@@ -114,14 +147,14 @@ const Trending_tips = () => {
                         clipRule="evenodd"
                         />
                     </svg>
-                    </NavLink></div>
+                    </Link></div>
                 </div>
-                </div>
+              </div>
             </div>
           ))}
         </div>
         
-        <button className="inline-flex items-center px-6 py-3 bg-green-600 mt-10 text-white rounded-lg text-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors cursor-pointer duration-300 nunito-family">
+      <Link to='/browse-tips' >  <button className="inline-flex items-center px-6 py-3 bg-green-600 mt-10 text-white rounded-lg text-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors cursor-pointer duration-300 nunito-family">
       Browse All Tips
       <svg
         className="ml-2 w-5 h-5"
@@ -132,7 +165,7 @@ const Trending_tips = () => {
       >
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
       </svg>
-    </button>
+    </button></Link>
 
       </div>
     </div>

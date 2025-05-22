@@ -32,7 +32,7 @@ const Browse_tips = () => {
     useEffect(() => {
       getBrowseTips();
     }, []);
-    console.log(browseTips)
+ 
    if(loading){
     return <> <Loader /> </>
    }
