@@ -5,12 +5,12 @@ import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Logo from '../asidebar/Logo';
+import { Tooltip } from 'react-tooltip';
 
 const Navbar = () => {
 
   const {userInfo,isDark,setIsDark,isMobileNav,setIsMobileNav, isLoggedIn,setIsLoggedIn, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [isHover,setIsHover] = useState(false)
   const [isLoggoutBtnActive,setIsLoggoutBtnActive] = useState(false)
   const handleLogout = async () => {
     try {
@@ -35,6 +35,7 @@ const Navbar = () => {
   
   return (
     <>
+      
         <div className='flex justify-between w-[100%]'>
         <div className='lg:hidden flex gap-0 items-center'>
           <button
@@ -83,7 +84,8 @@ const Navbar = () => {
                     </svg>
               </button>
               
-              <label  className={` swap swap-rotate`}>
+              <label data-tooltip-id="my-tooltip" 
+              data-tooltip-content={isDark ? 'Light' : 'Black'}  className={` swap swap-rotate`}>
   
               <input type="checkbox" onClick={handleTheme} className="theme-controller" value="synthwave" />
 
@@ -107,21 +109,19 @@ const Navbar = () => {
                </label>
             
             {isLoggedIn ? <>
-             <div onMouseEnter={()=> setIsHover(true)} 
-             onMouseLeave={()=> setIsHover(false)} onClick={()=>{
-              setIsLoggoutBtnActive(!isLoggoutBtnActive)
-              setIsHover(false)
-            }}
+             <div 
              className="rounded-3xl w-8  md:w-10 overflow-hidden flex justify-center cursor-pointer  items-center">
           
             <img
+              data-tooltip-id="my-tooltip" 
+              data-tooltip-content={!isLoggoutBtnActive ? userInfo.displayName : ''}
+              onClick={()=>{
+              setIsLoggoutBtnActive(!isLoggoutBtnActive)
+            }}
               src={userInfo.photoURL || "https://i.ibb.co.com/hRGTZWdX/download.jpg"}
               alt="User"
             />
-
-            {isHover && !isLoggoutBtnActive && <p className='absolute top-15 right-1
-            text-sm sm:text-[16px] translate-y-2  transition-translate  
-             rounded-lg p-1 border border-[#00000047] bg-white'>{userInfo?.displayName}</p>}
+            <Tooltip id="my-tooltip" place="bottom" />
             {isLoggoutBtnActive && <button onClick={handleLogout} 
             className="absolute top-18 right-1 px-7 py-1.5 text-[18px] cursor-pointer bg-green-600 rounded-[5px]  text-white nunito-family">
                Logout
@@ -135,6 +135,7 @@ const Navbar = () => {
             </button></Link>  }
           </div>
         </div>
+        
     </>
   )
 }

@@ -1,12 +1,33 @@
-# React + Vite
+# 🌱 Garden Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Site:** [https://your-live-site-url.com] 
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Tech Stack
 
-## Expanding the ESLint configuration
+- ⚛️ React (Frontend)
+- 🌐 Node.js + Express.js (Backend)
+- 🗄️ MongoDB (Database)
+- 🌬️ Tailwind CSS (Styling)
+- 🔐 Firebase Authentication (Login & Signup)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ✨ Features
+
+- 👨‍🌾 **Gardener Profiles** — Users can create personal profiles and connect with other gardeners.
+- 💬 **Share Gardening Tips** — Post and read tips from experienced and beginner gardeners alike.
+- 📅 **Gardening Events** — Stay updated with upcoming gardening meetups and events.
+- 🔍 **Expert Advice** — Reach out to gardening experts for help and share problem-solving ideas.
+- 🔐 **User Authentication** — Secure login and signup using Firebase (email/password).
+
+---
+
+## 🌿 Project Description
+
+**Garden Hub** is a community-driven web application designed to support new and experienced gardeners alike. It allows users to share their gardening knowledge, ask questions, attend events, and connect with other passionate gardeners. Whether you’re troubleshooting a plant issue or attending a community event, Garden Hub provides a collaborative platform for all your gardening needs.
+
+---
+
+

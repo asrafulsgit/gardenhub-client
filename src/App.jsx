@@ -1,18 +1,36 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from './components/navbar/Navbar'
 import Asidebar from './components/asidebar/Asidebar'
 import { Outlet } from 'react-router'
 import Footer from './components/Footer'
-import Loader from './utils/Loader'
+
 import { AuthContext } from './config/AuthProvider'
 import Toastify from './config/Toastify'
-import Logo from './components/asidebar/Logo'
+import Lottie from 'lottie-react';
+import loadingAnimation from '../public/loader.json'
 const App = () => {
   const {loading,isDark,isMobileNav,setIsMobileNav}=useContext(AuthContext)
-  const [isOpen,setIsOpen] = useState(false)
+   
   
-  if(loading){
-    return <><Loader /></>
+  const [showLoader, setShowLoader] = useState(true)
+
+   
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(false)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (loading || showLoader) {
+    return (
+      <div className={`w-full h-screen flex justify-center items-center
+      ${isDark ? 'bg-black' : ''}`}>
+        <div className='w-60 h-60'>
+          <Lottie animationData={loadingAnimation} loop={true} />
+        </div>
+      </div>
+    )
   }
   return (
     <> 
