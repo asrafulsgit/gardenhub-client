@@ -34,6 +34,27 @@ const Browse_tips = () => {
       getBrowseTips();
     }, []);
  
+
+    const handleFilter =async(level)=>{
+      if(level === 'All'){
+        getBrowseTips()
+        return;
+      }
+      try {
+        const data = await apiRequiest(
+          "get",
+          `/api/v1/filter-tips?level=${level}`
+        );
+        setBrowseTips(data?.tips);
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+        setMessage("tips not found!");
+      }
+    }
+
+   const [activeLevel,setActiveLevel] = useState('All')
+   const levels = ['All','Easy','Medium','Hard']
    if(loading){
     return <> <Loader /> </>
    }
@@ -50,7 +71,8 @@ const Browse_tips = () => {
         <div className="text-center mb-10">
           <h2 className={`text-[26px] md:text-[30px] ${isDark ? 'text-gray-400' : 'text-[#111827]'} mb-2 
       font-[700] nunito-family`}>Browse Tips</h2>
-          <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500' :"text-[#4b5563]"}  roboto-family`}>Explore gardening tips shared by our community</p>
+          <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500'
+             :"text-[#4b5563]"}  roboto-family`}>Explore gardening tips shared by our community</p>
         </div>
 
         <div className={`mb-8 ${isDark ? 'bg-black border-gray-700' : 'bg-white border-gray-200'} p-4 rounded-lg shadow-xs border `}>
@@ -59,11 +81,17 @@ const Browse_tips = () => {
               <h3 className={`text-lg font-medium ${isDark ? 'text-gray-400' : 'text-gray-900'} mb-2 nunito-family`}>Filter by Difficulty Level</h3>
              <div className='flex flex-col gap-2 md:gap-0 md:flex-row md:justify-between'>
               <div className="flex flex-wrap gap-2">
-                {['All','Easy','Medium','Hard'].map((item,index)=>(
-                  <button key={index} id="filter-all" 
+                {levels.map((item,index)=>(
+                  <button key={index}
+                  onClick={()=>{
+                    handleFilter(item)
+                    setActiveLevel(item)
+                  }}
                   className={`px-2 py-1  sm:px-4 sm:py-2 rounded-lg 
+                  ${activeLevel === item && 'bg-green-900'}
                   cursor-pointer ${isDark ? 'text-gray-400 border border-gray-700' : 
-                  ' border border-gray-400'} focus:outline-none focus:ring-2 nunito-family `}> 
+                  ' border border-gray-400'} focus:outline-none 
+                   nunito-family `}> 
                   {item}
                 </button>
                 ))}

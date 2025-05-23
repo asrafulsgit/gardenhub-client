@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../../config/AuthProvider'
 
 const Logo = () => {
-    const {isDark,isMobileNav} = useContext(AuthContext)
+    const {isDark} = useContext(AuthContext)
   return (
     <div className=" lg:h-[74px] pl-[14px] 
               lg:border-b border-[#15803d] text-2xl 
@@ -15,7 +15,7 @@ const Logo = () => {
                 ${isDark ? 'text-gray-100' : ''}
                 nunito-family`}>Garden Hub</h1>
     
-              </div>
+    </div>
   )
 }
 
