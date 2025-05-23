@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../config/AuthProvider'
-import { useState } from 'react'
-import { apiRequiest } from '../utils/ApiCall'
+import React, { useContext, useState} from 'react'
 import { toast } from 'react-toastify'
 import { Helmet } from 'react-helmet'
 
+import { AuthContext } from '../config/AuthProvider'
+import { apiRequiest } from '../utils/ApiCall'
+
 const Share_garden_tip = () => {
-  const {userInfo} = useContext(AuthContext)
+  const {userInfo,isDark} = useContext(AuthContext)
+
   const initalTipData = {
   title: '',
   plantType: '',
@@ -22,6 +23,7 @@ const Share_garden_tip = () => {
   }
   }
   const [tipData,setTipData]= useState(initalTipData)
+ 
   const handleChange =(e)=>{
     const {name,value} = e.target;
     setTipData((prev)=>({
@@ -29,12 +31,27 @@ const Share_garden_tip = () => {
       [name] : value
     }))
   }
-  // console.log(tipData)
 
   const handleSubmit =async(e)=>{
     e.preventDefault();
+    const {
+        title,
+        plantType,
+        difficulty,
+        description,
+        image,
+        category,
+        availability,
+        user
+    } = tipData;
+    if (!title || !plantType || !difficulty || !description || !image || !category || !availability || !user?.email || !user?.name) {
+            toast.error('All fields are required.')
+        }
+
+
+
     try {
-     await apiRequiest('post','/api/v1/tip',tipData);
+     await apiRequiest('post','/tip',tipData);
      toast.success('tip successfully added!')
      setTipData(initalTipData)
     } catch (error) {
@@ -43,11 +60,12 @@ const Share_garden_tip = () => {
     }
   }
 
-  const {isDark} = useContext(AuthContext)
+  
   return (
    <><Helmet>
         <title>Share Tips</title>
-      </Helmet> <section
+      </Helmet> 
+      <section
       className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
       py-12 px-5 `}
     >

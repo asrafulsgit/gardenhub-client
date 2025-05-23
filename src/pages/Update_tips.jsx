@@ -1,41 +1,42 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../config/AuthProvider';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
+
+import { AuthContext } from '../config/AuthProvider';
 import { apiRequiest } from '../utils/ApiCall';
 import Loader from '../utils/Loader';
-import { Helmet } from 'react-helmet';
 
 const Update_tips = () => {
     const {id} = useParams()
-   const {userInfo} = useContext(AuthContext)
     const navigate = useNavigate()
+
+    const {isDark} = useContext(AuthContext)
+
   const [formData, setFormData] = useState({});
-  const [successModal, setSuccessModal] = useState(false);
 
   // get tip
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState("");
+  const [message, setMessage] = useState("tip not found!");
+  const [loading, setLoading] = useState(true);
   const getTipDetials = async () => {
       if (!id) {
+        setFormData({});
         toast.error("id is Required! please Reload your page or login again!");
         setMessage("tip not found!");
-        setFormData({});
         return;
       }
-      setLoading(true)
+      
       try {
         const data = await apiRequiest(
           "get",
-          `/api/v1/tip-details/${id}`
+          `/tip-details/${id}`
         );
         setFormData(data?.tip);
-        console.log(data)
-         setLoading(false)
+        setLoading(false)
       } catch (error) {
+        setFormData({});
         console.log(error);
         toast.error(error.message);
-        setFormData({});
         setMessage("tip not found!");
         setLoading(false)
       }
@@ -54,35 +55,34 @@ const Update_tips = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     if(!id){
+      toast.error("id is Required! please Reload your page or login again!");
       return;
     }
     try {
-      await apiRequiest('put',`/api/v1/tip/${id}`,{formData})
+      await apiRequiest('put',`/tip/${id}`,{formData})
       toast.success('tip update successfully')
       navigate('/my-tips')
     } catch (error) {
       console.log(error)
       toast.error('tip not update! try again.')
     }
-
-
-     console.log(formData) ///
-    // setSuccessModal(true);
   };
+
   const categories=[
                   'Plant Care', 'Composting', 'Vertical Gardening', 'Hydroponics',
                   'Indoor Gardening', 'Organic Gardening', 
                   'Container Gardening'
                 ]
-const {isDark} = useContext(AuthContext)
+
 
 if(loading){
-  <><Loader /> </>
+  return <><Loader /> </>
  }
   return (
    <><Helmet>
         <title>Update Tip</title>
-      </Helmet> <section  
+      </Helmet> 
+      <section  
     className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
       py-12 px-5 `}
     >
@@ -274,42 +274,6 @@ if(loading){
           </form>
         </div>
       </div>
-
-      {successModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center" role="dialog" aria-modal="true">
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75" onClick={() => setSuccessModal(false)} />
-          <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full z-10">
-            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-              <div className="sm:flex sm:items-start">
-                <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                  <svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                  <h3 className="text-lg font-medium text-gray-900">Success!</h3>
-                  <p className="text-sm text-gray-500 mt-2">Your garden tip has been successfully updated. The changes are now live.</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse">
-              <button
-                type="button"
-                className="w-full sm:w-auto inline-flex justify-center rounded-md px-4 py-2 bg-green-600 text-white font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-              >
-                View Tip
-              </button>
-              <button
-                type="button"
-                onClick={() => setSuccessModal(false)}
-                className="mt-3 w-full sm:w-auto inline-flex justify-center rounded-md border border-gray-300 px-4 py-2 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </section></>
   );
 }

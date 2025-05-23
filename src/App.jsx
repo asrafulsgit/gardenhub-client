@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Navbar from './components/navbar/Navbar'
-import Asidebar from './components/asidebar/Asidebar'
 import { Outlet } from 'react-router'
-import Footer from './components/Footer'
-
-import { AuthContext } from './config/AuthProvider'
 import Toastify from './config/Toastify'
 import Lottie from 'lottie-react';
+
+import Navbar from './components/navbar/Navbar'
+import Asidebar from './components/asidebar/Asidebar'
+import Footer from './components/Footer'
+
 import loadingAnimation from '../public/loader.json'
 import ScrollVehaviour from './utils/ScrollVehaviour'
+import { AuthContext } from './config/AuthProvider'
+
 const App = () => {
-  const {loading,isDark,isMobileNav,setIsMobileNav}=useContext(AuthContext)
-   
-  
+
+  const {loading,isDark,isMobileNav}=useContext(AuthContext)
   const [showLoader, setShowLoader] = useState(true)
 
    
@@ -33,26 +34,30 @@ const App = () => {
       </div>
     )
   }
+
   return (
     <> 
     <Toastify /> 
     <ScrollVehaviour />
     <div className="flex   w-[100%] ">
+
       {/* Sidebar  */}
       <aside className="hidden lg:w-[20%]  h-screen text-white bg-[#166534] 
       lg:flex flex-col justify-between fixed bottom-0 top-0 z-10">
         <Asidebar />
       </aside>
-  
+
+      {/* Sidebar  mobile*/}
         {isMobileNav && <aside className="lg:hidden w-[100%]  h-screen text-white bg-[#166534] 
         flex flex-col justify-between fixed bottom-0 top-0 z-10">
           <Asidebar/>
         </aside>}
        
  
-      {/* Main Content Wrapper (with margin-left to account for sidebar width) */}
+      {/* Main Content */}
       <div className="w-[100%]  lg:w-[calc(100%-20%)]  lg:ml-[20%] flex flex-col">
-        {/* Topbar */}
+        
+        {/* navabar */}
         <header className={`${isDark ? 'bg-black border-b' : 'bg-white '} 
         px-6 py-4 w-[100%]  lg:w-[calc(100%-20%)] shadow flex 
         justify-between items-center fixed left-0 lg:left-[20%] top-0 right-0  z-10`}>
@@ -61,9 +66,7 @@ const App = () => {
 
         {/* Scrollable Content */}
         <main className="pt-15">
-            
-              <Outlet />   
-           
+              <Outlet />     
         </main>
         <div>
           <Footer />
@@ -76,13 +79,5 @@ const App = () => {
     
   )
 }
-
-const MenuItem = ({ icon, label, active }) => (
-  <div className={`flex items-center gap-3 px-4 py-2 rounded-md cursor-pointer ${active ? 'bg-green-800' : 'hover:bg-green-800'}`}>
-    <span>{icon}</span>
-    <span>{label}</span>
-  </div>
-);
-
 
 export default App

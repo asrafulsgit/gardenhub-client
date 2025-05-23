@@ -58,7 +58,7 @@ const AuthProvider = ({children})=>{
         });
         return () => unsubscribe();
       }, []);
-    console.log(isDark)
+    
     return(
         <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,forget_password,
         loading,setLoading,register,login,logout,

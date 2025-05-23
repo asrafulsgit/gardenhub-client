@@ -1,13 +1,14 @@
-import React, { useContext } from 'react'
-import {AuthContext} from '../config/AuthProvider'
-import {useNavigate} from 'react-router'
-import { useState } from 'react';
+import React, { useContext,useState } from 'react';
+import {useNavigate} from 'react-router';
 import { toast } from 'react-toastify';
+
+import {AuthContext} from '../config/AuthProvider'
 
 const Login = () => {
 
-const { login,isDark,setLoading,setIsLoggedIn,setUserInfo, googleRegister } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { login,isDark,setLoading,setIsLoggedIn,setUserInfo, googleRegister } = useContext(AuthContext);
+  
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
   
   const handleChange = (e) => {
@@ -47,7 +48,6 @@ const { login,isDark,setLoading,setIsLoggedIn,setUserInfo, googleRegister } = us
   const handleGoogleLogin = () => {
     googleRegister()
       .then((res) => {
-        console.log(res)
         const {email,displayName,photoURL} = res?.user;
         setUserInfo((prev)=>(
           {

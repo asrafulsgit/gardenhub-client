@@ -1,10 +1,13 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import errorImage from '../assets/error.png'
+
 import { AuthContext } from '../config/AuthProvider'
+import errorImage from '../assets/error.png'
 
 const NotFoundPage = () => {
+
     const {isDark} =useContext(AuthContext)
+    
   return (
       <> 
       <div className={`nonito-family ${isDark ? 'bg-black' : ''} h-[100vh] w-[100%] flex flex-col gap-1.5 

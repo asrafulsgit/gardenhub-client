@@ -1,15 +1,18 @@
 import React, { useContext } from 'react'
-import Stats from './Stats'
 import { AuthContext } from '../config/AuthProvider'
 
 const About = () => {
+
    const {isDark} = useContext(AuthContext)
+
  return(
-    <div className={`${isDark ? 'bg-[#000000f7]' : 'bg-[#1f29370e]'} py-12 px-5`}>
+    <div className={`${isDark ? 'bg-[#000000f7]' : 
+    'bg-[#1f29370e]'} py-12 px-5`}>
       <div className="container mx-auto px-4">
         {/* About Header */}
         <div className="text-center mb-12">
-          <h2 className={`text-[26px] md:text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
+          <h2 className={`text-[26px] md:text-[30px] ${isDark ?
+           'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
         nunito-family`}>About</h2>
           <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
             Cultivating community and sustainable gardening practices since 2010.

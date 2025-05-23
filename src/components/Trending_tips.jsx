@@ -8,65 +8,10 @@ import { toast } from 'react-toastify';
 import { minimizeData } from '../utils/minimizeData';
 
 const Trending_tips = () => {
-  const tips = [
-    {
-      title: 'Tomato Growing',
-      topic: 'Growing Perfect Tomatoes',
-      level: 'Easy',
-      description:
-        'Learn the secrets to growing juicy, flavorful tomatoes in any space, from containers to garden beds.',
-      likes: 248,
-      link: '#',
-    },
-    {
-      title: 'Composting',
-      topic: 'Composting for Beginners',
-      level: 'Medium',
-      description:
-        'Start your composting journey with this simple guide to turning kitchen scraps into garden gold.',
-      likes: 215,
-      link: '#',
-    },
-    {
-      title: 'Herb Garden',
-      topic: 'Year-Round Herb Garden',
-      level: 'Easy',
-      description:
-        'Create a thriving indoor herb garden that provides fresh flavors for your kitchen all year long.',
-      likes: 189,
-      link: '#',
-    },
-    {
-      title: 'Tomato Growing',
-      topic: 'Growing Perfect Tomatoes',
-      level: 'Easy',
-      description:
-        'Learn the secrets to growing juicy, flavorful tomatoes in any space, from containers to garden beds.',
-      likes: 248,
-      link: '#',
-    },
-    {
-      title: 'Composting',
-      topic: 'Composting for Beginners',
-      level: 'Medium',
-      description:
-        'Start your composting journey with this simple guide to turning kitchen scraps into garden gold.',
-      likes: 215,
-      link: '#',
-    },
-    {
-      title: 'Herb Garden',
-      topic: 'Year-Round Herb Garden',
-      level: 'Easy',
-      description:
-        'Create a thriving indoor herb garden that provides fresh flavors for your kitchen all year long.',
-      likes: 189,
-      link: '#',
-    },
-  ];
+  
   const {isDark} = useContext(AuthContext)
-   const [trendingTips, setTrendingTips] = useState([]);
-    const [message, setMessage] = useState("");
+  const [trendingTips, setTrendingTips] = useState([]);
+  const [message, setMessage] = useState("Trending tips not found!");
    
     
      
@@ -74,15 +19,13 @@ const Trending_tips = () => {
         try {
           const data = await apiRequiest(
             "get",
-            '/api/v1/trending-tips'
+            '/trending-tips'
           );
           setTrendingTips(data?.tips);
-          
         } catch (error) {
           console.log(error);
           toast.error(error.message);
-          setMessage("tips not found!");
-           
+          setMessage("Trending tips not found!");
         }
       };
     

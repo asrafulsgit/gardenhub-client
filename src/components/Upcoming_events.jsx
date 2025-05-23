@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../config/AuthProvider';
-import { minimizeData } from '../utils/minimizeData';
 
 const Upcoming_events = () => {
   const events = [

@@ -1,7 +1,7 @@
-import React,{ useState } from 'react'
-import { useContext } from 'react';
-import { AuthContext } from '../config/AuthProvider';
+import React,{ useState,useContext } from 'react'
 import {  toast } from 'react-toastify';
+
+import { AuthContext } from '../config/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 
 
@@ -10,13 +10,26 @@ const isValidPassword =(password)=> {
   const uppercase = /[A-Z]/;
   const lowercase = /[a-z]/;
   const specialChar = /[!@#$%^&*(),.?":{}|<>]/;
+  
+  if(!minLength.test(password)){
+    toast.error('At least 8 characters!');
+    return false;
+  }
+  if(!uppercase.test(password)){
+    toast.error('One character should be uppercase!');
+    return false;
+  }
 
-  return (
-    minLength.test(password) &&
-    uppercase.test(password) &&
-    lowercase.test(password) &&
-    specialChar.test(password)
-  );
+  if(!lowercase.test(password)){
+    toast.error('One character should be lowercase!')
+    return false;
+  }
+
+  if(!specialChar.test(password)){
+    toast.error('One special character needed!')
+    return false;
+  }
+  return true;
 }
 
 
@@ -36,7 +49,6 @@ const Register = ({userRegister}) => {
     const { email, password, name, photoURL } = registerInfo;
   
     if(!isValidPassword(password)){
-      toast.error('The password should be at least 8 characters and include 1 uppercase, 1 lowercase, and a special character.');
       return;
     }
   

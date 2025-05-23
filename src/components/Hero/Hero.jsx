@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 import './hero.css';
 
 // import required modules
-import { Navigation, Pagination, Mousewheel, Keyboard, EffectFade } from 'swiper/modules';
+import { Navigation, Pagination, EffectFade,Autoplay } from 'swiper/modules';
 
 const Hero = () => {
   const slides =[
@@ -44,9 +44,13 @@ const Hero = () => {
         effect={'fade'}
         navigation={true}
         pagination={{
-          clickable: true,
+        clickable: true,
         }}
-        modules={[EffectFade, Navigation, Pagination]}
+        autoplay={{
+          delay: 3000,  
+          disableOnInteraction: false
+        }}
+        modules={[EffectFade, Navigation, Pagination,Autoplay]}
         className="mySwiper  h-[90vh]"
       >
        { slides.map((slide,index)=>(

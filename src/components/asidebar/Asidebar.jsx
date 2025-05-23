@@ -1,8 +1,11 @@
 import React, { useContext } from 'react'
 import {NavLink} from 'react-router-dom'
+
 import './aside.css'
 import { AuthContext } from '../../config/AuthProvider'
 import Logo from './Logo'
+
+
 const Asidebar = () => {
     const {setIsMobileNav,isLoggedIn,userInfo} = useContext(AuthContext)
     const asideItems =[
@@ -58,15 +61,17 @@ const Asidebar = () => {
         </div> 
 
       {isLoggedIn &&  <div className="p-4 bg-green-800 flex items-center gap-3">
-          <div className="w-10 h-10 bg-green-600 
+          <div className="w-[40px] h-[40px] bg-green-600 
           flex items-center justify-center text-xl 
           rounded-[50%] overflow-hidden">
-            <img src={userInfo.photoURL || "https://i.ibb.co.com/hRGTZWdX/download.jpg"} alt="user image" />
+            <img src={userInfo.photoURL ||
+               "https://i.ibb.co.com/hRGTZWdX/download.jpg"} alt="user image" 
+               className='w-[40px] h-[40px]'/>
           </div>
           <div>
             <div className=" nunito-family
-            text-sm font-semibold">{userInfo.displayName}</div>
-            <div className="text-xs
+            text-xs font-semibold">{userInfo.displayName}</div>
+            <div className="text-[10px]
             roboto-family text-gray-300">{userInfo.email}</div>
           </div>
         </div>}

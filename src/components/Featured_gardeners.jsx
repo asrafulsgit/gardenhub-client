@@ -1,114 +1,26 @@
-import React, { useContext } from 'react'
+import React, { useContext,useState,useEffect } from 'react'
 import { NavLink } from 'react-router';
-import { AuthContext} from '../config/AuthProvider'
 import { toast } from 'react-toastify';
-import { useEffect } from 'react';
+
 import { apiRequiest } from '../utils/ApiCall';
-import { useState } from 'react';
 import { minimizeData } from '../utils/minimizeData';
+import { AuthContext} from '../config/AuthProvider'
+
 const Featured_gardeners = () => {
-//   const gardeners = [
-//   {
-//     name: "Alice Green",
-//     age: 34,
-//     gender: "Female",
-//     status: "Available",
-//     experiences: "5 years in organic vegetable gardening",
-//     image: "https://i.ibb.co/Q3x3sXkF/two-gardeners-smiling-while-holding-pot-plant-1150-26651.jpg",
-//     totalSharedTips: 48,
-//     isActive: true,
-//     rating: 4.5,
-//     reviews: 76,
-//     description: "Tree service specialist with expertise in pruning, removal, and health assessment.",
-//     tags: ["Tree Service", "Pruning", "Planting"],
-//   },
-  
-//   {
-//     name: "Catherine Woods",
-//     age: 29,
-//     gender: "Female",
-//     status: "Available",
-//     experiences: "3 years in rooftop gardening",
-//     image: "https://i.ibb.co/bMmWsCsk/gardeners-with-pruner-spray-bottle-636537-254305.jpg",
-//     totalSharedTips: 33,
-//     isActive: true,
-//     rating: 4.3,
-//     reviews: 45,
-//     description: "Specialist in space-efficient rooftop and balcony gardens.",
-//     tags: ["Rooftop Gardening", "Container Plants", "Urban Greening"],
-//   },
-  
-//   {
-//     name: "Emily Stone",
-//     age: 40,
-//     gender: "Female",
-//     status: "Available",
-//     experiences: "12 years in fruit orchard maintenance",
-//     image: "https://i.ibb.co/GQg8vJhh/young-beautiful-florist-watering-flowers-176420-2060.jpg",
-//     totalSharedTips: 150,
-//     isActive: true,
-//     rating: 4.9,
-//     reviews: 142,
-//     description: "Veteran in fruit tree cultivation and seasonal maintenance.",
-//     tags: ["Fruit Trees", "Pruning", "Irrigation"],
-//   },
-  
-//   {
-//     name: "Grace Hall",
-//     age: 27,
-//     gender: "Female",
-//     status: "Available",
-//     experiences: "2 years in herb gardening",
-//     image: "https://i.ibb.co/3YRbXST9/happy-guy-girl-gardeners-hold-pots-with-petunia-wonderful-garden-sunny-day-472597-3062.jpg",
-//     totalSharedTips: 22,
-//     isActive: true,
-//     rating: 4.2,
-//     reviews: 39,
-//     description: "Passionate about growing culinary and medicinal herbs at home.",
-//     tags: ["Herbs", "Balcony Gardening", "Soil Mix"],
-//   },
-//   {
-//     name: "Harry Kim",
-//     age: 38,
-//     gender: "Male",
-//     status: "Available",
-//     experiences: "9 years in sustainable permaculture",
-//     image: "https://i.ibb.co/CstX2PR2/young-gardeners-spraying-plants-making-notes-23-2147768537.jpg",
-//     totalSharedTips: 95,
-//     isActive: true,
-//     rating: 4.8,
-//     reviews: 110,
-//     description: "Dedicated to eco-friendly, sustainable gardening and design.",
-//     tags: ["Permaculture", "Composting", "Sustainability"],
-//   },
-  
-//   {
-//     name: "Jake Lee",
-//     age: 45,
-//     gender: "Male",
-//     status: "Available",
-//     experiences: "15 years in landscape design and irrigation",
-//     image: "https://i.ibb.co/GrpKkSB/two-gardeners-botanical-greenhouse-236854-16640.jpg",
-//     totalSharedTips: 180,
-//     isActive: true,
-//     rating: 5.0,
-//     reviews: 165,
-//     description: "Master of landscape planning and efficient irrigation systems.",
-//     tags: ["Landscape Design", "Irrigation", "Hardscaping"],
-//   },
-// ];
+
 const [gardeners,setGardeners] = useState([])
-  const [message, setMessage] = useState("");
+  
+  const [message, setMessage] = useState("Active gardeners not found!");
   
   const {isDark} = useContext(AuthContext) 
+
   const getActiveGardeners = async () => {
     try {
       const data = await apiRequiest(
         "get",
-        `/api/v1/gardener/active`
+        `/gardener/active`
       );
       setGardeners(data?.activeGardeners);
-
     } catch (error) {
       console.log(error);
       toast.error(error.message);

@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../config/AuthProvider";
-import { apiRequiest } from "../utils/ApiCall";
 import { toast } from "react-toastify";
 import {Link} from 'react-router-dom'
-import Loader from "../utils/Loader";
 import { Helmet } from "react-helmet";
+
+import { AuthContext } from "../config/AuthProvider";
+import { apiRequiest } from "../utils/ApiCall";
+import Loader from "../utils/Loader";
 
 const My_tips = () => {
   const tableHeader = [
@@ -17,11 +18,14 @@ const My_tips = () => {
     "Actions",
   ];
 
-  const [myTips, setMyTips] = useState([]);
-  const [message, setMessage] = useState("You have no tips!");
-const [loading,setLoading] = useState(true)
   const { isDark, userInfo } = useContext(AuthContext);
+
+  const [myTips, setMyTips] = useState([]);
   const [deleteId, setDeleteId] = useState(null);
+
+  const [message, setMessage] = useState("You have no tips!");
+  const [loading,setLoading] = useState(true)
+
   const getMyTips = async () => {
     if (!userInfo.email) {
       toast.error("Email is Required! please Reload your page or login again!");
@@ -32,7 +36,7 @@ const [loading,setLoading] = useState(true)
     try {
       const data = await apiRequiest(
         "get",
-        `/api/v1/my-tips?email=${userInfo?.email}`
+        `/my-tips?email=${userInfo?.email}`
       );
       setMyTips(data?.tips);
       setLoading(false)
@@ -51,7 +55,7 @@ const [loading,setLoading] = useState(true)
   const deleteTip =async()=>{
     const filterTips = myTips.filter(item=> item._id !== deleteId)
     try {
-      await apiRequiest('delete',`/api/v1/delete-tip/${deleteId}`)
+      await apiRequiest('delete',`/delete-tip/${deleteId}`)
       setMyTips(filterTips);
       toast.success("Tip deleted successfully!");
       document.getElementById('my_modal_1').close();
@@ -60,9 +64,11 @@ const [loading,setLoading] = useState(true)
       toast.error(error.message);
     }
   }
-  console.log(myTips)
+  
    if(loading){
-    return <><Loader /> </>
+    return <>
+    <Loader /> 
+    </>
   }
   return (
     <>

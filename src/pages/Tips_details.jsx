@@ -1,41 +1,42 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../config/AuthProvider'
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router'
 import { toast } from "react-toastify";
+
+import { AuthContext } from '../config/AuthProvider'
 import { apiRequiest } from "../utils/ApiCall";
 import Loader from "../utils/Loader";
-import { Helmet } from 'react-helmet';
 
 const Tips_details = () => {
 
   const {id} = useParams()
   const [tip,setTip] = useState({})
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("tip not found");
   const [loading, setLoading] = useState(true);
   
   const {isDark} = useContext(AuthContext) 
 
   const getTipDetials = async () => {
     if (!id) {
+      setTip([]);
       toast.error("id is Required! please Reload your page or login again!");
       setMessage("tip not found!");
-      setTip([]);
       return;
     }
   
     try {
       const data = await apiRequiest(
         "get",
-        `/api/v1/tip-details/${id}`
+        `/tip-details/${id}`
       );
       setTip(data?.tip);
-       setLoading(false)
+      setLoading(false)
     } catch (error) {
+      setTip([]);
       console.log(error);
       toast.error(error.message);
-      setTip([]);
       setMessage("You have no tips!");
-       setLoading(false)
+      setLoading(false)
     }
   };
 
@@ -47,10 +48,11 @@ const Tips_details = () => {
   
   const handleLikeTip =async()=>{
     try {
-      const data = await apiRequiest(
+       await apiRequiest(
         "put",
-        `/api/v1/like-tip/${id}`
+        `/like-tip/${id}`
       );
+
       setTip((prev) => ({
         ...prev,
         likes: prev.likes + 1
@@ -69,9 +71,11 @@ if(loading){
    
  
   return (
-   <> <Helmet>
+   <> 
+   <Helmet>
         <title>Tip Details</title>
-      </Helmet> <section id="tipDetails" className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
+      </Helmet> 
+      <section id="tipDetails" className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
       py-12 px-5 `} >
       <div className="max-w-4xl mx-auto">
 

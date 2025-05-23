@@ -29,6 +29,7 @@ const FAQ = () => {
         }
     ]
     const {isDark} = useContext(AuthContext)
+    
   return (
     <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
         <div className="text-center mb-8">

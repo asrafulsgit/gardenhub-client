@@ -11,12 +11,13 @@ import { Helmet } from "react-helmet";
 
 const Gardener_profile = () => {
   const {id} = useParams()
+  const navigate = useNavigate()
+  const {isDark} = useContext(AuthContext) 
+
   const [gardener,setGardener] = useState({})
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("gardener not found!");
   const [loading, setLoading] = useState(true);
   
-  const {isDark} = useContext(AuthContext) 
-  const navigate = useNavigate()
   const getGardenerDetials = async () => {
     if (!id) {
       toast.error("id is Required! please Reload your page or login again!");
@@ -28,15 +29,15 @@ const Gardener_profile = () => {
     try {
       const data = await apiRequiest(
         "get",
-        `/api/v1/gardener/${id}`
+        `/gardener/${id}`
       );
-      setGardener(data?.gardener);
+       setGardener(data?.gardener);
        setLoading(false)
     } catch (error) {
       console.log(error);
       navigate('/')
       setGardener([]);
-      setMessage("You have no tips!");
+      setMessage("Gardener not found!");
       setLoading(false)
     }
   };
@@ -44,13 +45,17 @@ const Gardener_profile = () => {
   useEffect(()=>{
       getGardenerDetials()
   },[])
+
   if(loading){
-    return <><Loader /> </>
+    return <>
+      <Loader /> 
+    </>
   }
   return (
    <><Helmet>
         <title>Gardener Profile</title>
-      </Helmet> <section class={`py-10 px-5  ${isDark? "bg-black" :""} `}>
+      </Helmet> 
+    <section className={`py-10 px-5  ${isDark? "bg-black" :""} `}>
       <div className={`border ${isDark? "border-gray-900" :"border-gray-300"}  rounded-lg overflow-hidden`}>
       <div className="h-48 bg-green-600 ">
         <img

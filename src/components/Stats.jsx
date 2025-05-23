@@ -1,10 +1,14 @@
 import React, { useContext } from 'react'
-import { AuthContext } from '../config/AuthProvider'
 import CountUp from 'react-countup'
 import { useInView } from 'react-intersection-observer'
+
+import { AuthContext } from '../config/AuthProvider'
+
 const Stats = () => {
+  
   const { ref, inView } = useInView({ triggerOnce: true });
   const {isDark} = useContext(AuthContext)
+
   return (
     <div className={`${isDark ? 'bg-black' : 'bg-white'}  py-10`} ref={ref}>
     <div className={` ${isDark ? 'bg-[#ffffff07]': 'bg-green-200 border-[#f3f4f6]'} mx-5 border
