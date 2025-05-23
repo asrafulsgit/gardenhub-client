@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../config/AuthProvider';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { apiRequiest } from '../utils/ApiCall';
 import Loader from '../utils/Loader';
@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet';
 const Update_tips = () => {
     const {id} = useParams()
    const {userInfo} = useContext(AuthContext)
- 
+    const navigate = useNavigate()
   const [formData, setFormData] = useState({});
   const [successModal, setSuccessModal] = useState(false);
 
@@ -59,6 +59,7 @@ const Update_tips = () => {
     try {
       await apiRequiest('put',`/api/v1/tip/${id}`,{formData})
       toast.success('tip update successfully')
+      navigate('/my-tips')
     } catch (error) {
       console.log(error)
       toast.error('tip not update! try again.')
@@ -255,7 +256,9 @@ if(loading){
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row sm:justify-between">
-              <button type="button" className="mb-3 sm:mb-0 inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+              <button onClick={()=>{
+                navigate('/my-tips')
+              }} type="button" className="mb-3 sm:mb-0 inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                 <svg className="h-5 w-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>

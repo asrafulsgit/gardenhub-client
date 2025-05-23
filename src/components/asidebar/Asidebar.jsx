@@ -4,7 +4,7 @@ import './aside.css'
 import { AuthContext } from '../../config/AuthProvider'
 import Logo from './Logo'
 const Asidebar = () => {
-    const {setIsMobileNav} = useContext(AuthContext)
+    const {setIsMobileNav,isLoggedIn,userInfo} = useContext(AuthContext)
     const asideItems =[
         {
             name : "Home",
@@ -57,13 +57,19 @@ const Asidebar = () => {
           </nav>
         </div> 
 
-        <div className="p-4 bg-green-800 flex items-center gap-3">
-          <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-xl">👤</div>
-          <div>
-            <div className="text-sm font-semibold">User Profile</div>
-            <div className="text-xs text-gray-300">user@example.com</div>
+      {isLoggedIn &&  <div className="p-4 bg-green-800 flex items-center gap-3">
+          <div className="w-10 h-10 bg-green-600 
+          flex items-center justify-center text-xl 
+          rounded-[50%] overflow-hidden">
+            <img src={userInfo.photoURL || "https://i.ibb.co.com/hRGTZWdX/download.jpg"} alt="user image" />
           </div>
-        </div>
+          <div>
+            <div className=" nunito-family
+            text-sm font-semibold">{userInfo.displayName}</div>
+            <div className="text-xs
+            roboto-family text-gray-300">{userInfo.email}</div>
+          </div>
+        </div>}
     </>
   )
 }

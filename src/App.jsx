@@ -8,6 +8,7 @@ import { AuthContext } from './config/AuthProvider'
 import Toastify from './config/Toastify'
 import Lottie from 'lottie-react';
 import loadingAnimation from '../public/loader.json'
+import ScrollVehaviour from './utils/ScrollVehaviour'
 const App = () => {
   const {loading,isDark,isMobileNav,setIsMobileNav}=useContext(AuthContext)
    
@@ -35,6 +36,7 @@ const App = () => {
   return (
     <> 
     <Toastify /> 
+    <ScrollVehaviour />
     <div className="flex   w-[100%] ">
       {/* Sidebar  */}
       <aside className="hidden lg:w-[20%]  h-screen text-white bg-[#166534] 

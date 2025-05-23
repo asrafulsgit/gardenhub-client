@@ -18,7 +18,7 @@ const My_tips = () => {
   ];
 
   const [myTips, setMyTips] = useState([]);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("You have no tips!");
 const [loading,setLoading] = useState(true)
   const { isDark, userInfo } = useContext(AuthContext);
   const [deleteId, setDeleteId] = useState(null);
@@ -60,7 +60,7 @@ const [loading,setLoading] = useState(true)
       toast.error(error.message);
     }
   }
-
+  console.log(myTips)
    if(loading){
     return <><Loader /> </>
   }
@@ -142,9 +142,12 @@ const [loading,setLoading] = useState(true)
             </select>
           </div>
         </div>
-
+      
         {/* Tips Table */}
-        <div
+      {myTips.length == 0 ? 
+      <p className="text-red-900 text-center nunito-family">{message}</p> :  
+        
+      <div
           className={` shadow-xs overflow-hidden border
           ${isDark ? "bg-black" : "bg-white border-gray-200"} sm:rounded-lg`}
         >
@@ -308,6 +311,7 @@ const [loading,setLoading] = useState(true)
             </table>
           </div>
         </div>
+        }
       </div>
     </section>
     <dialog id="my_modal_1" className={`modal ${isDark ? 'bg-black' : ''}`}>
