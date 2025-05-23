@@ -1,5 +1,5 @@
 import React, { useContext,useState } from 'react';
-import {useNavigate} from 'react-router';
+import {Link, useNavigate} from 'react-router';
 import { toast } from 'react-toastify';
 
 import {AuthContext} from '../config/AuthProvider'
@@ -93,7 +93,8 @@ const Login = () => {
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
                 focus:border-green-500 nunito-family`} required />
                 <div className="flex justify-end mt-1">
-                  <a href="#" className="text-sm text-green-600 hover:text-green-500">Forgot password?</a>
+                  <Link to='/forget-password' className="text-sm text-green-600 hover:text-green-500">
+                    Forgot password?</Link>
                 </div>
               </div>
               <div>

@@ -8,6 +8,7 @@ import Login_signIn from "../pages/Login_signIn";
 import My_tips from "../pages/My_tips";
 import Share_garden_tip from "../pages/Share_garden_tip";
 import NotFoundPage from "../components/NotFoundPage";
+import Forget_password from "../components/Forget_password";
 import Auth_middleware from "../middlewares/Auth_middleware";
 import UnAuth_middleware from "../middlewares/UnAuth_middleware";
 import Tips_details from "../pages/Tips_details";
@@ -57,6 +58,10 @@ const Router =createBrowserRouter([
             { 
                 path : 'login-signin',
                 element : <UnAuth_middleware><Login_signIn />  </UnAuth_middleware> 
+            },
+            { 
+                path : 'forget-password',
+                element : <UnAuth_middleware><Forget_password />  </UnAuth_middleware> 
             }
         ]
     },
