@@ -43,20 +43,22 @@ const Browse_tips = () => {
       
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className={`text-[30px] ${isDark ? 'text-gray-400' : 'text-[#111827]'} mb-2 
+          <h2 className={`text-[26px] md:text-[30px] ${isDark ? 'text-gray-400' : 'text-[#111827]'} mb-2 
       font-[700] nunito-family`}>Browse Tips</h2>
-          <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' :"text-[#4b5563]"}  roboto-family`}>Explore gardening tips shared by our community</p>
+          <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500' :"text-[#4b5563]"}  roboto-family`}>Explore gardening tips shared by our community</p>
         </div>
 
         <div className={`mb-8 ${isDark ? 'bg-black border-gray-700' : 'bg-white border-gray-200'} p-4 rounded-lg shadow-xs border `}>
       
             <div className="mb-4 md:mb-0">
               <h3 className={`text-lg font-medium ${isDark ? 'text-gray-400' : 'text-gray-900'} mb-2 nunito-family`}>Filter by Difficulty Level</h3>
-             <div className='flex justify-between'>
+             <div className='flex flex-col gap-2 md:gap-0 md:flex-row md:justify-between'>
               <div className="flex flex-wrap gap-2">
                 {['All','Easy','Medium','Hard'].map((item,index)=>(
                   <button key={index} id="filter-all" 
-                  className={`px-4 py-2 rounded-lg cursor-pointer ${isDark ? 'text-gray-400 border border-gray-700' : ' border border-gray-400'} focus:outline-none focus:ring-2 nunito-family `}> 
+                  className={`px-2 py-1  sm:px-4 sm:py-2 rounded-lg 
+                  cursor-pointer ${isDark ? 'text-gray-400 border border-gray-700' : 
+                  ' border border-gray-400'} focus:outline-none focus:ring-2 nunito-family `}> 
                   {item}
                 </button>
                 ))}
@@ -76,8 +78,7 @@ const Browse_tips = () => {
               </div>
             </div></div> 
             </div>
-            
-         
+          
         </div>
 
         <div className={` shadow-xs overflow-hidden border

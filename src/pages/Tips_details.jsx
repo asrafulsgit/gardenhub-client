@@ -93,7 +93,7 @@ if(loading){
 
             
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <h1 className={`text-3xl font-bold  mb-2 sm:mb-0 ${isDark ? 'text-gray-400' : 'text-gray-900'} nunito-family`}>
+        <h1 className={`text-[26px] md:text-3xl font-bold  mb-2 sm:mb-0 ${isDark ? 'text-gray-400' : 'text-gray-900'} nunito-family`}>
           {tip.title}
         </h1>
 
@@ -143,7 +143,7 @@ if(loading){
           </span>
         </div>
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 mr-1 text-gray-400"
@@ -164,8 +164,8 @@ if(loading){
               d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
             />
           </svg>
-          <span>{tip.likes} views</span>
-        </div>
+          <span> 0 views</span>
+        </div> */}
 
         <div className="flex items-center">
           <svg

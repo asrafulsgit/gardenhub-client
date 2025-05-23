@@ -6,6 +6,7 @@ import { apiRequiest } from '../utils/ApiCall';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import Loader from '../utils/Loader';
+import { minimizeData } from '../utils/minimizeData';
 
 const Explore_gardener = () => {
 
@@ -192,13 +193,13 @@ const [message, setMessage] = useState("");
       className={`py-8 px-5  ${isDark ? 'bg-black' : 'bg-white'}`}
       style={{ display: "block" }}
     >
-      <h2 className={`text-[30px] ${isDark ? 'text-gray-400' : 'text-[#111827]'} mb-2 
+      <h2 className={`text-[26px] md:text-[30px] ${isDark ? 'text-gray-400' : 'text-[#111827]'} mb-2 
       font-[700] nunito-family`}>
         Gardener Listings
       </h2>
 
-      <div className="mb-6 flex justify-between items-center">
-        <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' :"text-[#4b5563]"}  roboto-family`}>Showing {gardeners.length} gardeners in your area</p>
+      <div className="mb-6 flex sm:flex-row flex-col gap-2 sm:gap-0 sm:justify-between sm:items-center">
+        <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500' :"text-[#4b5563]"}  roboto-family`}>Showing {gardeners.length} gardeners in your area</p>
         <div className="flex items-center">
           <span className={`mr-2 text-sm ${isDark? 'text-gray-500' : 'text-gray-600'}`}>Sort by:</span>
           <select className={`border nunito-family ${isDark ? 'border-gray-700 text-gray-500' : 'border-gray-300 '}  rounded-lg py-1 px-3 focus:ring-2
@@ -212,18 +213,19 @@ const [message, setMessage] = useState("");
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {gardeners.map((gardener,index) => (
           <div
             key={index}
-            className={`border ${isDark ? 'border-gray-800': 'border-gray-200'} rounded-lg overflow-hidden 
+            className={`border ${isDark ? 'border-gray-800': 'border-gray-200'} rounded-lg 
+            overflow-hidden 
             shadow-sm hover:shadow-md transition duration-300`}
           >
             <div className="relative">
               <img
                 src={gardener.image}
                 alt={gardener.name}
-                className="w-full h-48 object-cover"
+                className="w-full h-48 sm:h-60 md:h-48 object-cover"
               />
               {gardener.status === 'Active' && (
                 <div className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
@@ -231,9 +233,9 @@ const [message, setMessage] = useState("");
                 </div>
               )}
             </div>
-            <div className="p-4 ">
+            <div className="p-2">
               <div className="flex justify-between items-start mb-2 nunito-family">
-                <h3 className={`text-lg font-semibold 
+                <h3 className={` lg:text-[16px] xl:text-lg font-semibold 
                   ${isDark ? 'text-gray-400' :'text-gray-800'} `}>
                     {gardener.name}</h3>
                 <div className="flex items-center">
@@ -253,7 +255,7 @@ const [message, setMessage] = useState("");
                 </div>
               </div>
               <p className={`${isDark ? 'text-gray-500': 'text-gray-600'}
-               text-sm mb-3 roboto-family`}>{gardener?.bio}</p>
+               text-sm mb-3 roboto-family lg:h-[40px]`}>{minimizeData(gardener?.bio,90)}</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 
                   <span

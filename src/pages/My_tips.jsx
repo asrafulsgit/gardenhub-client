@@ -73,15 +73,15 @@ const [loading,setLoading] = useState(true)
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
           <h2
-            className={`text-[30px] ${
+            className={`text-[26px] md:text-[30px] ${
               isDark ? "text-gray-400" : "text-[#111827]"
-            } mb-2 
+            } md:mb-2 mb-1 
       font-[700] nunito-family`}
           >
             My Tips
           </h2>
           <p
-            className={`text-[18px] font-[400] 
+            className={`md:text-[18px] font-[400] 
             ${isDark ? "text-gray-500" : "text-[#4b5563]"}  roboto-family`}
           >
             Manage your gardening tips and contributions
@@ -89,8 +89,8 @@ const [loading,setLoading] = useState(true)
         </div>
 
         {/* Action Buttons */}
-        <div className="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-center">
-          <div className="mb-4 sm:mb-0">
+        <div className="mb-8 flex flex-row justify-between items-center">
+         
             <Link to='/share-garden-tip' >
             <button
               className="inline-flex nunito-family font-medium items-center px-4 py-2 border 
@@ -113,8 +113,9 @@ const [loading,setLoading] = useState(true)
                 />
               </svg>
               Add New Tip
-            </button></Link>
-          </div>
+            </button>
+            </Link>
+         
           <div className="flex items-center">
             <label
               htmlFor="filter-status"

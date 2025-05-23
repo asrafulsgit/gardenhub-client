@@ -52,9 +52,11 @@ const Share_garden_tip = () => {
        overflow-hidden border `}>
         <div className="px-6 py-8">
           <div className="text-center mb-8">
-            <h2 className={`text-[30px] ${isDark ? 'text-gray-400' : 'text-[#111827]'} mb-2 
+            <h2 className={`text-[26px] md:text-[30px] ${isDark ? 'text-gray-400' 
+            : 'text-[#111827]'} md:mb-2 mb-1 
       font-[700] nunito-family`}>Share a Garden Tip</h2>
-            <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' :"text-[#4b5563]"}  roboto-family`}>
+            <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500' :
+              "text-[#4b5563]"}  roboto-family`}>
               Share your gardening knowledge with our community
             </p>
           </div>

@@ -59,7 +59,7 @@ const Gardener_profile = () => {
 
       {/* Profile image and basic info */}
       <div className="px-5 sm:px-6 pb-5">
-        <div className="flex flex-col sm:flex-row sm:items-end -mt-12">
+        <div className="flex flex-col md:flex-row md:items-end -mt-12">
           <div className="flex-shrink-0">
             <img
               src={gardener.image || "https://placehold.co/150x150?text=Sarah"}
@@ -67,10 +67,11 @@ const Gardener_profile = () => {
               className="h-24 w-24 rounded-full ring-4 ring-white bg-white object-cover"
             />
           </div>
-          <div className="pt-5 sm:mt-0 sm:ml-4 flex-1">
-            <div className="flex items-center justify-between">
+          <div className="pt-5 md:mt-0 md:ml-4 flex-1">
+            <div className="flex flex-col gap-1 md:gap-0 md:flex-row md:items-center md:justify-between">
               <div>
-                <h2 className={`text-2xl font-bold ${isDark ? 'text-gray-400' : 'text-gray-900'} nunito-family`}>
+                <h2 className={`text-2xl font-bold ${isDark ? 'text-gray-400' :
+                   'text-gray-900'} nunito-family`}>
                   {gardener.name}
                 </h2>
                 <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-500'} roboto-family`}>
