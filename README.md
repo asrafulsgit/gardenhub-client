@@ -1,6 +1,6 @@
 # 🌱 Garden Hub
 
-**Live Site:** [https://your-live-site-url.com] 
+**Live Site:** [https://stalwart-cascaron-cc8d0a.netlify.app] 
 
 ---
 
