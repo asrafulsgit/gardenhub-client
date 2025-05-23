@@ -21,14 +21,6 @@ const Router =createBrowserRouter([
             { 
                index : true,
                Component : Home,
-            //    loader :async () => {
-            //     const res = await fetch('/store.json');
-            //     const data = await res.json();
-            //     if (!data.length) {
-            //       throw new Response('Store data is not found!', { status: 404 });
-            //     }
-            //     return data;
-            //   }
             },
             { 
                 path : 'explore-gardeners',

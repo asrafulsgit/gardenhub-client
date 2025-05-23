@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Loader from '../utils/Loader';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet';
 
 const Browse_tips = () => {
   const {isDark} = useContext(AuthContext)
@@ -38,7 +39,11 @@ const Browse_tips = () => {
    }
 
   return (
-    <section className={`page-section min-h-screen 
+   <> 
+   <Helmet>
+           <title>Browse Tips</title>
+         </Helmet>
+   <section className={`page-section min-h-screen 
     ${isDark ? 'bg-black' :'bg-gray-100'} py-12 px-5 `}>
       
       <div className="max-w-7xl mx-auto">
@@ -203,7 +208,7 @@ const Browse_tips = () => {
           
         </div> */}
       </div>
-    </section>
+    </section></>
   
   )
 }

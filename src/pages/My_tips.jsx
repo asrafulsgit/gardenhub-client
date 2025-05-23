@@ -4,6 +4,7 @@ import { apiRequiest } from "../utils/ApiCall";
 import { toast } from "react-toastify";
 import {Link} from 'react-router-dom'
 import Loader from "../utils/Loader";
+import { Helmet } from "react-helmet";
 
 const My_tips = () => {
   const tableHeader = [
@@ -65,6 +66,9 @@ const [loading,setLoading] = useState(true)
   }
   return (
     <>
+    <Helmet>
+        <title>My Tips</title>
+      </Helmet>
     <section
       id="myTips"
       className={`page-section min-h-screen 

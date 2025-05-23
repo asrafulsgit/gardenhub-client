@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { apiRequiest } from '../utils/ApiCall';
 import Loader from '../utils/Loader';
+import { Helmet } from 'react-helmet';
 
 const Update_tips = () => {
     const {id} = useParams()
@@ -78,7 +79,9 @@ if(loading){
   <><Loader /> </>
  }
   return (
-    <section  
+   <><Helmet>
+        <title>Update Tip</title>
+      </Helmet> <section  
     className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
       py-12 px-5 `}
     >
@@ -304,7 +307,7 @@ if(loading){
           </div>
         </div>
       )}
-    </section>
+    </section></>
   );
 }
 

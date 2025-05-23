@@ -3,6 +3,7 @@ import { AuthContext } from '../config/AuthProvider'
 import { useState } from 'react'
 import { apiRequiest } from '../utils/ApiCall'
 import { toast } from 'react-toastify'
+import { Helmet } from 'react-helmet'
 
 const Share_garden_tip = () => {
   const {userInfo} = useContext(AuthContext)
@@ -44,7 +45,9 @@ const Share_garden_tip = () => {
 
   const {isDark} = useContext(AuthContext)
   return (
-    <section
+   <><Helmet>
+        <title>Share Tips</title>
+      </Helmet> <section
       className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
       py-12 px-5 `}
     >
@@ -272,7 +275,7 @@ const Share_garden_tip = () => {
       </div>
 
       
-    </section>
+    </section></>
   )
 }
 

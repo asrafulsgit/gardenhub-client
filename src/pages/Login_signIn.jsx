@@ -3,6 +3,7 @@ import Register from '../components/Register';
 import Login from '../components/Login';
 import { useContext } from 'react';
 import { AuthContext } from '../config/AuthProvider';
+import { Helmet } from 'react-helmet';
 
 const Login_signIn = () => {
   const {isDark} = useContext(AuthContext)
@@ -13,7 +14,10 @@ const Login_signIn = () => {
       setActiveTab(tab)
   }
   return (
-    <section id="auth" className={`page-section pb-20 
+  <>  <Helmet>
+        <title>Login | SignIn</title>
+      </Helmet>
+  <section id="auth" className={`page-section pb-20 
     min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} py-12 px-5 `}>
       <div className={`max-w-md mx-auto ${isDark ? 'bg-black border': 'bg-white'} rounded-lg shadow-md overflow-hidden`}>
         {/* Tabs */}
@@ -44,7 +48,7 @@ const Login_signIn = () => {
         )}
 
       </div>
-    </section>
+    </section></>
   );
 }
 

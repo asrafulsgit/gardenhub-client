@@ -6,9 +6,14 @@ import Upcoming_events from '../components/Upcoming_events'
 import About from '../components/About'
 import FAQ from '../components/FAQ'
 import Stats from '../components/Stats'
+import { Helmet } from 'react-helmet';
 const Home = () => {
   return (
    <>
+
+    <Helmet>
+        <title>Garden Hub</title>
+      </Helmet>
         <Hero /> 
           <Featured_gardeners />
           <Trending_tips />

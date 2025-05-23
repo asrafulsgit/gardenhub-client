@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { apiRequiest } from "../utils/ApiCall";
 import Loader from "../utils/Loader";
+import { Helmet } from "react-helmet";
 
 const Gardener_profile = () => {
   const {id} = useParams()
@@ -47,7 +48,9 @@ const Gardener_profile = () => {
     return <><Loader /> </>
   }
   return (
-    <section class={`py-10 px-5  ${isDark? "bg-black" :""} `}>
+   <><Helmet>
+        <title>Gardener Profile</title>
+      </Helmet> <section class={`py-10 px-5  ${isDark? "bg-black" :""} `}>
       <div className={`border ${isDark? "border-gray-900" :"border-gray-300"}  rounded-lg overflow-hidden`}>
       <div className="h-48 bg-green-600 ">
         <img
@@ -219,7 +222,7 @@ const Gardener_profile = () => {
         </div>
       </div>
     </div>
-    </section>
+    </section></>
   );
 };
 

@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import Loader from '../utils/Loader';
 import { minimizeData } from '../utils/minimizeData';
+import { Helmet } from 'react-helmet';
 
 const Explore_gardener = () => {
 
@@ -188,7 +189,10 @@ const [message, setMessage] = useState("");
     return <><Loader /> </>
   }
   return (
-    <section
+   <>
+   <Helmet>
+        <title>Explore Gardeners</title>
+      </Helmet> <section
       id="gardener-listings"
       className={`py-8 px-5  ${isDark ? 'bg-black' : 'bg-white'}`}
       style={{ display: "block" }}
@@ -281,7 +285,7 @@ const [message, setMessage] = useState("");
           </div>
         ))}
       </div>
-    </section>
+    </section></>
   );
 }
 
