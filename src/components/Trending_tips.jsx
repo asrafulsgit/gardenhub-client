@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { apiRequiest } from '../utils/ApiCall';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { minimizeData } from '../utils/minimizeData';
 
 const Trending_tips = () => {
   const tips = [
@@ -89,14 +90,13 @@ const Trending_tips = () => {
         getTrendingTips();
       }, []);
   
-  console.log(trendingTips)
   
   return (
     <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
       <div className="container mx-auto text-center">
-        <h2 className={`text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
+        <h2 className={`text-[26px] md:text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
         nunito-family`}>Top Trending Tips</h2>
-        <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
+        <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
           Discover our community's most popular gardening advice and techniques
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0">
@@ -115,14 +115,14 @@ const Trending_tips = () => {
                     <div className='flex justify-between items-center mb-3'>
                     <h3 className={`text-xl font-[600] text-left
                      ${isDark ? 'text-gray-400' : 'text-gray-800'}
-                     nunito-family`}>{tip.plantType}</h3>
+                     nunito-family`}>{ tip.plantType.length > 12 ? tip.plantType.slice(0,15)+'...' : tip.plantType }</h3>
                     <p className=" bg-green-100 text-green-700 rounded-full 
                     px-2 py-1 text-xs  font-medium roboto-family">
                         {tip.difficulty}
                     </p>
                     </div>
                     <p className="text-gray-700 text-[16px] mb-4 text-left font-[400]
-                     roboto-family">{tip.description}</p>
+                     roboto-family md:h-[65px] lg:h-[90px]">{minimizeData(tip.description,100)}</p>
                <div className={`py-3 flex items-center justify-between ${isDark ? '' : 'border-gray-200'}
                  border-t `}>
                     <div className="flex  gap-1 text-gray-600   text-[16px] text-left font-[400] roboto-family">

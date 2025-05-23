@@ -47,17 +47,17 @@ const Hero = () => {
           clickable: true,
         }}
         modules={[EffectFade, Navigation, Pagination]}
-        className="mySwiper  max-h-[90vh]"
+        className="mySwiper  h-[90vh]"
       >
        { slides.map((slide,index)=>(
                 <SwiperSlide key={index} className='relative'>
-                    <img src={slide.banner} />
-                    <div className='absolute  pt-50 border-white top-0 
+                    <img className='h-[100%] object-cover' src={slide.banner} />
+                    <div className='absolute w-[100%] pt-15  flex flex-col justify-center items-center px-10   md:px-20 border-white top-0 
                     left-0 right-0 bottom-0 z-10 text-center bg-[#00000082]'>
-                        <h1 className='text-[60px] font-[700] text-white nunito-family'>{slide.title}</h1>
-                        <p className='text-[20px] font-[400] mb-5 text-white  roboto-family'>{slide.subtitle}</p>
-                        <p className='text-[18px] font-[400] mb-5 text-white  nunito-family'>{slide.date}</p>
-                        <button className='py-3 px-10 rounded-lg    text-[18px]  
+                        <h1 className='text-[32px] sm:text-[36px] md:text-[46px] xl:text-[60px] font-[700] leading-12 text-white nunito-family'>{slide.title}</h1>
+                        <p className=' xl:text-[20px] lg:font-[300] xl:font-[400] px-10  mb-5 mt-3 text-gray-300  roboto-family'>{slide.subtitle}</p>
+                        <p className='xl:text-[18px] lg:font-[300] xl:font-[400] mb-5 text-gray-300  nunito-family'>{slide.date}</p>
+                        <button className='py-3 px-6  lg:px-10 lg:text-[18px] rounded-lg      
                         font-[500] text-white cursor-pointer  bg-[#16a34a] nunito-family'>{slide.button}</button>
                     </div>
                 </SwiperSlide>

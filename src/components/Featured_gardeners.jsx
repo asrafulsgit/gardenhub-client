@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { apiRequiest } from '../utils/ApiCall';
 import { useState } from 'react';
+import { minimizeData } from '../utils/minimizeData';
 const Featured_gardeners = () => {
 //   const gardeners = [
 //   {
@@ -120,13 +121,16 @@ const [gardeners,setGardeners] = useState([])
   useEffect(()=>{
       getActiveGardeners()
   },[])
+
+  
+
   return (
     <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
       <div className="container mx-auto text-center">
-        <h2 className={`text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
+        <h2 className={`text-[26px] md:text-[30px]  ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
         nunito-family`}>Featured Gardeners</h2>
-        <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
-          Connect with our most active community members who are sharing valuable <br /> gardening knowledge
+        <p className={` md:text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
+          Connect with our most active community members who are sharing valuable <br className='hidden md:block'  /> gardening knowledge
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0">
           {gardeners.map((gardener, index) => (
@@ -142,16 +146,16 @@ const [gardeners,setGardeners] = useState([])
                     <img src={gardener.image} className='object-cover w-[100px]  h-[70px]'  alt="" />
                 </div>
                 <div className='text-left'>
-                    <p className={`text-[20px] font-[600] 
+                    <p className={`text-[20px] lg:text-[16px] xl:text-[20px] font-[600] 
                     ${isDark ? 'text-gray-400' : 'text-[#111827]'}
                     nunito-family`}>{gardener.name}</p>
-                    <p className="text-[16px] font-[500]
+                    <p className="text-[16px] lg:text-[14px] xl:text-[16px] font-[500]
                      text-[#16a34a]">{gardener.experties}</p>
                 </div>
               </div>
 
-              <p className="text-[16px] font-[400]  my-4 text-left
-               text-[#4b5563] roboto-family">{gardener.bio}</p>
+              <p className=" text-[16px] font-[400]  my-4 text-left
+               text-[#4b5563] lg:h-[80px] xl:h-auto roboto-family">{minimizeData(gardener.bio,65)}</p>
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center text-green-500 text-xs">
                   {gardener.status == 'Active' && (

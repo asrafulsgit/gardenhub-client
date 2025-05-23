@@ -41,18 +41,18 @@ const Asidebar = () => {
 ]
   return (
     <>
-       <div>
-          <div className="p-[20.5px] border-b border-[#15803d] text-2xl font-bold flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div>
+          <div className=" h-[74px] pl-[14px] border-b border-[#15803d] text-2xl font-bold flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 xl:h-8 xl:w-8 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
             </svg>
-            <h1 className='text-[22px] font-[700] nunito-family'>Garden Hub</h1>
+            <h1 className='text-[21px] xl:text-[22px] font-[700] nunito-family'>Garden Hub</h1>
 
           </div>
           <nav className="space-y-2 mt-6 px-2 flex flex-col aiside-items">
            {asideItems.map((item,index)=>(
                 <NavLink key={index} to={item.path}
-                className='font-[400] text-[16px] rounded-lg px-[1rem] py-[0.75rem] 
+                className='text-[15px] xl:text-[16px] font-[400]  rounded-lg px-[.5rem] xl:px-[1rem] py-[0.6rem] xl:py-[0.75rem] 
                 flex   roboto-family '>
                   <span>{item.icon}</span> {item.name}</NavLink> 
            ))}

@@ -32,10 +32,10 @@ const FAQ = () => {
   return (
     <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
         <div className="text-center mb-8">
-          <h3 className={`text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
+          <h3 className={`text-[26px] md:text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
         nunito-family`}>
             Frequently Asked <span className='text-green-600 font-[900]'>Questions</span></h3>
-          <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>Find quick answers to common questions</p>
+          <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>Find quick answers to common questions</p>
         </div>
         
         {fapAns.map((item,index)=>(

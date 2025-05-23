@@ -9,15 +9,15 @@ const About = () => {
       <div className="container mx-auto px-4">
         {/* About Header */}
         <div className="text-center mb-12">
-          <h2 className={`text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
+          <h2 className={`text-[26px] md:text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
         nunito-family`}>About</h2>
-          <p className={`text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
+          <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
             Cultivating community and sustainable gardening practices since 2010.
           </p>
         </div>
 
         {/* Mission and Images */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 mb-16">
+        <div className="flex flex-col lg:flex-row  items-center gap-12 mb-16">
           <div className="lg:w-1/2">
             <h3 className={`text-2xl   mb-4 ${isDark ? 'text-gray-400' : 'text-gray-800'}
             font-[600] nunito-family`}>Our Mission</h3>
@@ -120,16 +120,16 @@ const About = () => {
             </button>
           </div>
 
-          <div className="lg:w-1/2 pt-40 flex flex-col  sm:flex-row justify-center items-center gap-3">
+          <div className="lg:w-1/2 hidden lg:flex flex-col  justify-center items-center gap-3">
             <img
               src="https://images.unsplash.com/photo-1522543558187-768b6df7c25c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2MzQ2fDB8MXxzZWFyY2h8MXx8Y29tbXVuaXR5JTI1MjBnYXJkZW4lMjUyMHZpYnJhbnQlMjUyMHN1bmxpdHxlbnwwfDB8fHwxNzQ3NzMzMjUwfDA&ixlib=rb-4.1.0&q=80&w=1080" // Placeholder, replace with actual image
               alt="People gardening"
               className="rounded-lg shadow-lg w-[300px] "
             />
-            <img
+            <img 
               src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2MzQ2fDB8MXxzZWFyY2h8Mnx8Y29tbXVuaXR5JTI1MjBnYXJkZW4lMjUyMHZpYnJhbnQlMjUyMHN1bmxpdHxlbnwwfDB8fHwxNzQ3NzMzMjUwfDA&ixlib=rb-4.1.0&q=80&w=1080" // Placeholder, replace with actual image
               alt="Community garden"
-              className="rounded-lg shadow-lg w-[200px] "
+              className="rounded-lg shadow-lg max-w-[200px] "
             />
           </div>
         </div>

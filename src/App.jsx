@@ -14,16 +14,19 @@ const App = () => {
   return (
     <> 
     <Toastify /> 
-    <div className="flex  w-[100%] ">
+    <div className="flex   w-[100%] ">
       {/* Sidebar  */}
-      <aside className="w-64  h-screen text-white bg-[#166534] flex flex-col justify-between fixed  z-10">
+      <aside className="hidden lg:w-[20%]  h-screen text-white bg-[#166534] 
+      lg:flex flex-col justify-between fixed bottom-0 top-0 z-10">
         <Asidebar />
       </aside>
 
       {/* Main Content Wrapper (with margin-left to account for sidebar width) */}
-      <div className=" w-[calc(100%-16rem)]  ml-64 flex flex-col">
+      <div className="w-[100%]  lg:w-[calc(100%-20%)]  lg:ml-[20%] flex flex-col">
         {/* Topbar */}
-        <header className={`${isDark ? 'bg-black border-b' : 'bg-white '} px-6 py-4 w-[calc(100%-16rem)] shadow flex justify-between items-center fixed  z-10`}>
+        <header className={`${isDark ? 'bg-black border-b' : 'bg-white '} 
+        px-6 py-4 w-[100%]  lg:w-[calc(100%-20%)] shadow flex 
+        justify-between items-center fixed left-0 lg:left-[20%] top-0 right-0  z-10`}>
          <Navbar />
         </header>
 

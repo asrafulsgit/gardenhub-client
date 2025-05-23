@@ -15,7 +15,7 @@ const Home = () => {
           <Upcoming_events />
           <About />
           <FAQ />
-          <Stats />
+          <Stats /> 
   </>
   )
 }

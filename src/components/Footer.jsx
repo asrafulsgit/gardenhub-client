@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer id="footer" className="bg-green-800 text-white pt-16 pb-8 ">
     <div className="container mx-auto px-4">
-      <div className="flex justify-between gap-8 mb-12">
+      <div className="flex flex-col md:flex-row justify-between gap-8 mb-12">
      
         <div className='flex-1/3'>
           <h3 className=" text-[22px] font-[700] nunito-family  mb-4 flex gap-1 items-center" >
@@ -83,11 +83,6 @@ const Footer = () => {
       </div>
     </div>
     
-    {/* <button id="back-to-top" className="fixed bottom-8 right-8 bg-green-600 hover:bg-green-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible" aria-label="Back to top">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-      </svg>
-    </button> */}
     </footer>
   )
 }
