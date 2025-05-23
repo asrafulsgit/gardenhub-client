@@ -22,7 +22,8 @@ const AuthProvider = ({children})=>{
     const [userInfo,setUserInfo]=useState(null)
     const [isLoggedIn,setIsLoggedIn]=useState(false)
     const [loading,setLoading]=useState(true)
-  console.log(userInfo)
+    const [isMobileNav,setIsMobileNav] = useState(false)
+
     const register = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
       };
@@ -61,7 +62,7 @@ const AuthProvider = ({children})=>{
     return(
         <AuthContext.Provider value={{isLoggedIn,setIsLoggedIn,forget_password,
         loading,setLoading,register,login,logout,
-        googleRegister,userInfo,setUserInfo,isDark,setIsDark}}>
+        googleRegister,userInfo,setUserInfo,isDark,setIsDark,isMobileNav,setIsMobileNav}}>
             {children}
         </AuthContext.Provider>
     )

@@ -4,10 +4,11 @@ import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import Logo from '../asidebar/Logo';
 
 const Navbar = () => {
 
-  const {userInfo,isDark,setIsDark, isLoggedIn,setIsLoggedIn, logout } = useContext(AuthContext);
+  const {userInfo,isDark,setIsDark,isMobileNav,setIsMobileNav, isLoggedIn,setIsLoggedIn, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isHover,setIsHover] = useState(false)
   const [isLoggoutBtnActive,setIsLoggoutBtnActive] = useState(false)
@@ -30,21 +31,65 @@ const Navbar = () => {
     localStorage.setItem('isDark',JSON.stringify(!isDark))
   }
 
+ 
+  
   return (
     <>
-       <input
-            type="text"
-            placeholder="Search for gardening tips..."
-            className={`w-1/2 px-4 py-2 border ${isDark ? 'text-gray-400 border-gray-700' : 'border-gray-300'} rounded-md focus:outline-none`}
-          />
+        <div className='flex justify-between w-[100%]'>
+        <div className='lg:hidden flex gap-0 items-center'>
+          <button
+        type="button"
+        className="lg:hidden cursor-pointer 
+        top-4 left-4 z-20 p-2 rounded-md bg-green-800
+          text-white hover:text-white 
+          focus:outline-none"
+        onClick={() => {
+          setIsMobileNav(!isMobileNav)
+        }}
+        aria-controls="mobile-menu"
+        aria-expanded={isMobileNav}
+      >
+        <span className="sr-only">Open main menu</span>
+        {!isMobileNav ? (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        )}
+          </button>
+          <div className='lg:hidden'>
+            <Logo />
+          </div>
+        </div>
+
+
+       <div>
+             <input
+                  type="text"
+                  placeholder="Search for gardening tips..."
+                  className={`px-4 py-2 border 
+                    ${isDark ? 'text-gray-400 border-gray-700' : 
+                      'border-gray-300'} hidden sm:block rounded-md focus:outline-none`}
+                />
+       </div>
           <div className="flex items-center gap-4">
+             
+                <button className={`sm:hidden ${isDark ? 'opacity-100' : 'opacity-70'} flex items-center`}>
+                <svg class={`h-6 w-6 ${isDark && 'text-gray-500'} `} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                    </svg>
+              </button>
+              
               <label  className={`${isDark ? 'opacity-100' : 'opacity-70'} swap swap-rotate`}>
   
               <input type="checkbox" onClick={handleTheme} className="theme-controller" value="synthwave" />
 
               {/* sun icon */}
               <svg
-                className="swap-off h-7 w-7 fill-current"
+                className={`swap-off h-7 w-7 fill-current`}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
                 <path
@@ -53,18 +98,18 @@ const Navbar = () => {
 
               {/* moon icon */}
               <svg
-                className="swap-on h-7 w-7 fill-current"
+                className={`swap-on h-7 w-7 fill-current text-gray-500`}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
                 <path
                   d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
               </svg>
-            </label>
+               </label>
 
 
 
            
-            <button className={isDark ? 'opacity-100' : 'opacity-70'}>
+            <button className={isDark ? 'opacity-100 text-gray-500' : 'opacity-70'}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                 </svg>
@@ -98,6 +143,7 @@ const Navbar = () => {
               Login
             </button></Link>  }
           </div>
+        </div>
     </>
   )
 }

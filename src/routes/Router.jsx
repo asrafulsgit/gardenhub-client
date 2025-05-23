@@ -32,7 +32,8 @@ const Router =createBrowserRouter([
             },
             { 
                 path : 'tip-details/:id',
-                element : <Tips_details /> 
+                element : <Tips_details />,
+                errorElement : <NotFoundPage />
             },
             { 
                 path : 'share-garden-tip',
@@ -44,11 +45,13 @@ const Router =createBrowserRouter([
             },
             { 
                 path : 'gardener/:id',
-                element : <Auth_middleware><Gardener_profile /></Auth_middleware> 
+                element : <Auth_middleware><Gardener_profile /></Auth_middleware>,
+                errorElement : <NotFoundPage /> 
             },
             { 
                 path : 'update-tips/:id',
-                element : <Auth_middleware><Update_tips /></Auth_middleware> 
+                element : <Auth_middleware><Update_tips /></Auth_middleware>,
+                errorElement : <NotFoundPage />
             },
             { 
                 path : 'login-signin',
