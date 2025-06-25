@@ -4,6 +4,12 @@
 
 ---
 
+## 🌿 Project Description
+
+**Garden Hub** is a community-driven web application designed to support new and experienced gardeners alike. It allows users to share their gardening knowledge, ask questions, attend events, and connect with other passionate gardeners. Whether you’re troubleshooting a plant issue or attending a community event, Garden Hub provides a collaborative platform for all your gardening needs.
+
+---
+
 ## 🛠 Tech Stack
 
 - ⚛️ React (Frontend)
@@ -24,10 +30,6 @@
 
 ---
 
-## 🌿 Project Description
 
-**Garden Hub** is a community-driven web application designed to support new and experienced gardeners alike. It allows users to share their gardening knowledge, ask questions, attend events, and connect with other passionate gardeners. Whether you’re troubleshooting a plant issue or attending a community event, Garden Hub provides a collaborative platform for all your gardening needs.
-
----
 
 
