@@ -13,8 +13,6 @@
 ## 🛠 Tech Stack
 
 - ⚛️ React (Frontend)
-- 🌐 Node.js + Express.js (Backend)
-- 🗄️ MongoDB (Database)
 - 🌬️ Tailwind CSS (Styling)
 - 🔐 Firebase Authentication (Login & Signup)
 
