@@ -12,9 +12,7 @@ const Trending_tips = () => {
   const {isDark} = useContext(AuthContext)
   const [trendingTips, setTrendingTips] = useState([]);
   const [message, setMessage] = useState("Trending tips not found!");
-   
-    
-     
+  
       const getTrendingTips = async () => {
         try {
           const data = await apiRequiest(
@@ -35,17 +33,41 @@ const Trending_tips = () => {
   
   
   return (
-    <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
+    <div className={`${isDark ? 'bg-black' : 'bg-[#e4feec83]'} py-12 px-5`}>
       <div className="container mx-auto text-center">
         <h2 className={`text-[26px] md:text-[30px] ${isDark ? 'text-gray-300' : 'text-[#111827]'}   mb-2 font-[700] 
         nunito-family`}>Top Trending Tips</h2>
         <p className={`md:text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
           Discover our community's most popular gardening advice and techniques
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  md:px-0">
           {trendingTips.map((tip, index) => (
-            <div
-              key={index}
+            <TipCard key={index} tip={tip} />
+          ))}
+        </div>
+        
+      <Link to='/browse-tips' >  <button className="inline-flex items-center px-6 py-3 bg-green-600 mt-10 text-white rounded-lg text-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors cursor-pointer duration-300 nunito-family">
+      Browse All Tips
+      <svg
+        className="ml-2 w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+      </svg>
+    </button></Link>
+
+      </div>
+    </div>
+  );
+}
+
+const TipCard = ({tip}) => {
+   const {isDark} = useContext(AuthContext)
+  return(
+    <div
               className={` border ${isDark ? '' : 
                 'bg-white border-[#e5e7eb]'}   rounded-lg 
                  overflow-hidden flex flex-col`}
@@ -54,7 +76,7 @@ const Trending_tips = () => {
                 text-xl font-semibold  `}>
                  <img src={tip.image} alt="tip-image" className='h-[100%] w-[100%] object-cover'  />
               </div>
-              <div className='px-2 py-3'>
+              <div className='px-2 pt-3'>
                     <div className='flex justify-between items-center mb-3'>
                     <h3 className={`text-xl font-[600] text-left
                      ${isDark ? 'text-gray-400' : 'text-gray-800'}
@@ -64,8 +86,8 @@ const Trending_tips = () => {
                         {tip.difficulty}
                     </p>
                     </div>
-                    <p className="text-gray-700 text-[16px] mb-4 text-left font-[400]
-                     roboto-family md:h-[65px] lg:h-[90px]">{minimizeData(tip.description,100)}</p>
+                    <p className="text-gray-700 text-sm mb-4 text-left font-[400]
+                     roboto-family lg:h-[50px] ">{minimizeData(tip.description,100)}</p>
                <div className={`py-3 flex items-center justify-between ${isDark ? '' : 'border-gray-200'}
                  border-t `}>
                     <div className="flex  gap-1 text-gray-600   text-[16px] text-left font-[400] roboto-family">
@@ -94,25 +116,9 @@ const Trending_tips = () => {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-        
-      <Link to='/browse-tips' >  <button className="inline-flex items-center px-6 py-3 bg-green-600 mt-10 text-white rounded-lg text-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors cursor-pointer duration-300 nunito-family">
-      Browse All Tips
-      <svg
-        className="ml-2 w-5 h-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-      </svg>
-    </button></Link>
-
-      </div>
-    </div>
-  );
+  )
 }
 
 export default Trending_tips
+
+

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer id="footer" className="bg-green-800 text-white pt-16 pb-8 ">
+    <footer id="footer" className="bg-[#0A6B01] text-white pt-16 pb-8 ">
     <div className="container mx-auto px-4">
       <div className="flex flex-col md:flex-row justify-between gap-8 mb-12">
      
@@ -64,8 +64,11 @@ const Footer = () => {
           <p className="text-gray-300 mb-4 roboto-family">Subscribe to our newsletter for seasonal tips and updates.</p>
           <form id="footer-newsletter-form" className="space-y-2">
             <div className="flex">
-              <input type="email" placeholder="Your email address" className="px-4 py-2 w-full rounded-l-md text-gray-800 bg-white focus:outline-none " required="" />
-              <button type="submit" className="bg-green-600 hover:bg-green-700 cursor-pointer px-4 py-2 rounded-r-md transition-colors duration-300">
+              <input type="email" placeholder="Your email address" 
+              className="px-4 py-2 w-full rounded-l-md text-gray-800
+               bg-white focus:outline-none " required="" />
+              <button type="submit" className="bg-[#2BC854] hover:bg-green-700
+               cursor-pointer px-4 py-2 rounded-r-md transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path clipRule="evenodd" 
                   d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" ></path>

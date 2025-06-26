@@ -1,8 +1,53 @@
 import React, { useContext } from 'react'
-import { AuthContext } from '../config/AuthProvider';
+import { AuthContext } from '../../config/AuthProvider';
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
+
+import './upce.css'; 
+
 
 const Upcoming_events = () => {
   const events = [
+    {
+      date: 'May 15, 2024',
+      time: '10:00 AM - 2:00 PM',
+      title: 'Women in Gardening Workshop',
+      description:
+        'Join our special workshop celebrating women gardeners. Learn techniques, share experiences, and build community.',
+      spotsLeft: 15,
+      buttonText: 'Register Now',
+      buttonVariant: 'green',
+      image: 'https://i.ibb.co/HWWPv0z/photo-1522543558187-768b6df7c25c.jpg', // Placeholder image
+      featured: true,
+    },
+    {
+      date: 'June 5, 2024',
+      time: '9:00 AM - 3:00 PM',
+      title: 'Community Garden Planting Day',
+      description:
+        'A fun-filled day of planting, socializing, and beautifying our community garden. All experience levels welcome!',
+      spotsLeft: 'Unlimited spots',
+      buttonText: 'Volunteer Now',
+      buttonVariant: 'green',
+      image: 'https://i.ibb.co/6J4FhkVV/photo-1491438590914-bc09fcaaf77a.jpg', 
+      featured: false,
+    },
+    {
+      date: 'July 22, 2024',
+      time: '1:00 PM - 5:00 PM',
+      title: 'Garden-to-Table Dinner',
+      description:
+        'Harvest fresh produce from our garden and learn to prepare delicious, seasonal dishes with our expert chef.',
+      spotsLeft: 5,
+      buttonText: 'Book Your Spot',
+      buttonVariant: 'green',
+      image: 'https://i.ibb.co/YFG2296c/photo-1528605248644-14dd04022da1.jpg',
+      almostFull: true,
+      featured: false,
+    },
     {
       date: 'May 15, 2024',
       time: '10:00 AM - 2:00 PM',
@@ -54,8 +99,29 @@ const Upcoming_events = () => {
         </p>
 
         <div className="flex  flex-col xl:flex-row gap-8">
-          {events.map((event, index) => (
-            <div key={index} className={` rounded-lg ${isDark ? 'bg-[#ffffff06]' : 'bg-white'}
+          <>
+      <Swiper
+        
+        spaceBetween={30}
+        className="mySwiper"
+        breakpoints={{
+        // when window width is >= 0px
+        0: {
+          slidesPerView: 1,
+        },
+        // when window width is >= 640px (sm breakpoint)
+        640: {
+          slidesPerView: 2,
+        },
+        // when window width is >= 1024px (lg breakpoint)
+        1024: {
+          slidesPerView: 3,
+        },
+      }}
+      > {events.map((event, index) => (
+            
+        <SwiperSlide key={index}>
+          <div  className={` rounded-lg ${isDark ? 'bg-[#ffffff06]' : 'bg-white'}
             shadow-sm overflow-hidden relative`}>
               <div className="relative">
                 
@@ -70,7 +136,8 @@ const Upcoming_events = () => {
                   </span>
                 )}
                 {event.almostFull && (
-                  <span className="absolute top-3 right-3 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                  <span className="absolute top-3 right-3 bg-orange-500
+                   text-white text-xs font-semibold px-2 py-1 rounded-full">
                     Almost Full
                   </span>
                 )}
@@ -96,8 +163,11 @@ const Upcoming_events = () => {
                 <h3 className={`text-xl font-[600] text-left
                      ${isDark ? 'text-gray-400' : 'text-gray-800'}
                      nunito-family`}>{ event.title.length > 12 ? event.title.slice(0,23)+'...' : event.title }</h3>
-                <p className="text-gray-700 text-[16px] mb-4 text-left font-[400]
-                     roboto-family xl:h-[87px] "> {event.description}</p>
+                <p className="text-gray-700 mt-2 text-sm mb-4 text-left font-[400]
+                     roboto-family md:h-[52px] lg:h-auto "> {
+                  event.description.length > 100
+                    ? event.description.slice(0, 100) + '...'  : event.description 
+                     }</p>
                 <div className="flex items-center justify-between mt-auto ">
                   <p className="text-gray-600 text-sm nunito-family">
                     {typeof event.spotsLeft === 'number'
@@ -119,7 +189,12 @@ const Upcoming_events = () => {
                 </div>
               </div>
             </div>
+        </SwiperSlide>
           ))}
+       
+      </Swiper>
+    </>
+         
         </div>
 
         <div className="mt-12">

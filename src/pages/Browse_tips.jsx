@@ -60,7 +60,7 @@ const Browse_tips = () => {
 
   return (
    <> 
-   <Helmet>
+        <Helmet>
            <title>Browse Tips</title>
          </Helmet>
    <section className={`page-section min-h-screen 
@@ -87,9 +87,9 @@ const Browse_tips = () => {
                     setActiveLevel(item)
                   }}
                   className={`px-2 py-1  sm:px-4 sm:py-2 rounded-lg 
-                  ${activeLevel === item && 'bg-green-900'}
+                  ${activeLevel === item && 'bg-[#2BC854] text-white'}
                   cursor-pointer ${isDark ? 'text-gray-400 border border-gray-700' : 
-                  ' border border-gray-400'} focus:outline-none 
+                  'border border-gray-400'} focus:outline-none 
                    nunito-family `}> 
                   {item}
                 </button>
@@ -191,7 +191,8 @@ const Browse_tips = () => {
           </div>
         </div>
       </div>
-    </section></>
+    </section>
+    </>
   
   )
 }

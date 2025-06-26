@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react"; // Optional icons
+import { Menu, X, Moon, Sun } from "lucide-react"; // Optional icons
  
 
 const Nav = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [darkMode, setDarkMode] = useState(false);
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Browse Tips", path: "/browse-tips" },
@@ -17,7 +17,7 @@ const Nav = () => {
   ];
 
   return (
-    <header className="bg-[#0A6B01] text-white shadow-md nunito-family">
+    <header className="px-4  bg-[#0A6B01] text-white shadow-md nunito-family">
       {/* desktop Menu */}
       <div className="max-w-7xl mx-auto  
        py-4 flex items-center justify-between">
@@ -54,6 +54,13 @@ const Nav = () => {
 
         {/* Auth Buttons */}
         <div className="hidden md:flex space-x-4">
+            <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="text-white cursor-pointer hover:text-[#2BC854] transition"
+            title="Toggle Dark Mode"
+          >
+            {darkMode ? <Sun size={30} /> : <Moon size={30} />}
+          </button>
           <Link
             to="/login-signin"
             className="px-4 py-2 rounded-full border border-[#2BC854] text-[#2BC854] hover:bg-[#2BC854] hover:text-white transition"
@@ -84,14 +91,20 @@ const Nav = () => {
               {link.name}
             </Link>
           ))}
-          <Link to="/login" className="block text-[#2BC854] mt-2">
+          {<Link to="/login-signin" className="block text-[#2BC854] mt-2">
             Login
-          </Link>
-          <Link to="/signup" className="block text-white bg-[#2BC854] px-3 py-2 rounded mt-1">
-            Sign Up
-          </Link>
+          </Link>}
+           {/* Mobile Dark Mode Toggle */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="mt-4 flex items-center gap-2 text-white hover:text-[#2BC854] transition"
+          >
+            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>
+          </button>
         </nav>
       )}
+      
     </header>
   );
 };
