@@ -90,7 +90,8 @@ const FeaturedGardenerCard = ({ gardener }) => {
           </div>
            <button
             type="button"
-            className="w-full cursor-pointer sm:w-auto px-5 py-2 rounded-full bg-[#2BC854] text-white font-semibold hover:bg-[#0A6B01] transition"
+            className="w-full cursor-pointer sm:w-auto px-5 py-2 rounded-full
+             bg-[#2BC854] text-white font-semibold hover:bg-[#0A6B01] transition"
             onClick={() => alert(`View profile of ${name}`)}
           >
             View Profile

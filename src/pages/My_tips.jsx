@@ -88,7 +88,7 @@ const My_tips = () => {
             } md:mb-2 mb-1 
       font-[700] nunito-family`}
           >
-            My Tips
+            Manage Tips
           </h2>
           <p
             className={`md:text-[18px] font-[400] 

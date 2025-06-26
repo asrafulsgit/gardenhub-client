@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../config/AuthProvider'
+import { Link } from 'react-router'
 
 const About = () => {
 
@@ -104,7 +105,7 @@ const About = () => {
                 </div>
               </li>
             </ul>
-            <button className="mt-8 inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-md text-base font-medium hover:bg-green-700 transition-colors duration-300 nunito-family cursor-pointer">
+           <Link to='/about'> <button className="mt-8 inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-md text-base font-medium hover:bg-green-700 transition-colors duration-300 nunito-family cursor-pointer">
               Learn More About Our Story
               <svg
                 className="ml-2 w-4 h-4"
@@ -120,7 +121,7 @@ const About = () => {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 ></path>
               </svg>
-            </button>
+            </button></Link>
           </div>
 
           <div className="lg:w-1/2 hidden lg:flex flex-col  justify-center items-center gap-3">

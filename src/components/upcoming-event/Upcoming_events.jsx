@@ -120,11 +120,11 @@ const Upcoming_events = () => {
       }}
       > {events.map((event, index) => (
             
-        <SwiperSlide key={index}>
-          <div  className={` rounded-lg ${isDark ? 'bg-[#ffffff06]' : 'bg-white'}
-            shadow-sm overflow-hidden relative`}>
+        <SwiperSlide key={index} className='!h-auto'>
+          <div  className={`h-full flex flex-col  rounded-lg ${isDark ? 'bg-[#ffffff06]' : 'bg-white'}
+            shadow-sm overflow-hidden `}>
+              
               <div className="relative">
-                
                 <img
                   src={event.image}
                   alt={event.title}
@@ -142,7 +142,8 @@ const Upcoming_events = () => {
                   </span>
                 )}
               </div>
-              <div className="px-4 py-4 text-left">
+
+              <div className="flex flex-col flex-grow justify-between p-4 text-left ">
                 <div className="flex items-center text-gray-500 text-sm mb-2 roboto-family">
                   <svg
                     className="w-4 h-4 mr-1"
@@ -160,15 +161,20 @@ const Upcoming_events = () => {
                   </svg>
                   {event.date} • {event.time}
                 </div>
-                <h3 className={`text-xl font-[600] text-left
-                     ${isDark ? 'text-gray-400' : 'text-gray-800'}
-                     nunito-family`}>{ event.title.length > 12 ? event.title.slice(0,23)+'...' : event.title }</h3>
-                <p className="text-gray-700 mt-2 text-sm mb-4 text-left font-[400]
-                     roboto-family md:h-[52px] lg:h-auto "> {
-                  event.description.length > 100
-                    ? event.description.slice(0, 100) + '...'  : event.description 
-                     }</p>
-                <div className="flex items-center justify-between mt-auto ">
+                <div className='flex-grow mb-1'>
+                  <h3
+      className={`text-xl font-[600] text-left ${isDark ? 'text-gray-400' : 'text-gray-800'} nunito-family`}
+    >
+      {event.title.length > 12 ? event.title.slice(0, 23) + '...' : event.title}
+                  </h3>
+                  <p className="text-gray-700 mt-2 text-sm  text-left
+                   font-[400] line-clamp-3 roboto-family">
+                    {event.description.length > 100
+                      ? event.description.slice(0, 100) + '...'
+                      : event.description}
+                  </p>
+                </div>
+                <div className="mt-auto  flex items-center justify-between">
                   <p className="text-gray-600 text-sm nunito-family">
                     {typeof event.spotsLeft === 'number'
                       ? `${event.spotsLeft} spots left`
@@ -188,7 +194,8 @@ const Upcoming_events = () => {
                   </button>
                 </div>
               </div>
-            </div>
+
+          </div>
         </SwiperSlide>
           ))}
        
@@ -224,3 +231,5 @@ const Upcoming_events = () => {
 }
 
 export default Upcoming_events
+
+ 

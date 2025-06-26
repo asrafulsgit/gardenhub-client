@@ -14,6 +14,15 @@ import UnAuth_middleware from "../middlewares/UnAuth_middleware";
 import Tips_details from "../pages/Tips_details";
 import Update_tips from "../pages/Update_tips";
 import Gardener_profile from "../components/Gardener_profile";
+import Events_page from "../pages/Events_page";
+import AboutPage from "../pages/AboutPage";
+import Manage_events from "../components/manage_events/Manage_events";
+import Profile from "../components/profile/Profile";
+import Saved_tips from "../pages/Saved_tips";
+import Update_event from "../components/manage_events/Update_events";
+import Create_event from "../components/manage_events/Create_event";
+import Event_details from "../components/manage_events/Event_details";
+import Profile_Update from "../components/profile/Profile_Update";
 
 const Router =createBrowserRouter([
     {
@@ -29,6 +38,11 @@ const Router =createBrowserRouter([
                 element :  <Explore_gardener /> 
             },
             { 
+                path : 'gardener/:id',
+                element : <Auth_middleware><Gardener_profile /></Auth_middleware>,
+                errorElement : <NotFoundPage /> 
+            },
+            { 
                 path : 'browse-tips',
                 element : <Browse_tips /> 
             },
@@ -42,18 +56,51 @@ const Router =createBrowserRouter([
                 element : <Auth_middleware><Share_garden_tip /></Auth_middleware> 
             },
             { 
-                path : 'my-tips',
-                element : <Auth_middleware><My_tips /></Auth_middleware> 
-            },
-            { 
-                path : 'gardener/:id',
-                element : <Auth_middleware><Gardener_profile /></Auth_middleware>,
-                errorElement : <NotFoundPage /> 
-            },
-            { 
                 path : 'update-tips/:id',
                 element : <Auth_middleware><Update_tips /></Auth_middleware>,
                 errorElement : <NotFoundPage />
+            },
+            { 
+                path : 'about',
+                element : <AboutPage />
+            },
+            { 
+                path : 'events',
+                element : <Events_page />
+            },
+            { 
+                path : 'manage-events',
+                element : <Auth_middleware><Manage_events /></Auth_middleware>
+            },
+            { 
+                path : 'create-event',
+                element : <Auth_middleware><Create_event /></Auth_middleware>
+            },
+            { 
+                path : 'update-event/:id',
+                element : <Auth_middleware><Update_event /></Auth_middleware>,
+                // errorElement : <NotFoundPage />
+            },
+            { 
+                path : 'event-details/:id',
+                element : <Auth_middleware><Event_details /></Auth_middleware>,
+                errorElement : <NotFoundPage />
+            },
+            { 
+                path : 'manage-tips',
+                element : <Auth_middleware><My_tips /> </Auth_middleware>
+            },
+            { 
+                path : 'profile',
+                element : <Auth_middleware><Profile /> </Auth_middleware>
+            },
+            { 
+                path : 'update-profile',
+                element : <Auth_middleware><Profile_Update /> </Auth_middleware>
+            },
+            { 
+                path : 'saved-tips',
+                element : <Auth_middleware> <Saved_tips /> </Auth_middleware>
             },
             { 
                 path : 'login-signin',

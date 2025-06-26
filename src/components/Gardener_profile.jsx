@@ -14,7 +14,35 @@ const Gardener_profile = () => {
   const navigate = useNavigate()
   const {isDark} = useContext(AuthContext) 
 
-  const [gardener,setGardener] = useState({})
+  const [gardener,setGardener] = useState({
+    id: "g001",
+    name: "Sara Ahmed",
+    username: "sara_gardens",
+    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+    bio: "Urban gardening enthusiast.",
+    location: "Dhaka, Bangladesh",
+    joinedAt: "2023-08-15T10:30:00Z",
+    yearsOfExperience: 5,
+    age: 29,
+    sex: "Female",
+    specialist: ["Herbs", "Succulents", "Organic Gardening"],
+    services: [
+      {
+        name: "Tree Service",
+        description: "Expert in pruning, removal, and tree health assessments.",
+      },
+      {
+        name: "Soil Testing",
+        description: "Improving soil quality for optimized plant growth.",
+      },
+    ],
+    totalTipsShared: 42,
+    followersCount: 350,
+    followingCount: 75,
+    favoritePlants: ["Basil", "Aloe Vera", "Mint"],
+    isActive: true,
+    rating: 4.7,
+  })
   const [message, setMessage] = useState("gardener not found!");
   const [loading, setLoading] = useState(true);
   
@@ -43,23 +71,24 @@ const Gardener_profile = () => {
   };
 
   useEffect(()=>{
-      getGardenerDetials()
+      // getGardenerDetials()
   },[])
 
-  if(loading){
-    return <>
-      <Loader /> 
-    </>
-  }
+  // if(loading){
+  //   return <>
+  //     <Loader /> 
+  //   </>
+  // }
   return (
-   <><Helmet>
-        <title>Gardener Profile</title>
-      </Helmet> 
+   <>
+   <Helmet>
+      <title>Gardener Profile</title>
+    </Helmet> 
     <section className={`py-10 px-5  ${isDark? "bg-black" :""} `}>
       <div className={`border ${isDark? "border-gray-900" :"border-gray-300"}  rounded-lg overflow-hidden`}>
       <div className="h-48 bg-green-600 ">
         <img
-          src={gardener.image ||  "https://placehold.co/1200x400?text=Garden+Cover"}
+          src={gardener.thumnail ||  "https://placehold.co/1200x400?text=Garden+Cover"}
           alt="Garden cover"
           className="w-full h-full object-cover"
         />
@@ -70,7 +99,7 @@ const Gardener_profile = () => {
         <div className="flex flex-col md:flex-row md:items-end -mt-12">
           <div className="flex-shrink-0">
             <img
-              src={gardener.image || "https://placehold.co/150x150?text=Sarah"}
+              src={gardener.avatar || "https://placehold.co/150x150?text=Sarah"}
               alt="Sarah Johnson"
               className="h-24 w-24 rounded-full ring-4 ring-white bg-white object-cover"
             />
@@ -83,7 +112,7 @@ const Gardener_profile = () => {
                   {gardener.name}
                 </h2>
                 <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-500'} roboto-family`}>
-                  {gardener.experties} • {gardener.experiences} years experience • Age : {gardener.age} • {gardener.gender}
+                  {gardener.specialist[0]} • {gardener.yearsOfExperience} years experience • Age : {gardener.age} • {gardener.sex}
                 </p>
               </div>
               <div className="flex items-center nunito-family">
@@ -98,9 +127,8 @@ const Gardener_profile = () => {
                   </svg>
                   <span className={`ml-1 ${isDark ? 'text-gray-500' : 'text-gray-700'} font-medium`}>
                     {gardener.rating}</span>
-                  <span className="ml-1 text-gray-500 text-sm">({gardener.reviews})</span>
                 </div>
-                {gardener.status === 'Active' ? <div className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                {gardener.isActive  ? <div className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                   Active
                 </div> : <div className="bg-yellow-500 text-gray-300 text-xs font-bold px-2 py-1 rounded-full">
                   Inactive
@@ -130,8 +158,9 @@ const Gardener_profile = () => {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
-                <div
-              
+                {gardener.services.map((service, index) => (
+                  <div
+                  key={index }
                   className={`border ${isDark ? "" : 'border-gray-200'} rounded-lg p-4`}
                 >
                   <div className="flex items-center mb-2">
@@ -150,18 +179,19 @@ const Gardener_profile = () => {
                       />
                     </svg>
                     <h4 className={`ml-2 font-medium nunito-family ${isDark ? 'text-gray-400' : 'text-gray-900'}`}>
-                      {gardener.experties}
+                      {service.name}
                     </h4>
                   </div>
-                  <p className={`text-sm roboto-family ${isDark ? 'text-gray-500' :'text-gray-600'} `}>{gardener.bio}</p>
-                  
+                  <p className={`text-sm roboto-family ${isDark ? 'text-gray-500' 
+                    :'text-gray-600'} `}>{service.description}</p>
                 </div>
+                ))}
         
             </div>
           </div>
 
           {/* Portfolio Section */}
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <h3 className={`text-lg font-semibold nunito-family ${isDark ? 'text-gray-400' : 'text-gray-900'} mb-3`}>
               Portfolio
             </h3>
@@ -175,7 +205,7 @@ const Gardener_profile = () => {
                 />
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Reviews Section */}
           <div>
@@ -227,8 +257,170 @@ const Gardener_profile = () => {
         </div>
       </div>
     </div>
-    </section></>
+    </section>
+    </>
   );
 };
+
+
+import { Star } from "lucide-react";
+
+const gardener={
+    id: "g001",
+    name: "Sara Ahmed",
+    username: "sara_gardens",
+    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+    bio: "Urban gardening enthusiast.",
+    location: "Dhaka, Bangladesh",
+    joinedAt: "2023-08-15T10:30:00Z",
+    yearsOfExperience: 5,
+    age: 29,
+    sex: "Female",
+    specialist: ["Herbs", "Succulents", "Organic Gardening"],
+    services: [
+      {
+        name: "Tree Service",
+        description: "Expert in pruning, removal, and tree health assessments.",
+      },
+      {
+        name: "Soil Testing",
+        description: "Improving soil quality for optimized plant growth.",
+      },
+    ],
+    totalTipsShared: 42,
+    followersCount: 350,
+    followingCount: 75,
+    favoritePlants: ["Basil", "Aloe Vera", "Mint"],
+    isActive: true,
+    rating: 4.7,
+  }
+
+
+// const Gardener_profile = () => {
+//   return (
+//     <section className="min-h-screen bg-[#E4FEEC] px-4 py-10">
+//       <div className="max-w-4xl mx-auto bg-white shadow rounded-xl overflow-hidden">
+//         {/* Top Info Section */}
+//         <div className="flex flex-col sm:flex-row gap-6 p-6">
+//           {/* Profile Image */}
+//           <img
+//             src={gardener.avatar}
+//             alt={gardener.name}
+//             className="w-full sm:w-48 h-48 rounded-lg object-cover"
+//           />
+
+//           {/* Textual Info */}
+//           <div className="flex-1 space-y-2">
+//             <div className="flex justify-between items-center">
+//               <h1 className="text-2xl font-bold text-[#0A6B01]">
+//                 {gardener.name}
+//               </h1>
+//               {gardener.isActive && (
+//                 <span className="bg-green-100 text-green-800 px-3 py-1 text-xs rounded-full">
+//                   Active
+//                 </span>
+//               )}
+//             </div>
+
+//             <p className="text-gray-700 text-sm">@{gardener.username}</p>
+//             <p className="text-gray-600">{gardener.bio}</p>
+//             <p className="text-sm text-gray-600">
+//               <strong>Location:</strong> {gardener.location}
+//             </p>
+
+//             <div className="flex gap-4 text-sm text-gray-600">
+//               <p>Age: {gardener.age}</p>
+//               <p>Sex: {gardener.sex}</p>
+//               <p>Experience: {gardener.yearsOfExperience} yrs</p>
+//             </div>
+
+//             <div className="flex items-center gap-1 text-yellow-500 text-sm">
+//               <Star size={18} fill="currentColor" />
+//               <span className="text-gray-700">{gardener.rating}</span>
+//             </div>
+
+//             <p className="text-xs text-gray-500">
+//               Joined: {new Date(gardener.joinedAt).toLocaleDateString()}
+//             </p>
+//           </div>
+//         </div>
+
+//         {/* Stats */}
+//         <div className="grid grid-cols-2 sm:grid-cols-3 px-6 py-4 text-center text-sm text-gray-600 border-t">
+//           <div>
+//             <p className="text-lg font-bold text-[#0A6B01]">
+//               {gardener.totalTipsShared}
+//             </p>
+//             <p>Tips Shared</p>
+//           </div>
+//           <div>
+//             <p className="text-lg font-bold text-[#0A6B01]">
+//               {gardener.followersCount}
+//             </p>
+//             <p>Followers</p>
+//           </div>
+//           <div>
+//             <p className="text-lg font-bold text-[#0A6B01]">
+//               {gardener.followingCount}
+//             </p>
+//             <p>Following</p>
+//           </div>
+//         </div>
+
+//         {/* Specialties */}
+//         <div className="px-6 py-4">
+//           <h3 className="text-md font-semibold text-[#0A6B01] mb-2">
+//             Specialist In
+//           </h3>
+//           <div className="flex flex-wrap gap-2">
+//             {gardener.specialist.map((tag, idx) => (
+//               <span
+//                 key={idx}
+//                 className="bg-green-100 text-green-800 px-3 py-1 text-xs rounded-full"
+//               >
+//                 {tag}
+//               </span>
+//             ))}
+//           </div>
+//         </div>
+
+//         {/* Services */}
+//         <div className="px-6 py-4">
+//           <h3 className="text-md font-semibold text-[#0A6B01] mb-2">
+//             Services
+//           </h3>
+//           <div className="space-y-3">
+//             {gardener.services.map((service, i) => (
+//               <div key={i} className="border p-3 rounded-lg bg-[#F8FFF9]">
+//                 <h4 className="text-sm font-semibold text-[#2BC854]">
+//                   {service.name}
+//                 </h4>
+//                 <p className="text-sm text-gray-600">{service.description}</p>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+
+//         {/* Favorite Plants */}
+//         <div className="px-6 py-4">
+//           <h3 className="text-md font-semibold text-[#0A6B01] mb-2">
+//             Favorite Plants
+//           </h3>
+//           <div className="flex flex-wrap gap-2">
+//             {gardener.favoritePlants.map((plant, idx) => (
+//               <span
+//                 key={idx}
+//                 className="bg-green-50 text-green-900 px-3 py-1 text-xs rounded-full"
+//               >
+//                 {plant}
+//               </span>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
 
 export default Gardener_profile;

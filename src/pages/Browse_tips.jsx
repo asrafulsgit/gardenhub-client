@@ -33,7 +33,7 @@ const Browse_tips = () => {
       getBrowseTips();
     }, []);
  
-
+   console.log(browseTips)
     const handleFilter =async(level)=>{
       if(level === 'All'){
         getBrowseTips()
@@ -104,7 +104,9 @@ const Browse_tips = () => {
                 </div>
                 <input id="search-tips" type="text" placeholder="Search tips..." 
                 className={`w-full pl-10 pr-3 py-2 border  rounded-md 
-                leading-5 ${isDark ? 'border-gray-700 text-gray-400' : 'bg-white'} placeholder-gray-500 focus:outline-none 
+                leading-5 ${isDark ? 'border-gray-700 text-gray-400' : 'bg-white border-gray-300'}
+                 placeholder-gray-500 focus:outline-none 
+                 outline-none
                 focus:placeholder-gray-400 focus:ring-1 focus:ring-green-500 
                 focus:border-green-500 sm:text-sm nunito-family`} />
               </div>

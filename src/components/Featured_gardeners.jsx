@@ -3,7 +3,6 @@ import { NavLink } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { apiRequiest } from '../utils/ApiCall';
-import { minimizeData } from '../utils/minimizeData';
 import { AuthContext} from '../config/AuthProvider'
 
 const Featured_gardeners = () => {
@@ -40,7 +39,7 @@ const [gardeners,setGardeners] = useState([])
     name: "Sara Ahmed",
     username: "sara_gardens",
     avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    bio: "Urban gardening enthusiast growing herbs and leafy greens on rooftops.",
+    bio: "Urban gardening enthusiast.",
     location: "Dhaka, Bangladesh",
     joinedAt: "2023-08-15T10:30:00Z",
     yearsOfExperience: 5,
@@ -200,6 +199,8 @@ const [gardeners,setGardeners] = useState([])
         <p className={` md:text-[18px] font-[400] ${isDark ? 'text-gray-500' : 'text-[#4b5563]'}  mb-8 roboto-family`}>
           Connect with our most active community members who are sharing valuable <br className='hidden md:block'  /> gardening knowledge
         </p>
+        {/* grid grid-cols-1 sm:grid-cols-2 
+      lg:grid-cols-3 gap-6  mx-auto */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
         gap-6 md:px-0">
           {dummyGardeners.map((gardener, index) => (
@@ -271,10 +272,10 @@ const FeaturedGardenerCard = ({ gardener }) => {
   const {isDark} = useContext(AuthContext) 
   return (
     
-    <div className={` rounded-lg border py-6 px-4
-                ${isDark ? '' : 'bg-white border-[#e5e7eb]'} 
-                `}>
-      <div className="flex justify-between w-full">
+    <div className={`rounded-lg border p-4 h-full flex flex-col
+    ${isDark ? '' : 'bg-white border-[#e5e7eb]'}`}>
+      {/* header*/}
+      <div className="flex justify-between w-full mb-3">
             <div className="flex items-center gap-4">
                 <img
                 src={avatar}
@@ -309,30 +310,38 @@ const FeaturedGardenerCard = ({ gardener }) => {
           </span>
             </div>
       </div>
-      {/* Info */}
-      <p className="text-sm text-left text-[#4b5563] mt-1 line-clamp-3 
-      pt-2 roboto-family">{bio.length > 50 ? `${bio.slice(0,50)}...` : bio}</p>
-        {/* Rating and Experience */}
-      <div className="flex justify-between items-center w-full mt-4 
-         text-[#0A6B01]">
+      {/* Content Body (bio + footer) */}
+      <div className="flex flex-col flex-grow justify-between">
+        {/* Bio */}
+        <p className="text-sm text-left text-[#4b5563] line-clamp-3 roboto-family ">
+          {bio.length > 100 ? `${bio.slice(0, 100)}...` : bio}
+        </p>
+
+        {/* Footer */}
+        <div className="flex justify-between text-[#0A6B01] items-center pt-2 mt-auto">
           <div className="flex items-center">
-              <svg
-                className={`w-4 h-4 text-[#2BC854]`}
-                fill="currentColor"
-                viewBox="0 0 20 20"
-            >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.974a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.974c.3.92-.755 1.688-1.54 1.118L10 13.347l-3.385 2.46c-.784.57-1.838-.197-1.539-1.118l1.286-3.974a1 1 0 00-.364-1.118L3.613 9.4c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.974z" />
-            </svg>
+            <svg
+                    className={"w-4 h-4 text-[#2BC854]"}
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.974a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.974c.3.92-.755 1.688-1.54 1.118L10 13.347l-3.385 2.46c-.784.57-1.838-.197-1.539-1.118l1.286-3.974a1 1 0 00-.364-1.118L3.613 9.4c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.974z" />
+                </svg>
             <span className="ml-2 font-semibold">{rating.toFixed(1)}</span>
           </div>
-           <button
+          <button
             type="button"
-            className="roboto-family cursor-pointer sm:w-auto px-5 py-2 rounded-full bg-[#2BC854] text-white font-semibold hover:bg-[#0A6B01] transition"
+            className="roboto-family cursor-pointer sm:w-auto 
+            px-3 py-1 rounded-lg bg-[#2BC854] text-white 
+            text-[16px] hover:bg-[#0A6B01] transition"
             onClick={() => alert(`View profile of ${name}`)}
           >
             View Profile
           </button>
+        </div>
       </div>
     </div>
   );
 };
+
+

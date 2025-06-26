@@ -61,7 +61,7 @@ const Update_tips = () => {
     try {
       await apiRequiest('put',`/tip/${id}`,{formData})
       toast.success('tip update successfully')
-      navigate('/my-tips')
+      navigate('/manage-tips')
     } catch (error) {
       console.log(error)
       toast.error('tip not update! try again.')

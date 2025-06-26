@@ -1,20 +1,112 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router'
+import React, { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
+import { useParams } from "react-router";
 import { toast } from "react-toastify";
 
-import { AuthContext } from '../config/AuthProvider'
+import { AuthContext } from "../config/AuthProvider";
 import { apiRequiest } from "../utils/ApiCall";
 import Loader from "../utils/Loader";
 
-const Tips_details = () => {
+export const dummyComments = [
+  {
+    userName: "Raisa Khatun",
+    userPhoto: "https://randomuser.me/api/portraits/women/21.jpg",
+    text: "Thanks! I followed this tip and my tomatoes are finally thriving 🌿🍅",
+    date: "2025-06-20T10:30:00Z",
+  },
+  {
+    userName: "Mizanur Rahman",
+    userPhoto: "https://randomuser.me/api/portraits/men/32.jpg",
+    text: "Great insight! I didn’t know mulching helped so much with moisture retention.",
+    date: "2025-06-21T08:15:00Z",
+  },
+  {
+    userName: "Afroza Jahan",
+    userPhoto: "https://randomuser.me/api/portraits/women/45.jpg",
+    text: "Could you also share some tips on organic pest control?",
+    date: "2025-06-22T14:45:00Z",
+  },
+  {
+    userName: "Tanvir Hossain",
+    userPhoto: "https://randomuser.me/api/portraits/men/18.jpg",
+    text: "This helped me prep my raised garden bed properly. Keep it up!",
+    date: "2025-06-23T16:20:00Z",
+  },
+  {
+    userName: "Faria Alam",
+    userPhoto: "https://randomuser.me/api/portraits/women/34.jpg",
+    text: "Loved the simplicity of this tip. Very beginner-friendly 🌱",
+    date: "2025-06-24T09:10:00Z",
+  },
+  {
+    userName: "Raisa Khatun",
+    userPhoto: "https://randomuser.me/api/portraits/women/21.jpg",
+    text: "Thanks! I followed this tip and my tomatoes are finally thriving 🌿🍅",
+    date: "2025-06-20T10:30:00Z",
+  },
+  {
+    userName: "Mizanur Rahman",
+    userPhoto: "https://randomuser.me/api/portraits/men/32.jpg",
+    text: "Great insight! I didn’t know mulching helped so much with moisture retention.",
+    date: "2025-06-21T08:15:00Z",
+  },
+  {
+    userName: "Afroza Jahan",
+    userPhoto: "https://randomuser.me/api/portraits/women/45.jpg",
+    text: "Could you also share some tips on organic pest control?",
+    date: "2025-06-22T14:45:00Z",
+  },
+  {
+    userName: "Tanvir Hossain",
+    userPhoto: "https://randomuser.me/api/portraits/men/18.jpg",
+    text: "This helped me prep my raised garden bed properly. Keep it up!",
+    date: "2025-06-23T16:20:00Z",
+  },
+  {
+    userName: "Faria Alam",
+    userPhoto: "https://randomuser.me/api/portraits/women/34.jpg",
+    text: "Loved the simplicity of this tip. Very beginner-friendly 🌱",
+    date: "2025-06-24T09:10:00Z",
+  },
+  {
+    userName: "Raisa Khatun",
+    userPhoto: "https://randomuser.me/api/portraits/women/21.jpg",
+    text: "Thanks! I followed this tip and my tomatoes are finally thriving 🌿🍅",
+    date: "2025-06-20T10:30:00Z",
+  },
+  {
+    userName: "Mizanur Rahman",
+    userPhoto: "https://randomuser.me/api/portraits/men/32.jpg",
+    text: "Great insight! I didn’t know mulching helped so much with moisture retention.",
+    date: "2025-06-21T08:15:00Z",
+  },
+  {
+    userName: "Afroza Jahan",
+    userPhoto: "https://randomuser.me/api/portraits/women/45.jpg",
+    text: "Could you also share some tips on organic pest control?",
+    date: "2025-06-22T14:45:00Z",
+  },
+  {
+    userName: "Tanvir Hossain",
+    userPhoto: "https://randomuser.me/api/portraits/men/18.jpg",
+    text: "This helped me prep my raised garden bed properly. Keep it up!",
+    date: "2025-06-23T16:20:00Z",
+  },
+  {
+    userName: "Faria Alam",
+    userPhoto: "https://randomuser.me/api/portraits/women/34.jpg",
+    text: "Loved the simplicity of this tip. Very beginner-friendly 🌱",
+    date: "2025-06-24T09:10:00Z",
+  },
+];
 
-  const {id} = useParams()
-  const [tip,setTip] = useState({})
+const Tips_details = () => {
+  const { id } = useParams();
+  const [tip, setTip] = useState({});
   const [message, setMessage] = useState("tip not found");
   const [loading, setLoading] = useState(true);
-  
-  const {isDark} = useContext(AuthContext) 
+
+  const { isDark } = useContext(AuthContext);
 
   const getTipDetials = async () => {
     if (!id) {
@@ -23,239 +115,516 @@ const Tips_details = () => {
       setMessage("tip not found!");
       return;
     }
-  
+
     try {
-      const data = await apiRequiest(
-        "get",
-        `/tip-details/${id}`
-      );
+      const data = await apiRequiest("get", `/tip-details/${id}`);
       setTip(data?.tip);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
       setTip([]);
       console.log(error);
       toast.error(error.message);
       setMessage("You have no tips!");
-      setLoading(false)
+      setLoading(false);
     }
   };
 
-  useEffect(()=>{
-      getTipDetials()
-  },[])
+  useEffect(() => {
+    getTipDetials();
+  }, []);
 
-
-  
-  const handleLikeTip =async()=>{
+  const handleLikeTip = async () => {
     try {
-       await apiRequiest(
-        "put",
-        `/like-tip/${id}`
-      );
+      await apiRequiest("put", `/like-tip/${id}`);
 
       setTip((prev) => ({
         ...prev,
-        likes: prev.likes + 1
+        likes: prev.likes + 1,
       }));
-      
-      
     } catch (error) {
       console.log(error);
       toast.error(error.message);
     }
+  };
+
+  //comment and save tip handling
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState(dummyComments);
+  const handleSaveTip = () => {
+    // TODO: Call API to save tip
+    alert("Tip saved!");
+  };
+
+  const handleSubmitComment = (e) => {
+    e.preventDefault();
+    const newComment = {
+      userName: "Anonymous", // Replace with actual user
+      userPhoto: "",
+      text: comment,
+      date: new Date(),
+    };
+    setComments([newComment, ...comments]);
+    setComment("");
+  };
+
+  const formatDate = (date) => new Date(date).toLocaleDateString();
+
+  if (loading) {
+    return (
+      <>
+        <Loader />{" "}
+      </>
+    );
   }
 
-if(loading){
-    return <><Loader /> </>
-  }
-   
- 
   return (
-   <> 
-   <Helmet>
+    <>
+      <Helmet>
         <title>Tip Details</title>
-      </Helmet> 
-      <section id="tipDetails" className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 
-      py-12 px-5 `} >
-      <div className="max-w-4xl mx-auto">
+      </Helmet>
+<section
+  id="tipDetails"
+  className={`page-section min-h-screen ${
+    isDark ? "bg-black" : "bg-gray-100"
+  } py-12 px-5`}
+>
+  <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
+    {/* Tip Content */}
+    <div
+      className={`${isDark ? "bg-black" : "bg-white border-gray-200"} 
+        rounded-lg shadow-sm overflow-hidden  w-full lg:w-[65%]`}
+    >
+      <div
+            className={`${isDark ? "bg-black" : "bg-white border-gray-200"} 
+        rounded-lg shadow-sm overflow-hidden sticky top-0 border`}
+          >
+            <div className="relative">
+              <img
+                src={tip.image || " "}
+                alt={tip.title}
+                className="w-full h-64 sm:h-80 object-cover bg-gray-300"
+              />
+              {/* difficulty level */}
+              <div className="absolute top-0 left-0 p-4">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                  {tip.difficulty}
+                </span>
+              </div>
+              <div className="absolute top-0 right-0 p-4 flex justify-end">
+                <button
+                  onClick={handleSaveTip}
+                  className="inline-flex cursor-pointer items-center 
+                  px-4 py-2  rounded-md
+                bg-green-600 hover:bg-green-700 text-white transition text-sm font-medium"
+                >
+                  <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5v14l7-5 7 5V5a2 2 0 00-2-2H7a2 2 0 00-2 2z" />
+                  </svg>
+                  Save Tip
+                </button>
+              </div>
+            </div>
 
-        {/* Main Content Card */}
-        <div className={`${isDark ? 'bg-black ' : 
-        'bg-white border-gray-200'} 
-        rounded-lg shadow-sm overflow-hidden 
-        border `}>
-          {/* Tip Header */}
-          <div className="relative">
-            <img src={tip.image || ' '}
-             alt="Growing Tomatoes" className="w-full h-64 sm:h-80 object-cover bg-gray-300" />
-            <div className="absolute top-0 right-0 p-4">
-              <span className="inline-flex items-center px-3 py-1 rounded-full 
-              text-sm font-medium bg-green-100 text-green-800">
-              {tip.difficulty}</span>
+            <div className="p-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+                <h1
+                  className={`text-[26px] md:text-3xl font-bold mb-2 sm:mb-0 ${
+                    isDark ? "text-gray-400" : "text-gray-900"
+                  } nunito-family`}
+                >
+                  {tip.title}
+                </h1>
+                <div id="likeButtonContainer" className="flex items-center">
+                  <button
+                    onClick={handleLikeTip}
+                    className="inline-flex cursor-pointer items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700"
+                  >
+                    <svg
+                      className="h-5 w-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
+                    </svg>
+                    Like ({tip.likes})
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4 mb-6 text-sm text-gray-500 nunito-family">
+                <div className="flex items-center">
+                  <span>
+                    Category:{" "}
+                    <span className="text-green-600 font-medium">
+                      {tip.category}
+                    </span>
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span>Posted: {tip?.createdAt?.split("T")[0]}</span>
+                </div>
+                <div className="flex items-center">
+                  <span>
+                    By:{" "}
+                    <span className="text-green-600 font-medium">
+                      {tip?.user?.name}
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h2
+                  className={`text-lg font-medium ${
+                    isDark ? "text-gray-400" : "text-gray-900"
+                  } mb-2`}
+                >
+                  Plant Type/Topic
+                </h2>
+                <p
+                  className={`text-[16px] ${
+                    isDark ? "text-gray-500" : "text-gray-700"
+                  }`}
+                >
+                  {tip.plantType}
+                </p>
+              </div>
+
+              <div className="mb-8">
+                <h2
+                  className={`text-lg font-medium ${
+                    isDark ? "text-gray-400" : "text-gray-900"
+                  } mb-2`}
+                >
+                  Description
+                </h2>
+                <p
+                  className={`text-[16px] ${
+                    isDark ? "text-gray-500" : "text-gray-700"
+                  }`}
+                >
+                  {tip.description}
+                </p>
+              </div>
+
+              <div
+                className={`border-t ${
+                  isDark ? "" : "border-gray-200"
+                } pt-6 mt-8`}
+              >
+                <div className="flex items-center">
+                  <img
+                    src={tip.user?.photo || " "}
+                    alt="Author"
+                    className="h-12 w-12 rounded-full mr-4 bg-gray-300"
+                  />
+                  <div>
+                    <h3
+                      className={`text-lg font-medium ${
+                        isDark ? "text-gray-400" : "text-gray-900"
+                      }`}
+                    >
+                      About the Author
+                    </h3>
+                    <p
+                      className={`${
+                        isDark ? "text-gray-500" : "text-gray-700"
+                      }`}
+                    >
+                      Email: {tip.user?.email}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    {/* Comment Sidebar */}
+    <div
+      className={`${
+        isDark ? " border-gray-900" : "bg-white"
+      } rounded-lg shadow w-full lg:w-[35%]`}
+    >
+        <div
+            className={` ${isDark ? "border border-gray-900" : "bg-white"} 
+              rounded-lg p-6 shadow `}
+          >
+            <h3
+              className={`text-xl font-semibold mb-4 
+                  ${isDark ? "text-gray-300" : "text-gray-800"}`}
+            >
+              Comments
+            </h3>
+
+            <form onSubmit={handleSubmitComment} className="mb-6">
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Write your thoughts..."
+                className={`w-full p-3 rounded-lg border ${
+                  isDark ? "" : "border-gray-300"
+                }
+                    outline-none focus:outline-green-500 `}
+                rows={3}
+                required
+              />
+              <button
+                type="submit"
+                className="mt-2 cursor-pointer px-4 py-2 bg-green-600 text-white 
+                    rounded-md hover:bg-green-700 text-sm transition"
+              >
+                Post Comment
+              </button>
+            </form>
+
+            <div className="space-y-4 max-h-[450px] overflow-auto">
+              {comments.map((c, i) => (
+                <div key={i} className="flex gap-3 items-start">
+                  <img
+                    src={c.userPhoto || "/default-avatar.png"}
+                    alt="User"
+                    className="h-9 w-9 rounded-full object-cover bg-gray-300"
+                  />
+                  <div>
+                    <p className="text-sm font-semibold text-green-700">
+                      {c.userName}
+                    </p>
+                    <p
+                      className={`text-sm ${
+                        isDark ? "text-gray-400" : "text-gray-900"
+                      }`}
+                    >
+                      {c.text}
+                    </p>
+                    <span
+                      className={`text-xs ${
+                        isDark ? "text-gray-500" : "text-gray-700"
+                      }`}
+                    >
+                      {formatDate(c.date)}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+    </div>
+  </div>
+</section>
+
+
+      {/* <section
+        id="tipDetails"
+        className={`page-section min-h-screen ${
+          isDark ? "bg-black" : "bg-gray-100"
+        } py-12 px-5`}
+      >
+        <div className="flex gap-2">
+          
+          <div
+            className={`${isDark ? "bg-black" : "bg-white border-gray-200"} 
+        rounded-lg shadow-sm overflow-hidden sticky top-0 border`}
+          >
+            <div className="relative">
+              <img
+                src={tip.image || " "}
+                alt={tip.title}
+                className="w-full h-64 sm:h-80 object-cover bg-gray-300"
+              />
+              <div className="absolute top-0 right-0 p-4">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                  {tip.difficulty}
+                </span>
+              </div>
+            </div>
+
+            <div className="p-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+                <h1
+                  className={`text-[26px] md:text-3xl font-bold mb-2 sm:mb-0 ${
+                    isDark ? "text-gray-400" : "text-gray-900"
+                  } nunito-family`}
+                >
+                  {tip.title}
+                </h1>
+                <div id="likeButtonContainer" className="flex items-center">
+                  <button
+                    onClick={handleLikeTip}
+                    className="inline-flex items-center px-4 py-2 rounded-md text-sm font-medium text-white bg-green-600 hover:bg-green-700"
+                  >
+                    <svg
+                      className="h-5 w-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
+                    </svg>
+                    Like ({tip.likes})
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4 mb-6 text-sm text-gray-500 nunito-family">
+                <div className="flex items-center">
+                  <span>
+                    Category:{" "}
+                    <span className="text-green-600 font-medium">
+                      {tip.category}
+                    </span>
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span>Posted: {tip?.createdAt?.split("T")[0]}</span>
+                </div>
+                <div className="flex items-center">
+                  <span>
+                    By:{" "}
+                    <span className="text-green-600 font-medium">
+                      {tip?.user?.name}
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h2
+                  className={`text-lg font-medium ${
+                    isDark ? "text-gray-400" : "text-gray-900"
+                  } mb-2`}
+                >
+                  Plant Type/Topic
+                </h2>
+                <p
+                  className={`text-[16px] ${
+                    isDark ? "text-gray-500" : "text-gray-700"
+                  }`}
+                >
+                  {tip.plantType}
+                </p>
+              </div>
+
+              <div className="mb-8">
+                <h2
+                  className={`text-lg font-medium ${
+                    isDark ? "text-gray-400" : "text-gray-900"
+                  } mb-2`}
+                >
+                  Description
+                </h2>
+                <p
+                  className={`text-[16px] ${
+                    isDark ? "text-gray-500" : "text-gray-700"
+                  }`}
+                >
+                  {tip.description}
+                </p>
+              </div>
+
+              <div
+                className={`border-t ${
+                  isDark ? "" : "border-gray-200"
+                } pt-6 mt-8`}
+              >
+                <div className="flex items-center">
+                  <img
+                    src={tip.user?.photo || " "}
+                    alt="Author"
+                    className="h-12 w-12 rounded-full mr-4 bg-gray-300"
+                  />
+                  <div>
+                    <h3
+                      className={`text-lg font-medium ${
+                        isDark ? "text-gray-400" : "text-gray-900"
+                      }`}
+                    >
+                      About the Author
+                    </h3>
+                    <p
+                      className={`${
+                        isDark ? "text-gray-500" : "text-gray-700"
+                      }`}
+                    >
+                      Email: {tip.user?.email}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="p-6">
-            
+     
 
-            
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-        <h1 className={`text-[26px] md:text-3xl font-bold  mb-2 sm:mb-0 ${isDark ? 'text-gray-400' : 'text-gray-900'} nunito-family`}>
-          {tip.title}
-        </h1>
-
-        <div id="likeButtonContainer" className="flex items-center">
-          <button
-             onClick={handleLikeTip}
-            className="inline-flex cursor-pointer nunito-family items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          <div
+            className={` ${isDark ? "border border-gray-900" : "bg-white"} 
+              rounded-lg p-6 shadow `}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-2"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+            <h3
+              className={`text-xl font-semibold mb-4 
+                  ${isDark ? "text-gray-300" : "text-gray-800"}`}
             >
-              <path
-                fillRule="evenodd"
-                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                clipRule="evenodd"
+              Comments
+            </h3>
+
+            <form onSubmit={handleSubmitComment} className="mb-6">
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Write your thoughts..."
+                className={`w-full p-3 rounded-lg border ${
+                  isDark ? "" : "border-gray-300"
+                }
+                    outline-none focus:outline-green-500 `}
+                rows={3}
+                required
               />
-            </svg>
-            Like ({tip.likes})
-          </button>
-        </div>
-      </div>
+              <button
+                type="submit"
+                className="mt-2 px-4 py-2 bg-green-600 text-white 
+                    rounded-md hover:bg-green-700 text-sm transition"
+              >
+                Post Comment
+              </button>
+            </form>
 
-      {/* Tip Metadata */}
-      <div className="flex flex-wrap gap-4 mb-6 text-sm text-gray-500 nunito-family">
-        <div className="flex items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 mr-1 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-            />
-          </svg>
-          <span>
-            Category: 
-            <span className="text-green-600 font-medium">
-              {tip.category}</span>
-          </span>
-        </div>
-
-        {/* <div className="flex items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 mr-1 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-            />
-          </svg>
-          <span> 0 views</span>
-        </div> */}
-
-        <div className="flex items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 mr-1 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-          <span>Posted: {tip?.createdAt?.split('T')[0]}</span>
-        </div>
-
-        <div className="flex items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 mr-1 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-            />
-          </svg>
-          <span>
-            By: <span className="text-green-600 font-medi
-            um">{tip?.user?.name}</span>
-          </span>
-        </div>
-      </div>
-
-      {/* Plant Type/Topic */}
-      <div className="mb-6">
-        <h2 className={`text-lg font-medium ${isDark ? 'text-gray-400' :
-           'text-gray-900'} nunito-family  mb-2`}>Plant Type/Topic</h2>
-        <p className={` text-[16px] ${isDark ? 'text-gray-500' : 
-          'text-gray-700'} roboto-family`}>{tip.plantType}</p>
-      </div>
-
-      {/* Description */}
-      <div className="mb-8">
-        <h2 className={`text-lg font-medium ${isDark ? 'text-gray-400' : 'text-gray-900'} nunito-family  mb-2`}>Description</h2>
-        <div className="prose max-w-none text-gray-700">
-          <p className={` mb-4 text-[16px] ${isDark ? 'text-gray-500' :
-             'text-gray-700'} roboto-family`}>
-           {tip.description}
-          </p>
-        
-        </div>
-      </div>
-
-      {/* Author Info */}
-      <div className={`border-t ${isDark ? '':'border-gray-200'} pt-6 mt-8`}>
-        <div className="flex items-center">
-          <img
-            src={tip.user?.photo || ' '}
-            alt="Sarah Johnson"
-            className="h-12 w-12 rounded-full mr-4 bg-gray-300"
-          />
-          <div>
-            <h3 className={`text-lg font-medium ${ isDark ? 'text-gray-400' : 'text-gray-900'} nunito-family`}>About the Author</h3>
-            <p className={ `${isDark ? 'text-gray-500' : 'text-gray-700'} roboto-family`}>
-              Email : {tip.user?.email}
-            </p>
+            <div className="space-y-4 max-h-[500px] overflow-auto">
+              {comments.map((c, i) => (
+                <div key={i} className="flex gap-3 items-start">
+                  <img
+                    src={c.userPhoto || "/default-avatar.png"}
+                    alt="User"
+                    className="h-9 w-9 rounded-full object-cover bg-gray-300"
+                  />
+                  <div>
+                    <p className="text-sm font-semibold text-green-700">
+                      {c.userName}
+                    </p>
+                    <p
+                      className={`text-sm ${
+                        isDark ? "text-gray-400" : "text-gray-900"
+                      }`}
+                    >
+                      {c.text}
+                    </p>
+                    <span
+                      className={`text-xs ${
+                        isDark ? "text-gray-500" : "text-gray-700"
+                      }`}
+                    >
+                      {formatDate(c.date)}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    
-          </div>
-        </div>
-      </div>
-    </section></>
-  )
-}
+      </section> */}
+    </>
+  );
+};
 
-export default Tips_details
+export default Tips_details;
+
+
+
