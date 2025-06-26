@@ -8,6 +8,7 @@ import Upcoming_events from '../components/Upcoming_events'
 import About from '../components/About'
 import FAQ from '../components/FAQ'
 import Stats from '../components/Stats'
+import Featured_gardenersTest from '../test/Featured_gardeners';
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
           <title>Garden Hub | Home</title>
         </Helmet>
         <Hero /> 
+          <Featured_gardenersTest />
           <Featured_gardeners />
           <Trending_tips />
           <Upcoming_events />

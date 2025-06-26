@@ -7,7 +7,7 @@ import { AuthProvider } from './config/AuthProvider'
 
 createRoot(document.getElementById('root')).render(
   <>
-  <AuthProvider>
+    <AuthProvider>
     <RouterProvider router={Router} />
     </AuthProvider>
   </>
