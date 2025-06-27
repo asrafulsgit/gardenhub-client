@@ -3,16 +3,17 @@ import {  toast } from 'react-toastify';
 
 import { AuthContext } from '../config/AuthProvider';
 import { updateProfile } from 'firebase/auth';
+import { apiRequiest } from '../utils/ApiCall';
 
 
 const isValidPassword =(password)=> {
-  const minLength = /.{8,}/;
+  const minLength = /.{6,}/;
   const uppercase = /[A-Z]/;
   const lowercase = /[a-z]/;
   const specialChar = /[!@#$%^&*(),.?":{}|<>]/;
   
   if(!minLength.test(password)){
-    toast.error('At least 8 characters!');
+    toast.error('At least 6 characters!');
     return false;
   }
   if(!uppercase.test(password)){
@@ -33,56 +34,52 @@ const isValidPassword =(password)=> {
 }
 
 
-const Register = ({userRegister}) => {
-  const {register,isDark,setLoading,googleRegister } = useContext(AuthContext); 
+const Register = ({userRegistered}) => {
+  const {isDark,handleLoginWithGoogle} = useContext(AuthContext); 
 
+  const initRegisterInfo ={
+    name: "",
+    email: "",
+    avatar: "",
+    password: ""
+  }
+  const [registerInfo,setRegisterInfo]= useState(initRegisterInfo)
+  const [registerLoading,setRegisterLoading]=useState(false)
 
-  const [registerInfo,setRegister]= useState({name : '',photoURL : '', email : '', password : ''})
-  
   const handleRegisterChange =(e)=>{
     const {name,value}=e.target;
-    setRegister({...registerInfo,[name] : value})
+    setRegisterInfo({...registerInfo,[name] : value})
   }
 
-  const handleRegister = (e) => {
+  const handleRegister = async(e) => {
     e.preventDefault();
-    const { email, password, name, photoURL } = registerInfo;
-  
+    const {  password } = registerInfo;
     if(!isValidPassword(password)){
       return;
     }
+    setRegisterLoading(true)
+       try {
+         await apiRequiest('post', '/user/register', registerInfo)
+         setRegisterLoading(false)
+         toast.success('Register successfull')
+         setRegisterInfo(initRegisterInfo)
+         userRegistered()
+       } catch (error) {
+          setRegisterLoading(false)
+          toast.error(error?.response?.data?.message)
+       }
   
-  
-    register(email, password)
-      .then((res) => {
-        const user = res.user;
-    updateProfile(user, {
-      displayName: name,
-      photoURL: photoURL || 'https://i.ibb.co.com/hRGTZWdX/download.jpg',
-    }).then(() => {
-      toast.success('Registered successfully!');
-      userRegister('login')
-      setLoading(false)
-    }).catch((err) => {
-      toast.error(err.message)
-      setLoading(false)
-    });
-      })
-      .catch((err) => {
-        toast.error(err.message)
-        setLoading(false)
-      });
+    
   };
-  const handleGoogle = () => {
-    googleRegister()
-      .then((res) => {
-        toast.success('Registered successfully!')
-        setLoading(false)
-      })
-      .catch((err) => {
-         toast.error(err.message)
-         setLoading(false)
-      });
+  const handleGoogle = async() => {
+    const isRegister =await handleLoginWithGoogle();
+        if(isRegister){
+          setIsLoggedIn(true)
+          toast.success('Register successfull')
+          navigate('/')
+        }else{
+          toast.error('Register failed')
+        }
   };
   return (
    <div className="p-6">
@@ -111,12 +108,12 @@ const Register = ({userRegister}) => {
                 focus:border-green-500  nunito-family`} required />
               </div>
               <div className="mb-4">
-                <label htmlFor="photo-url" className={`block text-sm font-medium 
+                <label htmlFor="avatar" className={`block text-sm font-medium 
                   ${isDark ? 'text-gray-500' : 'text-gray-700'} mb-1  nunito-family`}>Photo URL</label>
                 <input type="text"
                  onChange={handleRegisterChange} 
-                 value={registerInfo.photoURL} 
-                 id="photo-url" name="photoURL" 
+                 value={registerInfo.avatar} 
+                 id="avatar" name="avatar" 
                  placeholder="https://example.com/your-photo.jpg" className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
                 focus:border-green-500  nunito-family`} />

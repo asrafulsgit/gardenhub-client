@@ -200,7 +200,7 @@ const Explore_gardener = () => {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
-  //  const [gardeners,setGardeners] = useState([])
+   const [gardeners,setGardeners] = useState([])
 
     const getGardeners = async () => {
     try {
@@ -208,7 +208,7 @@ const Explore_gardener = () => {
         "get",
         `/gardeners`
       );
-      setGardeners(data?.gardeners)
+      setGardeners(data?.data)
       setLoading(false)
     } catch (error) {
       console.log(error);
@@ -220,7 +220,7 @@ const Explore_gardener = () => {
   };
 
   useEffect(()=>{
-      // getGardeners()
+      getGardeners()
   },[])
 
   
@@ -324,12 +324,11 @@ const Explore_gardener = () => {
 
 const FeaturedGardenerCard = ({ gardener }) => {
   const {
-    avatar,
-    name,
     bio,
     rating,
     isActive,
     specialist,
+    user
   } = gardener;
   const {isDark} = useContext(AuthContext) 
   return (
@@ -340,14 +339,14 @@ const FeaturedGardenerCard = ({ gardener }) => {
       <div className="flex justify-between w-full mb-3">
             <div className="flex items-center gap-4">
                 <img
-                src={avatar}
-                alt={`${name}'s avatar`}
+                src={user?.avatar}
+                alt={`${user?.name}'s avatar`}
                 className="w-18 h-18 rounded-full object-cover border-4 border-[#0A6B01]"
             />
             <div>
                 <h3 className={`text-xl font-semibold 
                 ${isDark ? 'text-gray-400' : 'text-[#111827]'}
-                nunito-family`}>{name}</h3>
+                nunito-family`}>{user?.name}</h3>
                     
                 <div className="flex flex-wrap gap-2 ">
                 {

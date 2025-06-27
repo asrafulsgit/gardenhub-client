@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { toast } from "react-toastify";
 
 import { AuthContext } from "../config/AuthProvider";
-import { apiRequiest } from "../utils/ApiCall";
+import { apiRequiestWithCredentials } from "../utils/ApiCall";
 import Loader from "../utils/Loader";
 
 export const dummyComments = [
@@ -117,12 +117,12 @@ const Tips_details = () => {
     }
 
     try {
-      const data = await apiRequiest("get", `/tip-details/${id}`);
+      const data = await apiRequiestWithCredentials("get", `/tip-details/${id}`);
       setTip(data?.tip);
       setLoading(false);
     } catch (error) {
       setTip([]);
-      console.log(error);
+ 
       toast.error(error.message);
       setMessage("You have no tips!");
       setLoading(false);
@@ -135,25 +135,31 @@ const Tips_details = () => {
 
   const handleLikeTip = async () => {
     try {
-      await apiRequiest("put", `/like-tip/${id}`);
+      await apiRequiestWithCredentials("put", `/like-tip/${id}`);
 
       setTip((prev) => ({
         ...prev,
         likes: prev.likes + 1,
       }));
     } catch (error) {
-      console.log(error);
+
       toast.error(error.message);
     }
   };
 
+  const handleSaveTip = async (id) => {
+      try {
+        await apiRequiestWithCredentials("post", `/tip/saved/${id}`);
+        toast.success("Tip saved successfull.");
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
+      }
+    };
+
   //comment and save tip handling
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState(dummyComments);
-  const handleSaveTip = () => {
-    // TODO: Call API to save tip
-    alert("Tip saved!");
-  };
+  
 
   const handleSubmitComment = (e) => {
     e.preventDefault();
@@ -212,7 +218,7 @@ const Tips_details = () => {
               </div>
               <div className="absolute top-0 right-0 p-4 flex justify-end">
                 <button
-                  onClick={handleSaveTip}
+                  onClick={()=>handleSaveTip(id)}
                   className="inline-flex cursor-pointer items-center 
                   px-4 py-2  rounded-md
                 bg-green-600 hover:bg-green-700 text-white transition text-sm font-medium"

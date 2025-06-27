@@ -1,37 +1,28 @@
 import React, { useState } from "react";
 import { useContext } from "react";
-// import { AuthContext } from "../../controllers/AuthProvider";
-// import { getDate, getTime } from "../../utilities/minimizeData";
-// import { apiRequiestWithCredentials } from "../../utilities/ApiCall";
-// import Spinner from "../aditionals/Spinner";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../config/AuthProvider";
+import { getDate, getTime } from "../../utils/dateSetting";
+import { apiRequiestWithCredentials } from "../../utils/ApiCall";
 
 const Create_event = () => {
   const {userInfo,isDark}= useContext(AuthContext)
   const [dateTime,setDateTime]=useState("")
  const initEvent ={
-    _id: "e001",
-    name: " ",
-    type: " ",
-    date: " ",
-    time: " ",
-    location: " ",
+    name: "",
+    type: "",
+    date: "",
+    time: "",
+    location: "",
     fee: 0,
-    description:" ",
-    image: " ",
+    description:"",
+    image: "",
     maxRegistrations: 0,
     registered: 0,
-    organizer: {
-      image: "https://example.com/images/organizer1.jpg",
-      name: "Asma Khatun",
-      email: "asma@gardenhub.com",
-    },
-    tags: [],
-    isFree: true,
-    isFull: false,
+    tags: []
   }
   const [eventData, setEventData] = useState(initEvent);
+
   const [createLoading,setCreateLoading]=useState(false)
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,7 +46,7 @@ const Create_event = () => {
     e.preventDefault();
      setCreateLoading(true)
        try {
-         await apiRequiestWithCredentials('post', '/create-event', eventData)
+         await apiRequiestWithCredentials('post', '/event/create', eventData)
          toast.success('Event created successfull')
          setCreateLoading(false)
          setEventData(initEvent)
@@ -63,6 +54,7 @@ const Create_event = () => {
        } catch (error) {
           setCreateLoading(false)
           toast.error(error?.response?.data?.message)
+
        }
     
   };
@@ -298,14 +290,13 @@ const gardeningTags = [
                 Registration Fee <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-3 text-gray-500">$</span>
                 <input
                   type="number"
                   name="fee"
                   value={eventData.fee}
                   onChange={handleChange}
                   required
-                  min ='1'
+                  min ='0'
                   placeholder="0.00"
                   className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-700 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 
@@ -366,8 +357,8 @@ const gardeningTags = [
               </label>
               <input
                 type="number"
-                name="participants"
-                value={eventData.participants}
+                name="maxRegistrations"
+                value={eventData.maxRegistrations || ''}
                 onChange={handleChange}
                 min='1'
                 placeholder="Enter maximum number of participants"
@@ -406,7 +397,7 @@ const gardeningTags = [
                 </label>
                 <input
                   type="text"
-                  value={eventData?.organizer?.name || ''}
+                  value={userInfo.name || ''}
                   readOnly
                   disabled
                   className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
@@ -421,7 +412,7 @@ const gardeningTags = [
                 </label>
                 <input
                   type="email"
-                  value={eventData?.organizer?.email || ''}
+                  value={userInfo.email || ''}
                   disabled
                   readOnly
                   className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 

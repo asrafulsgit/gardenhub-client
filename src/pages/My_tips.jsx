@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import { Helmet } from "react-helmet";
 
 import { AuthContext } from "../config/AuthProvider";
-import { apiRequiest } from "../utils/ApiCall";
+import { apiRequiest, apiRequiestWithCredentials } from "../utils/ApiCall";
 import Loader from "../utils/Loader";
 
 const My_tips = () => {
@@ -34,14 +34,14 @@ const My_tips = () => {
       return;
     }
     try {
-      const data = await apiRequiest(
+      const data = await apiRequiestWithCredentials(
         "get",
-        `/my-tips?email=${userInfo?.email}`
+        `/my-tips`
       );
       setMyTips(data?.tips);
       setLoading(false)
     } catch (error) {
-      console.log(error);
+ 
       toast.error(error.message);
       setMessage("You have no tips!");
       setLoading(false)
@@ -60,7 +60,7 @@ const My_tips = () => {
       toast.success("Tip deleted successfully!");
       document.getElementById('my_modal_1').close();
     } catch (error) {
-      console.log(error)
+  
       toast.error(error.message);
     }
   }

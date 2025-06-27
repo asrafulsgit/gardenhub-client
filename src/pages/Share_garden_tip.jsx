@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import { Helmet } from 'react-helmet'
 
 import { AuthContext } from '../config/AuthProvider'
-import { apiRequiest } from '../utils/ApiCall'
+import { apiRequiest, apiRequiestWithCredentials } from '../utils/ApiCall'
 
 const Share_garden_tip = () => {
   const {userInfo,isDark} = useContext(AuthContext)
@@ -15,12 +15,7 @@ const Share_garden_tip = () => {
   description: '',
   image:'',
   category: '',
-  availability: '',
-  user: {
-    email: userInfo.email,
-    name: userInfo.displayName,
-    photo : userInfo?.photoURL
-  }
+  availability: ''
   }
   const [tipData,setTipData]= useState(initalTipData)
  
@@ -44,18 +39,19 @@ const Share_garden_tip = () => {
         availability,
         user
     } = tipData;
-    if (!title || !plantType || !difficulty || !description || !image || !category || !availability || !user?.email || !user?.name) {
-            toast.error('All fields are required.')
+    if (!title || !plantType || !difficulty || !description || !image || !category || !availability ) {
+        toast.error('All fields are required.')
+        return;
         }
 
 
 
     try {
-     await apiRequiest('post','/tip',tipData);
+     await apiRequiestWithCredentials('post','/tip',tipData);
      toast.success('tip successfully added!')
      setTipData(initalTipData)
     } catch (error) {
-      console.log(error)
+ 
       toast.error(error.message)
     }
   }
@@ -251,8 +247,7 @@ const Share_garden_tip = () => {
                   <input
                     type="text"
                     placeholder="John Doe"
-                      onChange={handleChange}
-                value={tipData.user.name}
+                value={userInfo.name}
                 readOnly
                 disabled
                     className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
@@ -266,10 +261,10 @@ const Share_garden_tip = () => {
                    'text-gray-500' : 'text-gray-700'} mb-1 nunito-family`}>Email</label>
                   <input
                     type="email"
-                      onChange={handleChange}
+                       
                       readOnly
                       disabled
-                value={tipData.user.email}
+                value={userInfo.email}
                     placeholder="john.doe@example.com"
                     className={`w-full px-3 py-2 border ${isDark ? 'text-gray-400 border-gray-500 ' : 'border-gray-300 '} 
                 rounded-md shadow-sm focus:outline-none focus:ring-green-500 

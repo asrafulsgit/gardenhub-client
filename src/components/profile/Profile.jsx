@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../config/AuthProvider';
 import { Star } from "lucide-react";
+import { apiRequiestWithCredentials } from '../../utils/ApiCall';
 // const Profile = () => {
 //   const {userInfo}=useContext(AuthContext)
 //   const [activeTab, setActiveTab] = useState('overview');
@@ -24,7 +25,7 @@ import { Star } from "lucide-react";
 //     name :userInfo?.name,
 //     email :userInfo?.email,
 //     avatar : userInfo?.avatar,
-//     experties: [],
+//     specialist: [],
 //     bio : '',
 //     phone : '',
 //     location : '',
@@ -88,7 +89,7 @@ import { Star } from "lucide-react";
 //             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{profile?.name}</h1>
 //             <p className="text-gray-600 mb-2">{profile?.email}</p>
 //             <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-4">
-//               {profile?.experties.map((expert,index)=>{
+//               {profile?.specialist.map((expert,index)=>{
 //                 return(
 //                   <span key={index} className="bg-blue-100 text-blue-800 
 //               text-xs font-medium px-2.5 py-0.5 rounded-full">{expert}</span>
@@ -223,47 +224,59 @@ import { Star } from "lucide-react";
 // };
 
 
+const Profile = () => {
+  const { isDark,userInfo } = useContext(AuthContext);
 
-const gardener={
-    id: "g001",
-    name: "Sara Ahmed",
-    username: "sara_gardens",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    bio: "Urban gardening enthusiast.",
-    location: "Dhaka, Bangladesh",
-    joinedAt: "2023-08-15T10:30:00Z",
-    yearsOfExperience: 5,
-    age: 29,
-    sex: "Female",
-    specialist: ["Herbs", "Succulents", "Organic Gardening"],
-    services: [
-      {
-        name: "Tree Service",
-        description: "Expert in pruning, removal, and tree health assessments.",
-      },
-      {
-        name: "Soil Testing",
-        description: "Improving soil quality for optimized plant growth.",
-      },
-    ],
-    totalTipsShared: 42,
-    followersCount: 350,
-    followingCount: 75,
-    favoritePlants: ["Basil", "Aloe Vera", "Mint"],
-    isActive: true,
-    rating: 4.7,
+  const intitGardener ={
+    name: userInfo.name || "",
+    avatar: userInfo.avatar || "https://i.ibb.co/PsHDfWt8/user-icon-illustration-for-graphic-design-logo-web-site-social-media-mobile-app-ui-png.png",
+    bio: "",
+    location: "",
+    joinedAt: "",
+    yearsOfExperience: 0,
+    age: 0,
+    sex: " ",
+    specialist: [],
+    services: [],
+    totalTipsShared: 0,
+    followersCount: 0,
+    followingCount: 0,
+    favoritePlants: [],
+    isActive: false,
+    rating: 0,
+  }
+  const [gardener, setGardener] = useState(intitGardener);
+  const [pageLoading,setPageLoading]=useState(true)
+  const getProfileInfo=async()=>{
+    try {
+      const data = await apiRequiestWithCredentials('get','/gardener/profile');
+
+      const profileInfo = data?.gardener;
+      setGardener((prev)=>{
+        return{
+          ...prev,
+          ...profileInfo
+        }
+      })
+      setPageLoading(false)
+    } catch (error) {
+
+      setPageLoading(false)
+    }
   }
 
+  useEffect(()=>{
+    getProfileInfo();
+  },[])
 
-const Profile = () => {
-  const { isDark } = useContext(AuthContext);
+  
   return (
     <section className={`py-10 px-5  ${isDark? "bg-black " :"bg-[#E4FEEC] "} `}>
       <div className={`relative max-w-4xl mx-auto ${isDark? "border"
          :"bg-white "}  shadow rounded-xl overflow-hidden`}>
         {/* Action Buttons */}
           <div className="absolute top-5 right-5 flex flex-col space-y-2">            
-            <Link to='/update-profile' > 
+            <Link to='/update-profile' state={gardener} > 
               <button className="bg-[#0A6B01] cursor-pointer text-white px-4 py-2 
               rounded-lg hover:bg-[#2BC854] transition-colors duration-200 font-medium">
                   Edit Profile
@@ -392,6 +405,9 @@ const Profile = () => {
     </section>
   );
 };
+
+
+
 
 
 export default Profile;

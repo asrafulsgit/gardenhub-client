@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 
 const dummyGardener = {
@@ -25,14 +26,12 @@ export default function Featured_gardeners() {
 
 const FeaturedGardenerCard = ({ gardener }) => {
   const {
-    avatar,
-    name,
-    username,
     bio,
     rating,
     yearsOfExperience,
     isActive,
     specialist,
+    _id
   } = gardener;
 
   return (
@@ -88,14 +87,12 @@ const FeaturedGardenerCard = ({ gardener }) => {
             </svg>
             <span className="ml-2 font-semibold">{rating.toFixed(1)}</span>
           </div>
-           <button
-            type="button"
+          <Link to={`/gardener/${gardener._id}`}> <button
             className="w-full cursor-pointer sm:w-auto px-5 py-2 rounded-full
              bg-[#2BC854] text-white font-semibold hover:bg-[#0A6B01] transition"
-            onClick={() => alert(`View profile of ${name}`)}
           >
             View Profile
-          </button>
+          </button></Link>
         </div>
     </div>
   );

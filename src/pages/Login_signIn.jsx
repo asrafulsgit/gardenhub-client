@@ -65,7 +65,7 @@ const Login_signIn = () => {
           {activeTab === "login" && <Login />}
 
           {/* Register Form */}
-          {activeTab === "register" && <Register userRegister={userRegister} />}
+          {activeTab === "register" && <Register userRegistered={()=>setActiveTab("login")} />}
         </div>
       </section>
     </>

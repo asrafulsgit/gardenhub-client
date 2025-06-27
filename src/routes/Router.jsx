@@ -48,7 +48,7 @@ const Router =createBrowserRouter([
             },
             { 
                 path : 'tip-details/:id',
-                element : <Tips_details />,
+                element : <Auth_middleware> <Tips_details /></Auth_middleware> ,
                 errorElement : <NotFoundPage />
             },
             { 
@@ -79,7 +79,7 @@ const Router =createBrowserRouter([
             { 
                 path : 'update-event/:id',
                 element : <Auth_middleware><Update_event /></Auth_middleware>,
-                // errorElement : <NotFoundPage />
+                errorElement : <NotFoundPage />
             },
             { 
                 path : 'event-details/:id',

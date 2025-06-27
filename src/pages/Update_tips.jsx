@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 
 import { AuthContext } from '../config/AuthProvider';
-import { apiRequiest } from '../utils/ApiCall';
+import { apiRequiest, apiRequiestWithCredentials } from '../utils/ApiCall';
 import Loader from '../utils/Loader';
 
 const Update_tips = () => {
@@ -27,7 +27,7 @@ const Update_tips = () => {
       }
       
       try {
-        const data = await apiRequiest(
+        const data = await apiRequiestWithCredentials(
           "get",
           `/tip-details/${id}`
         );
@@ -35,7 +35,7 @@ const Update_tips = () => {
         setLoading(false)
       } catch (error) {
         setFormData({});
-        console.log(error);
+     
         toast.error(error.message);
         setMessage("tip not found!");
         setLoading(false)
@@ -59,11 +59,11 @@ const Update_tips = () => {
       return;
     }
     try {
-      await apiRequiest('put',`/tip/${id}`,{formData})
+      await apiRequiestWithCredentials('put',`/tip/${id}`,{formData})
       toast.success('tip update successfully')
       navigate('/manage-tips')
     } catch (error) {
-      console.log(error)
+
       toast.error('tip not update! try again.')
     }
   };

@@ -5,6 +5,7 @@ import { useContext } from "react";
 
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../../config/AuthProvider";
+import { apiRequiestWithCredentials } from "../../utils/ApiCall";
 
 
 const initEvent ={
@@ -36,17 +37,13 @@ const Event_details = () => {
   const {isDark} = useContext(AuthContext);
   const [event, setEvent] = useState(initEvent);
 
-  const [bookeEvents, setBookeEvents] = useState(
-    JSON.parse(localStorage.getItem("bookeEvent")) || []
-  );
-  const [isBookedEvent, setIsBookedEvent] = useState(bookeEvents.includes(id));
 
   const [pageLoading, setPageLoading] = useState(true);
   const getEvent = async () => {
     try {
       const data = await apiRequiestWithCredentials(
         "get",
-        `/event-details/${id}`
+        `/event/details/${id}`
       );
       setEvent(data?.event);
       setPageLoading(false);
@@ -59,13 +56,13 @@ const Event_details = () => {
   };
 
   useEffect(() => {
-    // getEvent();
+    getEvent();
   }, []);
   const handleBookEvent = async () => {
     try {
       await apiRequiestWithCredentials("post", `/create/book-event/${id}`);
       localStorage.setItem("bookeEvent", JSON.stringify([...bookeEvents, id]));
-      setIsBookedEvent(true);
+    
       toast.success("Book event successfull.");
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -101,46 +98,7 @@ const Event_details = () => {
                 alt="Event Banner"
                 className="w-full bg-gray-300 h-64 md:h-80 object-cover"
               />
-              {isBookedEvent ? (
-                <button
-                  disabled
-                  className="absolute top-5 
-            right-5 w-8 cursor-pointer bg-[#0A6B01] rounded-sm"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    className="text-[#E4FEEC]"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M6.75 3A1.5 1.5 0 005.25 4.5v15.75a.75.75 0 001.168.63L12 17.25l5.582 3.63a.75.75 0 001.168-.63V4.5A1.5 1.5 0 0017.25 3H6.75z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </button>
-              ) : (
-                <button
-                  onClick={handleBookEvent}
-                  className="absolute top-5 right-5 w-8 cursor-pointer bg-[#0A6B01] rounded-sm"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                    className="text-[#E4FEEC]"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6.75 4.5h10.5c.414 0 .75.336.75.75v14.25a.75.75 0 01-1.168.63L12 16.5l-4.832 3.63a.75.75 0 01-1.168-.63V5.25c0-.414.336-.75.75-.75z"
-                    />
-                  </svg>
-                </button>
-              )}
+        
             </div>
 
             {/* Event Information */}
@@ -422,7 +380,7 @@ const BookingCard = ({ event, setNewReview }) => {
 
             <button
               type="submit"
-              disabled={isBooked}
+              disabled
               className={`w-full  bg-[#0A6B01] text-white 
               py-3 px-4 rounded-lg font-semibold ${
                 isBooked

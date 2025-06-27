@@ -17,7 +17,7 @@ const Trending_tips = () => {
       const data = await apiRequiest("get", "/trending-tips");
       setTrendingTips(data?.tips);
     } catch (error) {
-      console.log(error);
+
       toast.error(error.message);
       setMessage("Trending tips not found!");
     }

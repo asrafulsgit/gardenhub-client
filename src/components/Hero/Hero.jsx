@@ -11,6 +11,7 @@ import './hero.css';
 
 // import required modules
 import { Navigation, Pagination, EffectFade,Autoplay } from 'swiper/modules';
+import { Link } from 'react-router';
 
 const Hero = () => {
   const slides =[
@@ -77,8 +78,8 @@ const Hero = () => {
                         <h1 className='text-[32px] sm:text-[36px] md:text-[46px] xl:text-[60px] font-[700] leading-12 text-white nunito-family'>{slide.title}</h1>
                         <p className=' xl:text-[20px] lg:font-[300] xl:font-[400] px-10  mb-5 mt-3 text-gray-300  roboto-family'>{slide.subtitle}</p>
                         <p className='xl:text-[18px] lg:font-[300] xl:font-[400] mb-5 text-gray-300  nunito-family'>{slide.date}</p>
-                        <button className='py-3 px-6  lg:px-10 lg:text-[18px] rounded-lg      
-                        font-[500] text-white cursor-pointer  bg-[#16a34a] nunito-family'>{slide.button}</button>
+                       <Link to={'/events'}> <button className='py-3 px-6  lg:px-10 lg:text-[18px] rounded-lg      
+                        font-[500] text-white cursor-pointer  bg-[#16a34a] nunito-family'>Book Event</button></Link>
                     </div>
                 </SwiperSlide>
        )) }

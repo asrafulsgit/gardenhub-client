@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../config/AuthProvider';
 
 // Import Swiper React components
@@ -7,85 +7,102 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
 import './upce.css'; 
+import { apiRequiest } from '../../utils/ApiCall';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router';
 
 
 const Upcoming_events = () => {
-  const events = [
-    {
-      date: 'May 15, 2024',
-      time: '10:00 AM - 2:00 PM',
-      title: 'Women in Gardening Workshop',
-      description:
-        'Join our special workshop celebrating women gardeners. Learn techniques, share experiences, and build community.',
-      spotsLeft: 15,
-      buttonText: 'Register Now',
-      buttonVariant: 'green',
-      image: 'https://i.ibb.co/HWWPv0z/photo-1522543558187-768b6df7c25c.jpg', // Placeholder image
-      featured: true,
-    },
-    {
-      date: 'June 5, 2024',
-      time: '9:00 AM - 3:00 PM',
-      title: 'Community Garden Planting Day',
-      description:
-        'A fun-filled day of planting, socializing, and beautifying our community garden. All experience levels welcome!',
-      spotsLeft: 'Unlimited spots',
-      buttonText: 'Volunteer Now',
-      buttonVariant: 'green',
-      image: 'https://i.ibb.co/6J4FhkVV/photo-1491438590914-bc09fcaaf77a.jpg', 
-      featured: false,
-    },
-    {
-      date: 'July 22, 2024',
-      time: '1:00 PM - 5:00 PM',
-      title: 'Garden-to-Table Dinner',
-      description:
-        'Harvest fresh produce from our garden and learn to prepare delicious, seasonal dishes with our expert chef.',
-      spotsLeft: 5,
-      buttonText: 'Book Your Spot',
-      buttonVariant: 'green',
-      image: 'https://i.ibb.co/YFG2296c/photo-1528605248644-14dd04022da1.jpg',
-      almostFull: true,
-      featured: false,
-    },
-    {
-      date: 'May 15, 2024',
-      time: '10:00 AM - 2:00 PM',
-      title: 'Women in Gardening Workshop',
-      description:
-        'Join our special workshop celebrating women gardeners. Learn techniques, share experiences, and build community.',
-      spotsLeft: 15,
-      buttonText: 'Register Now',
-      buttonVariant: 'green',
-      image: 'https://i.ibb.co/HWWPv0z/photo-1522543558187-768b6df7c25c.jpg', // Placeholder image
-      featured: true,
-    },
-    {
-      date: 'June 5, 2024',
-      time: '9:00 AM - 3:00 PM',
-      title: 'Community Garden Planting Day',
-      description:
-        'A fun-filled day of planting, socializing, and beautifying our community garden. All experience levels welcome!',
-      spotsLeft: 'Unlimited spots',
-      buttonText: 'Volunteer Now',
-      buttonVariant: 'green',
-      image: 'https://i.ibb.co/6J4FhkVV/photo-1491438590914-bc09fcaaf77a.jpg', 
-      featured: false,
-    },
-    {
-      date: 'July 22, 2024',
-      time: '1:00 PM - 5:00 PM',
-      title: 'Garden-to-Table Dinner',
-      description:
-        'Harvest fresh produce from our garden and learn to prepare delicious, seasonal dishes with our expert chef.',
-      spotsLeft: 5,
-      buttonText: 'Book Your Spot',
-      buttonVariant: 'green',
-      image: 'https://i.ibb.co/YFG2296c/photo-1528605248644-14dd04022da1.jpg',
-      almostFull: true,
-      featured: false,
-    },
-  ];
+  // const events = [
+  //   {
+  //     date: 'May 15, 2024',
+  //     time: '10:00 AM - 2:00 PM',
+  //     title: 'Women in Gardening Workshop',
+  //     description:
+  //       'Join our special workshop celebrating women gardeners. Learn techniques, share experiences, and build community.',
+  //     spotsLeft: 15,
+  //     buttonText: 'Register Now',
+  //     buttonVariant: 'green',
+  //     image: 'https://i.ibb.co/HWWPv0z/photo-1522543558187-768b6df7c25c.jpg', // Placeholder image
+  //     featured: true,
+  //   },
+  //   {
+  //     date: 'June 5, 2024',
+  //     time: '9:00 AM - 3:00 PM',
+  //     title: 'Community Garden Planting Day',
+  //     description:
+  //       'A fun-filled day of planting, socializing, and beautifying our community garden. All experience levels welcome!',
+  //     spotsLeft: 'Unlimited spots',
+  //     buttonText: 'Volunteer Now',
+  //     buttonVariant: 'green',
+  //     image: 'https://i.ibb.co/6J4FhkVV/photo-1491438590914-bc09fcaaf77a.jpg', 
+  //     featured: false,
+  //   },
+  //   {
+  //     date: 'July 22, 2024',
+  //     time: '1:00 PM - 5:00 PM',
+  //     title: 'Garden-to-Table Dinner',
+  //     description:
+  //       'Harvest fresh produce from our garden and learn to prepare delicious, seasonal dishes with our expert chef.',
+  //     spotsLeft: 5,
+  //     buttonText: 'Book Your Spot',
+  //     buttonVariant: 'green',
+  //     image: 'https://i.ibb.co/YFG2296c/photo-1528605248644-14dd04022da1.jpg',
+  //     almostFull: true,
+  //     featured: false,
+  //   },
+  //   {
+  //     date: 'May 15, 2024',
+  //     time: '10:00 AM - 2:00 PM',
+  //     title: 'Women in Gardening Workshop',
+  //     description:
+  //       'Join our special workshop celebrating women gardeners. Learn techniques, share experiences, and build community.',
+  //     spotsLeft: 15,
+  //     buttonText: 'Register Now',
+  //     buttonVariant: 'green',
+  //     image: 'https://i.ibb.co/HWWPv0z/photo-1522543558187-768b6df7c25c.jpg', // Placeholder image
+  //     featured: true,
+  //   },
+  //   {
+  //     date: 'June 5, 2024',
+  //     time: '9:00 AM - 3:00 PM',
+  //     title: 'Community Garden Planting Day',
+  //     description:
+  //       'A fun-filled day of planting, socializing, and beautifying our community garden. All experience levels welcome!',
+  //     spotsLeft: 'Unlimited spots',
+  //     buttonText: 'Volunteer Now',
+  //     buttonVariant: 'green',
+  //     image: 'https://i.ibb.co/6J4FhkVV/photo-1491438590914-bc09fcaaf77a.jpg', 
+  //     featured: false,
+  //   },
+  //   {
+  //     date: 'July 22, 2024',
+  //     time: '1:00 PM - 5:00 PM',
+  //     title: 'Garden-to-Table Dinner',
+  //     description:
+  //       'Harvest fresh produce from our garden and learn to prepare delicious, seasonal dishes with our expert chef.',
+  //     spotsLeft: 5,
+  //     buttonText: 'Book Your Spot',
+  //     buttonVariant: 'green',
+  //     image: 'https://i.ibb.co/YFG2296c/photo-1528605248644-14dd04022da1.jpg',
+  //     almostFull: true,
+  //     featured: false,
+  //   },
+  // ];
+
+  const [events,setEvents]=useState([]);
+
+  useEffect(()=>{
+      const getEvents =async()=>{
+        try {
+          const data = await apiRequiest('get','/featured/events');
+          setEvents(data?.events)
+        } catch (error) {
+          toast.error(error?.response?.data?.message)
+        }
+      }
+      getEvents()
+  },[])
   const {isDark} = useContext(AuthContext)
   return (
     <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
@@ -118,29 +135,19 @@ const Upcoming_events = () => {
           slidesPerView: 3,
         },
       }}
-      > {events.map((event, index) => (
+      > {events?.map((event, index) => (
             
         <SwiperSlide key={index} className='!h-auto'>
-          <div  className={`h-full flex flex-col  rounded-lg ${isDark ? 'bg-[#ffffff06]' : 'bg-white'}
+          <div  className={`h-full flex flex-col  rounded-lg 
+          ${isDark ? 'bg-[#ffffff06]' : 'bg-white'}
             shadow-sm overflow-hidden `}>
               
-              <div className="relative">
+              <div className=' h-60  md:h-80 xl:h-60'>
                 <img
-                  src={event.image}
-                  alt={event.title}
-                  className="w-full h-60  md:h-80 xl:h-46 object-cover"
+                  src={event?.image}
+                  alt={event?.title}
+                  className=" w-full h-60  md:h-80 xl:h-46 object-contain"
                 />
-                {event.featured && (
-                  <span className="absolute top-3 right-3 bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
-                    Featured
-                  </span>
-                )}
-                {event.almostFull && (
-                  <span className="absolute top-3 right-3 bg-orange-500
-                   text-white text-xs font-semibold px-2 py-1 rounded-full">
-                    Almost Full
-                  </span>
-                )}
               </div>
 
               <div className="flex flex-col flex-grow justify-between p-4 text-left ">
@@ -159,39 +166,30 @@ const Upcoming_events = () => {
                       d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     ></path>
                   </svg>
-                  {event.date} • {event.time}
+                  {event?.date} • {event?.time}
                 </div>
                 <div className='flex-grow mb-1'>
                   <h3
       className={`text-xl font-[600] text-left ${isDark ? 'text-gray-400' : 'text-gray-800'} nunito-family`}
     >
-      {event.title.length > 12 ? event.title.slice(0, 23) + '...' : event.title}
+      {event?.name?.length > 12 ? event?.name.slice(0, 23) + '...' : event?.name}
                   </h3>
                   <p className="text-gray-700 mt-2 text-sm  text-left
                    font-[400] line-clamp-3 roboto-family">
-                    {event.description.length > 100
-                      ? event.description.slice(0, 100) + '...'
-                      : event.description}
+                    {event?.description?.length > 100
+                      ? event?.description.slice(0, 100) + '...'
+                      : event?.description}
                   </p>
                 </div>
                 <div className="mt-auto  flex items-center justify-between">
-                  <p className="text-gray-600 text-sm nunito-family">
-                    {typeof event.spotsLeft === 'number'
-                      ? `${event.spotsLeft} spots left`
-                      : event.spotsLeft}
-                  </p>
-                  <button
+                  <Link to={`/event-details/${event?._id}`} className='ml-auto'> <button
                     className={`px-4 py-2 rounded-md text-sm font-medium 
                       focus:outline-none transition-colors duration-300 nunito-family
-                      ${
-                        event.buttonVariant === 'green'
-                          ? 'bg-green-600 text-white hover:bg-green-700'
-                          : ''
-                      }
+                     bg-green-600 text-white hover:bg-green-700 
                     `}
                   >
-                    {event.buttonText}
-                  </button>
+                    View Event
+                  </button></Link>
                 </div>
               </div>
 
@@ -205,7 +203,7 @@ const Upcoming_events = () => {
         </div>
 
         <div className="mt-12">
-          <button className="inline-flex items-center px-6 
+        <Link to={'/events'}>  <button className="inline-flex items-center px-6 
           py-3 border border-green-600 text-green-600 rounded-md text-base font-[500]
             transition-colors duration-300 cursor-pointer nunito-family">
             View All Events
@@ -223,7 +221,7 @@ const Upcoming_events = () => {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               ></path>
             </svg>
-          </button>
+          </button></Link>
         </div>
       </div>
     </div>

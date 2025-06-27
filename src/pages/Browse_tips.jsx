@@ -3,16 +3,18 @@ import { Link } from 'react-router';
 import { Helmet } from 'react-helmet';
 
 import { AuthContext } from '../config/AuthProvider'
-import { apiRequiest } from '../utils/ApiCall';
+import { apiRequiest, apiRequiestWithCredentials } from '../utils/ApiCall';
 import Loader from '../utils/Loader';
+import { toast } from 'react-toastify';
 
 const Browse_tips = () => {
   const {isDark} = useContext(AuthContext)
   const [browseTips, setBrowseTips] = useState([]);
   const [message, setMessage] = useState("tips not found!");
   const [loading,setLoading] = useState(true)
-  
-   
+   const [activeLevel,setActiveLevel] = useState('All')
+   const levels = ['All','Easy','Medium','Hard']
+    const [filterLoading,setFilterLoading] = useState(false)
     const getBrowseTips = async () => {
       try {
         const data = await apiRequiest(
@@ -22,7 +24,7 @@ const Browse_tips = () => {
         setBrowseTips(data?.tips);
         setLoading(false)
       } catch (error) {
-        console.log(error);
+  
         toast.error(error.message);
         setMessage("tips not found!");
         setLoading(false)
@@ -33,27 +35,59 @@ const Browse_tips = () => {
       getBrowseTips();
     }, []);
  
-   console.log(browseTips)
+ 
+    // Filter tips by difficulty level
     const handleFilter =async(level)=>{
       if(level === 'All'){
         getBrowseTips()
         return;
       }
+      setFilterLoading(true)
       try {
         const data = await apiRequiest(
           "get",
           `/filter-tips?level=${level}`
         );
         setBrowseTips(data?.tips);
+        setFilterLoading(false)
       } catch (error) {
-        console.log(error);
+   
         toast.error(error.message);
+        setFilterLoading(false);
         setMessage("tips not found!");
       }
     }
+    // Search functionality
+    let interval;
+       const searchFunctionality=async(searchValue)=>{ 
+         clearTimeout(interval)
+         if (!searchValue.trim()) {
+           getBrowseTips();
+          return;
+        } 
+         setFilterLoading(true)
+    
+           interval = setTimeout(async() => {
+            
+           try {
+             const data = await apiRequiestWithCredentials('get',`/search-tips?search=${searchValue}`)
+               setBrowseTips(data?.tips)
+                setFilterLoading(false)
+             } catch (error) {
+               setBrowseTips([])
+               toast.error(error?.response?.data?.message)
+               setFilterLoading(false)
+             }
+          }, 1000); 
+       }
+    
+       const handleSearchEvents =(e)=>{
+         const searchValue = e.target.value.trim();
+         searchFunctionality(searchValue)
+       }
 
-   const [activeLevel,setActiveLevel] = useState('All')
-   const levels = ['All','Easy','Medium','Hard']
+
+  
    if(loading){
     return <> <Loader /> </>
    }
@@ -102,7 +136,8 @@ const Browse_tips = () => {
                     <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path>
                   </svg>
                 </div>
-                <input id="search-tips" type="text" placeholder="Search tips..." 
+                <input id="search-tips" onChange={handleSearchEvents} type="text"
+                 placeholder="Search by category..." 
                 className={`w-full pl-10 pr-3 py-2 border  rounded-md 
                 leading-5 ${isDark ? 'border-gray-700 text-gray-400' : 'bg-white border-gray-300'}
                  placeholder-gray-500 focus:outline-none 
@@ -118,7 +153,7 @@ const Browse_tips = () => {
         <div className={` shadow-xs overflow-hidden border
           ${isDark ? 'bg-black' : 'bg-white border-gray-200'} sm:rounded-lg`}>
           <div className="overflow-x-auto">
-            <table className={`min-w-full divide-y ${isDark ? 'divide-gray-900' : 'divide-gray-200'} `}>
+          {filterLoading ? <p className='text-red-500 text-center mt-5'>Loaging...</p> :  <table className={`min-w-full divide-y ${isDark ? 'divide-gray-900' : 'divide-gray-200'} `}>
               <thead className={isDark ? 'bg-black' :  "bg-gray-50"}>
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -142,7 +177,8 @@ const Browse_tips = () => {
                 </tr>
               </thead>
               <tbody className={`${isDark ? "bg-black divide-gray-900": 'bg-white divide-gray-200' } divide-y nunito-family`}>
-          
+             
+                
               {browseTips.map((tip,index)=>{
                 return(
                   <tr className="tip-row" key={index} data-difficulty="Easy">
@@ -187,9 +223,11 @@ const Browse_tips = () => {
                   </td>
                 </tr>
                 )
-              })}   
+              })}
+
               </tbody>
             </table>
+             }
           </div>
         </div>
       </div>

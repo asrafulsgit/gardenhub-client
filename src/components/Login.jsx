@@ -3,20 +3,25 @@ import {Link, useNavigate} from 'react-router';
 import { toast } from 'react-toastify';
 
 import {AuthContext} from '../config/AuthProvider'
+import { apiRequiestWithCredentials } from '../utils/ApiCall';
 
 const Login = () => {
 
   const navigate = useNavigate();
-  const { login,isDark,setLoading,setIsLoggedIn,setUserInfo, googleRegister } = useContext(AuthContext);
-  
-  const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
-  
+  const {isDark,setIsLoggedIn,setUserInfo,handleLoginWithGoogle } = useContext(AuthContext);
+  const initLoginInfo={
+      email: "",
+      password: "",
+    }
+  const [loginInfo, setLoginInfo] = useState(initLoginInfo);
+  const [loginLoading,setLoginLoading]=useState(false)
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginInfo({ ...loginInfo, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const { email, password } = loginInfo;
 
@@ -24,47 +29,32 @@ const Login = () => {
       toast.error("Email and password are required");
       return;
     }
+    setLoginLoading(true)
+    try {
 
-    login(email, password)
-      .then((res) => {
-        const {email,displayName,photoURL} = res?.user;
-        setUserInfo((prev)=>(
-          {
-            ...prev,
-            email,displayName, photoURL
-          }
-        ))
-        setIsLoggedIn(true)
-        toast.success("Login successful!");
-        navigate("/"); 
-        setLoading(false) 
-      })
-      .catch((err) => {
-        setLoading(false)
-        toast.error(err.message);
-      })
+          const data = await apiRequiestWithCredentials('post', '/user/login', loginInfo)
+           setUserInfo(data?.user)
+           setIsLoggedIn(true)
+           setLoginLoading(false)
+           toast.success('User login successfull')
+           setLoginInfo(initLoginInfo)
+           navigate('/')
+         } catch (error) {
+            setLoginLoading(false)
+            toast.error(error?.response?.data?.message)
+         }
   };
 
-  const handleGoogleLogin = () => {
-    googleRegister()
-      .then((res) => {
-        const {email,displayName,photoURL} = res?.user;
-        setUserInfo((prev)=>(
-          {
-            ...prev,
-            email,displayName, photoURL
-          }
-        ))
-        toast.success("Logged in with Google!");
-        setIsLoggedIn(true)
-        navigate("/");
-        setLoading(false)
-      })
-      .catch((err) =>{ 
-        toast.error(err.message)
-        setLoading(false)
-      });
-  };
+  const handleGoogleLogin = async () => {
+    const isRegister =await handleLoginWithGoogle();
+            if(isRegister){
+              setIsLoggedIn(true)
+              toast.success('Register successfull')
+              navigate('/')
+            }else{
+              toast.error('Register failed')
+            }
+  }
 
 
 

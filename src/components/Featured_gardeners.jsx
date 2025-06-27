@@ -1,5 +1,5 @@
 import React, { useContext,useState,useEffect } from 'react'
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { apiRequiest } from '../utils/ApiCall';
@@ -7,21 +7,22 @@ import { AuthContext} from '../config/AuthProvider'
 
 const Featured_gardeners = () => {
 
-const [gardeners,setGardeners] = useState([])
+  const [gardeners,setGardeners] = useState([])
   
   const [message, setMessage] = useState("Active gardeners not found!");
   
   const {isDark} = useContext(AuthContext) 
 
   const getActiveGardeners = async () => {
+    
     try {
       const data = await apiRequiest(
         "get",
         `/gardener/active`
       );
-      setGardeners(data?.activeGardeners);
+      setGardeners(data?.data);
     } catch (error) {
-      console.log(error);
+ 
       toast.error(error.message);
       setGardeners([]);
       setMessage("Active gardeners not found!");
@@ -35,7 +36,6 @@ const [gardeners,setGardeners] = useState([])
 
   const dummyGardeners =  [
   {
-    id: "g001",
     name: "Sara Ahmed",
     username: "sara_gardens",
     avatar: "https://randomuser.me/api/portraits/women/68.jpg",
@@ -64,7 +64,6 @@ const [gardeners,setGardeners] = useState([])
     rating: 4.7,
   },
   {
-    id: "g002",
     name: "Mehedi Hasan",
     username: "greenmehedi",
     avatar: "https://randomuser.me/api/portraits/men/15.jpg",
@@ -89,7 +88,6 @@ const [gardeners,setGardeners] = useState([])
     rating: 4.3,
   },
   {
-    id: "g003",
     name: "Nusrat Jahan",
     username: "nusratblooms",
     avatar: "https://randomuser.me/api/portraits/women/45.jpg",
@@ -114,7 +112,6 @@ const [gardeners,setGardeners] = useState([])
     rating: 4.5,
   },
   {
-    id: "g004",
     name: "Rafiq Ul Islam",
     username: "rafiqroots",
     avatar: "https://randomuser.me/api/portraits/men/34.jpg",
@@ -139,7 +136,6 @@ const [gardeners,setGardeners] = useState([])
     rating: 4.9,
   },
   {
-    id: "g005",
     name: "Tania Rahman",
     username: "taniaterra",
     avatar: "https://randomuser.me/api/portraits/women/60.jpg",
@@ -164,7 +160,6 @@ const [gardeners,setGardeners] = useState([])
     rating: 4.2,
   },
   {
-    id: "g006",
     name: "Ahsan Kabir",
     username: "ahsanplants",
     avatar: "https://randomuser.me/api/portraits/men/50.jpg",
@@ -203,7 +198,7 @@ const [gardeners,setGardeners] = useState([])
       lg:grid-cols-3 gap-6  mx-auto */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
         gap-6 md:px-0">
-          {dummyGardeners.map((gardener, index) => (
+          {gardeners.map((gardener, index) => (
             <FeaturedGardenerCard key={index} gardener={gardener} />
           ))}
           {/* {gardeners.map((gardener, index) => (
@@ -268,6 +263,7 @@ const FeaturedGardenerCard = ({ gardener }) => {
     rating,
     isActive,
     specialist,
+    user
   } = gardener;
   const {isDark} = useContext(AuthContext) 
   return (
@@ -278,14 +274,16 @@ const FeaturedGardenerCard = ({ gardener }) => {
       <div className="flex justify-between w-full mb-3">
             <div className="flex items-center gap-4">
                 <img
-                src={avatar}
+                src={user.avatar.length === 0 ? '	https://i.ibb.co/PsHDfWt8/user-icon-illustration-f…-logo-web-site-social-media-mobile-app-ui-png.png'
+                  : !user.avatar ? 'https://i.ibb.co/PsHDfWt8/user-icon-illustration-f…-logo-web-site-social-media-mobile-app-ui-png.png' : user.avatar
+                }
                 alt={`${name}'s avatar`}
                 className="w-18 h-18 rounded-full object-cover border-4 border-[#0A6B01]"
             />
             <div>
                 <h3 className={`text-xl font-semibold 
                 ${isDark ? 'text-gray-400' : 'text-[#111827]'}
-                nunito-family`}>{name}</h3>
+                nunito-family`}>{user?.name}</h3>
                     
                 <div className="flex flex-wrap gap-2 ">
                 {
@@ -329,15 +327,12 @@ const FeaturedGardenerCard = ({ gardener }) => {
                 </svg>
             <span className="ml-2 font-semibold">{rating.toFixed(1)}</span>
           </div>
-          <button
-            type="button"
-            className="roboto-family cursor-pointer sm:w-auto 
-            px-3 py-1 rounded-lg bg-[#2BC854] text-white 
-            text-[16px] hover:bg-[#0A6B01] transition"
-            onClick={() => alert(`View profile of ${name}`)}
+           <Link to={`/gardener/${gardener._id}`}> <button
+            className="w-full cursor-pointer sm:w-auto px-5 py-2 rounded-full
+             bg-[#2BC854] text-white font-semibold hover:bg-[#0A6B01] transition"
           >
             View Profile
-          </button>
+          </button></Link>
         </div>
       </div>
     </div>

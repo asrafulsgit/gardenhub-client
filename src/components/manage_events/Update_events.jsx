@@ -3,46 +3,26 @@ import { useEffect } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 // import { apiRequiestWithCredentials } from '../../utilities/ApiCall';
 // import Spinner from '../aditionals/Spinner';
-// import { getDate, getTime } from '../../utilities/minimizeData';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../config/AuthProvider';
+import { apiRequiestWithCredentials } from '../../utils/ApiCall';
+import { getDate, getTime } from '../../utils/dateSetting';
 
 
-const initEvent ={
-    _id: "e001",
-    name: "Organic Gardening Basics",
-    type: "Workshop",
-    date: "2025-07-10",
-    time: "10:00 AM",
-    location: "Dhaka Botanical Garden",
-    fee: 0,
-    description:
-      "Learn how to grow organic vegetables using sustainable techniques.",
-    image: "https://example.com/images/organic-gardening.jpg",
-    maxRegistrations: 50,
-    registered: 42,
-    organizer: {
-      image: "https://example.com/images/organizer1.jpg",
-      name: "Asma Khatun",
-      email: "asma@gardenhub.com",
-    },
-    tags: ["Organic", "Vegetables", "Healthy Soil"],
-    isFree: true,
-    isFull: false,
-  }
+
 
 const Update_event = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   const { isDark} = useContext(AuthContext);
-  const [eventData, setEventData] = useState(initEvent);
+  const [eventData, setEventData] = useState({});
   const [updateLoading,setUpdateLoading]=useState(false)
   const [pageLoading,setPageLoading]=useState(true);
   const [dateTime,setDateTime]=useState( eventData?.date || "")
   const getEvent=async()=>{
       try {
-        const data = await apiRequiestWithCredentials('get',`/event-details/${id}`);
+        const data = await apiRequiestWithCredentials('get',`/event/details/${id}`);
         setEventData(data?.event)
         setPageLoading(false)
       } catch (error) {
@@ -54,7 +34,7 @@ const Update_event = () => {
       }
   }
   useEffect(()=>{
-      // getEvent();
+      getEvent();
   },[])
 
   const handleChange = (e) => {
@@ -79,14 +59,14 @@ const Update_event = () => {
     e.preventDefault();
      setUpdateLoading(true)
        try {
-         await apiRequiestWithCredentials('put', `/update-event/${id}`, eventData)
+         await apiRequiestWithCredentials('put', `/event/update/${id}`, eventData)
          toast.success('Event update successfull')
          setUpdateLoading(false)
          navigate('/manage-events')
        } catch (error) {
           setUpdateLoading(false)
           toast.error(error?.response?.data?.message)
-          
+   
        }
     
   };
@@ -395,8 +375,8 @@ const gardeningTags = [
               </label>
               <input
                 type="number"
-                name="participants"
-                value={eventData.participants}
+                name="maxRegistrations"
+                value={eventData.maxRegistrations}
                 onChange={handleChange}
                 min='1'
                 placeholder="Enter maximum number of participants"

@@ -6,22 +6,23 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import "./navbar.css";
+import { apiRequiestWithCredentials } from "../../utils/ApiCall";
 const Navbar = () => {
   const navigate = useNavigate();
-  const { userInfo, isDark, setIsDark, isLoggedIn, setIsLoggedIn, logout } =
+  const { userInfo,setUserInfo, isDark, setIsDark, isLoggedIn, setIsLoggedIn } =
     useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
-      await logout();
+      await apiRequiestWithCredentials("get", "/user/logout");
+      setIsLoggedIn(false);
+      setUserInfo(null);
       toast.success("Logged out successfully!");
       navigate("/login-signin");
     } catch (err) {
       toast.error(err.message);
-    } finally {
-      setIsLoggedIn(false);
-    }
+    } 
   };
 
   const navLinks = [

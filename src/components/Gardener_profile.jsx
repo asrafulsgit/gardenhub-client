@@ -62,7 +62,7 @@ const Gardener_profile = () => {
        setGardener(data?.gardener);
        setLoading(false)
     } catch (error) {
-      console.log(error);
+  
       navigate('/')
       setGardener([]);
       setMessage("Gardener not found!");
