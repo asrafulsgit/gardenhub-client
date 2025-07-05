@@ -12,7 +12,7 @@ const Featured_gardeners = () => {
   const [message, setMessage] = useState("Active gardeners not found!");
   
   const {isDark} = useContext(AuthContext) 
-
+  const [loading,setLoading]=useState(true)
   const getActiveGardeners = async () => {
     
     try {
@@ -26,7 +26,8 @@ const Featured_gardeners = () => {
       toast.error(error.message);
       setGardeners([]);
       setMessage("Active gardeners not found!");
- 
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -34,7 +35,13 @@ const Featured_gardeners = () => {
       getActiveGardeners()
   },[])
 
- 
+  if (loading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center text-gray-700">
+        Loading...
+      </div>
+    );
+  }
 
 
   return (

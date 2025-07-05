@@ -13,85 +13,9 @@ import { Link } from 'react-router';
 
 
 const Upcoming_events = () => {
-  // const events = [
-  //   {
-  //     date: 'May 15, 2024',
-  //     time: '10:00 AM - 2:00 PM',
-  //     title: 'Women in Gardening Workshop',
-  //     description:
-  //       'Join our special workshop celebrating women gardeners. Learn techniques, share experiences, and build community.',
-  //     spotsLeft: 15,
-  //     buttonText: 'Register Now',
-  //     buttonVariant: 'green',
-  //     image: 'https://i.ibb.co/HWWPv0z/photo-1522543558187-768b6df7c25c.jpg', // Placeholder image
-  //     featured: true,
-  //   },
-  //   {
-  //     date: 'June 5, 2024',
-  //     time: '9:00 AM - 3:00 PM',
-  //     title: 'Community Garden Planting Day',
-  //     description:
-  //       'A fun-filled day of planting, socializing, and beautifying our community garden. All experience levels welcome!',
-  //     spotsLeft: 'Unlimited spots',
-  //     buttonText: 'Volunteer Now',
-  //     buttonVariant: 'green',
-  //     image: 'https://i.ibb.co/6J4FhkVV/photo-1491438590914-bc09fcaaf77a.jpg', 
-  //     featured: false,
-  //   },
-  //   {
-  //     date: 'July 22, 2024',
-  //     time: '1:00 PM - 5:00 PM',
-  //     title: 'Garden-to-Table Dinner',
-  //     description:
-  //       'Harvest fresh produce from our garden and learn to prepare delicious, seasonal dishes with our expert chef.',
-  //     spotsLeft: 5,
-  //     buttonText: 'Book Your Spot',
-  //     buttonVariant: 'green',
-  //     image: 'https://i.ibb.co/YFG2296c/photo-1528605248644-14dd04022da1.jpg',
-  //     almostFull: true,
-  //     featured: false,
-  //   },
-  //   {
-  //     date: 'May 15, 2024',
-  //     time: '10:00 AM - 2:00 PM',
-  //     title: 'Women in Gardening Workshop',
-  //     description:
-  //       'Join our special workshop celebrating women gardeners. Learn techniques, share experiences, and build community.',
-  //     spotsLeft: 15,
-  //     buttonText: 'Register Now',
-  //     buttonVariant: 'green',
-  //     image: 'https://i.ibb.co/HWWPv0z/photo-1522543558187-768b6df7c25c.jpg', // Placeholder image
-  //     featured: true,
-  //   },
-  //   {
-  //     date: 'June 5, 2024',
-  //     time: '9:00 AM - 3:00 PM',
-  //     title: 'Community Garden Planting Day',
-  //     description:
-  //       'A fun-filled day of planting, socializing, and beautifying our community garden. All experience levels welcome!',
-  //     spotsLeft: 'Unlimited spots',
-  //     buttonText: 'Volunteer Now',
-  //     buttonVariant: 'green',
-  //     image: 'https://i.ibb.co/6J4FhkVV/photo-1491438590914-bc09fcaaf77a.jpg', 
-  //     featured: false,
-  //   },
-  //   {
-  //     date: 'July 22, 2024',
-  //     time: '1:00 PM - 5:00 PM',
-  //     title: 'Garden-to-Table Dinner',
-  //     description:
-  //       'Harvest fresh produce from our garden and learn to prepare delicious, seasonal dishes with our expert chef.',
-  //     spotsLeft: 5,
-  //     buttonText: 'Book Your Spot',
-  //     buttonVariant: 'green',
-  //     image: 'https://i.ibb.co/YFG2296c/photo-1528605248644-14dd04022da1.jpg',
-  //     almostFull: true,
-  //     featured: false,
-  //   },
-  // ];
-
+  
   const [events,setEvents]=useState([]);
-
+  const [loading,setLoading]=useState(true)
   useEffect(()=>{
       const getEvents =async()=>{
         try {
@@ -99,11 +23,20 @@ const Upcoming_events = () => {
           setEvents(data?.events)
         } catch (error) {
           toast.error(error?.response?.data?.message)
-        }
+        }finally{
+      setLoading(false)
+    }
       }
       getEvents()
   },[])
   const {isDark} = useContext(AuthContext)
+  if (loading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center text-gray-700">
+        Loading...
+      </div>
+    );
+  }
   return (
     <div className={`${isDark ? 'bg-black' : 'bg-[#1f29370e]'} py-12 px-5`}>
       <div className="container mx-auto text-center ">

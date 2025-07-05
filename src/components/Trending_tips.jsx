@@ -11,7 +11,7 @@ const Trending_tips = () => {
   const { isDark } = useContext(AuthContext);
   const [trendingTips, setTrendingTips] = useState([]);
   const [message, setMessage] = useState("Trending tips not found!");
-
+  const [loading,setLoading]=useState(true)
   const getTrendingTips = async () => {
     try {
       const data = await apiRequiest("get", "/trending-tips");
@@ -20,12 +20,22 @@ const Trending_tips = () => {
 
       toast.error(error.message);
       setMessage("Trending tips not found!");
+    }finally{
+      setLoading(false)
     }
   };
 
   useEffect(() => {
     getTrendingTips();
   }, []);
+
+   if (loading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center text-gray-700">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div className={`${isDark ? "bg-black" : "bg-[#e4feec83]"} py-12 px-5`}>
@@ -46,7 +56,7 @@ const Trending_tips = () => {
           Discover our community's most popular gardening advice and techniques
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6  md:px-0">
-          {trendingTips.map((tip, index) => (
+          {trendingTips?.map((tip, index) => (
             <TipCard key={index} tip={tip} />
           ))}
         </div>
