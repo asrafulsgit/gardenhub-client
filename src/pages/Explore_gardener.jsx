@@ -235,14 +235,14 @@ const FeaturedGardenerCard = ({ gardener }) => {
                 </svg>
             <span className="ml-2 font-semibold">{rating?.toFixed(1)}</span>
           </div>
-        <Link to={`/gardener/${_id}`} ></Link>  <button
+        <Link to={`/gardener/${_id}`} >  <button
             type="button"
             className="roboto-family cursor-pointer sm:w-auto 
             px-3 py-1 rounded-lg bg-[#2BC854] text-white 
             text-[16px] hover:bg-[#0A6B01] transition"
           >
             View Profile
-          </button>
+          </button></Link>
         </div>
       </div>
     </div>
