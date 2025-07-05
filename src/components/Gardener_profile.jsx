@@ -87,7 +87,7 @@ const Gardener_profile = () => {
                   {gardener?.user?.name}
                 </h2>
                 <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-500'} roboto-family`}>
-                  {gardener?.specialist[0] || ''} • {gardener?.yearsOfExperience || '0'} years experience • Age : {gardener?.age | '0'} • {gardener?.sex | ''}
+                  {gardener?.specialist[0] || ''} • {gardener?.yearsOfExperience || '0'} years experience • Age : {gardener?.age || '0'} • {gardener?.sex || ''}
                 </p>
               </div>
               <div className="flex items-center nunito-family">
