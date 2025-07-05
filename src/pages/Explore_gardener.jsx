@@ -6,162 +6,7 @@ import { Helmet } from 'react-helmet';
 import { AuthContext } from '../config/AuthProvider';
 import { apiRequiest } from '../utils/ApiCall';
 import Loader from '../utils/Loader';
-const gardeners =  [
-  {
-    id: "g001",
-    name: "Sara Ahmed",
-    username: "sara_gardens",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    bio: "Urban gardening enthusiast.",
-    location: "Dhaka, Bangladesh",
-    joinedAt: "2023-08-15T10:30:00Z",
-    yearsOfExperience: 5,
-    age: 29,
-    sex: "Female",
-    specialist: ["Herbs", "Succulents", "Organic Gardening"],
-    services: [
-      {
-        name: "Tree Service",
-        description: "Expert in pruning, removal, and tree health assessments.",
-      },
-      {
-        name: "Soil Testing",
-        description: "Improving soil quality for optimized plant growth.",
-      },
-    ],
-    totalTipsShared: 42,
-    followersCount: 350,
-    followingCount: 75,
-    favoritePlants: ["Basil", "Aloe Vera", "Mint"],
-    isActive: true,
-    rating: 4.7,
-  },
-  {
-    id: "g002",
-    name: "Mehedi Hasan",
-    username: "greenmehedi",
-    avatar: "https://randomuser.me/api/portraits/men/15.jpg",
-    bio: "Loves landscape design and managing large community gardens.",
-    location: "Rajshahi, Bangladesh",
-    joinedAt: "2022-05-03T09:00:00Z",
-    yearsOfExperience: 8,
-    age: 34,
-    sex: "Male",
-    specialist: ["Landscaping", "Tree Care"],
-    services: [
-      {
-        name: "Landscape Design",
-        description: "Design and layout planning for large gardens.",
-      },
-    ],
-    totalTipsShared: 60,
-    followersCount: 520,
-    followingCount: 130,
-    favoritePlants: ["Rose", "Bamboo", "Neem"],
-    isActive: false,
-    rating: 4.3,
-  },
-  {
-    id: "g003",
-    name: "Nusrat Jahan",
-    username: "nusratblooms",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-    bio: "Flower bed expert and seasonal gardening coach.",
-    location: "Chattogram, Bangladesh",
-    joinedAt: "2024-01-12T11:45:00Z",
-    yearsOfExperience: 4,
-    age: 27,
-    sex: "Female",
-    specialist: ["Floriculture", "Composting"],
-    services: [
-      {
-        name: "Compost Guidance",
-        description: "Teaching composting methods for home gardeners.",
-      },
-    ],
-    totalTipsShared: 28,
-    followersCount: 190,
-    followingCount: 60,
-    favoritePlants: ["Marigold", "Tulip", "Sunflower"],
-    isActive: true,
-    rating: 4.5,
-  },
-  {
-    id: "g004",
-    name: "Rafiq Ul Islam",
-    username: "rafiqroots",
-    avatar: "https://randomuser.me/api/portraits/men/34.jpg",
-    bio: "Agriculturalist focused on urban fruit gardening.",
-    location: "Khulna, Bangladesh",
-    joinedAt: "2021-09-25T14:00:00Z",
-    yearsOfExperience: 10,
-    age: 38,
-    sex: "Male",
-    specialist: ["Fruit Plants", "Vertical Gardening"],
-    services: [
-      {
-        name: "Fruit Garden Setup",
-        description: "Design and management of small fruit gardens in urban areas.",
-      },
-    ],
-    totalTipsShared: 77,
-    followersCount: 610,
-    followingCount: 95,
-    favoritePlants: ["Guava", "Papaya", "Strawberry"],
-    isActive: true,
-    rating: 4.9,
-  },
-  {
-    id: "g005",
-    name: "Tania Rahman",
-    username: "taniaterra",
-    avatar: "https://randomuser.me/api/portraits/women/60.jpg",
-    bio: "Balcony gardening expert with a passion for indoor plants.",
-    location: "Sylhet, Bangladesh",
-    joinedAt: "2023-04-18T13:25:00Z",
-    yearsOfExperience: 3,
-    age: 26,
-    sex: "Female",
-    specialist: ["Indoor Plants", "Container Gardening"],
-    services: [
-      {
-        name: "Balcony Setup",
-        description: "Transforming small spaces into vibrant gardens.",
-      },
-    ],
-    totalTipsShared: 21,
-    followersCount: 275,
-    followingCount: 90,
-    favoritePlants: ["Snake Plant", "Spider Plant", "Money Plant"],
-    isActive: true,
-    rating: 4.2,
-  },
-  {
-    id: "g006",
-    name: "Ahsan Kabir",
-    username: "ahsanplants",
-    avatar: "https://randomuser.me/api/portraits/men/50.jpg",
-    bio: "Sustainable gardening mentor teaching eco-friendly techniques.",
-    location: "Barisal, Bangladesh",
-    joinedAt: "2020-11-10T07:45:00Z",
-    yearsOfExperience: 12,
-    age: 41,
-    sex: "Male",
-    specialist: ["Permaculture", "Rainwater Harvesting"],
-    services: [
-      {
-        name: "Eco Garden Setup",
-        description: "Helping build sustainable gardens with minimal waste.",
-      },
-    ],
-    totalTipsShared: 88,
-    followersCount: 725,
-    followingCount: 180,
-    favoritePlants: ["Banana", "Lemon", "Spinach"],
-    isActive: false,
-    rating: 4.6,
-  },
-];
+
 const gardenerExpertiseCategories = [
   "All",
   "Organic Gardening",
@@ -211,7 +56,6 @@ const Explore_gardener = () => {
       setGardeners(data?.data)
       setLoading(false)
     } catch (error) {
-      console.log(error);
       toast.error(error.message);
       setGardeners([]);
       setMessage("Gardeners not found!");
@@ -225,14 +69,13 @@ const Explore_gardener = () => {
 
   
  
-  console.log(gardeners)
-  //  if(loading){
-  //   return <><Loader /> </>
-  // }
+   if(loading){
+    return <><Loader /> </>
+  }
   return (
    <>
    <Helmet>
-        <title>Explore Gardeners</title>
+        <title> Explore Gardeners</title>
       </Helmet> <section
       id="gardener-listings"
       className={`py-8 px-5  ${isDark ? 'bg-black' : 'bg-white'}`}

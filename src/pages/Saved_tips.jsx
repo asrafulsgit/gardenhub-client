@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
-import { apiRequiestWithCredentials } from "../../../../Assignment-11/client/src/utilities/ApiCall";
+import { apiRequiestWithCredentials } from "../utils/ApiCall";
 import Loader from "../utils/Loader";
 import { useContext } from "react";
 import { AuthContext } from "../config/AuthProvider";
@@ -10,7 +10,7 @@ import { AuthContext } from "../config/AuthProvider";
 const Saved_tips = () => {
   const [events, setEvents] = useState([]);
    const { isDark, userInfo } = useContext(AuthContext);
-console.log(events)
+
   const [pageLoading, setPageLoading] = useState(true);
   const getBookEvents = async () => {
     try {
@@ -18,7 +18,6 @@ console.log(events)
       setEvents(data?.tips);
       setPageLoading(false);
     } catch (error) {
-      console.log(error);
       setEvents([]);
       toast.error(error?.response?.data?.message);
       setPageLoading(false);
@@ -38,7 +37,7 @@ console.log(events)
     }
   };
   if (pageLoading) {
-    return <p>loading...</p>;
+    return <p>Loading...</p>;
   }
   return (
     <>
