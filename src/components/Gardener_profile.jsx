@@ -184,14 +184,14 @@ const Gardener_profile = () => {
           </div> */}
 
           {/* Reviews Section */}
-          <div>
+          {/* <div>
             <div className="flex items-center justify-between mb-3">
               <h3 className={`text-lg font-semibold nunito-family ${isDark ? 'text-gray-400' : 'text-gray-900'} mb-3`}>Reviews</h3>
               <a
                 href="#"
                 className="text-sm text-green-600 hover:text-green-700"
               >
-                See all {gardener.reviews} reviews
+                See all {gardener?.reviews} reviews
               </a>
             </div>
 
@@ -229,7 +229,7 @@ const Gardener_profile = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
