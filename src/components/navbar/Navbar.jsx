@@ -116,7 +116,7 @@ const Navbar = () => {
                         <img
                           alt="Tailwind CSS Navbar component"
                           src={
-                            userInfo.photoURL ||
+                            userInfo?.photoURL ||
                             "https://i.ibb.co/PsHDfWt8/user-icon-illustration-for-graphic-design-logo-web-site-social-media-mobile-app-ui-png.png"
                           }
                         />
