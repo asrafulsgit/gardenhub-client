@@ -122,7 +122,7 @@ const Gardener_profile = () => {
             <h3 className={`text-lg font-semibold nunito-family ${isDark ? 'text-gray-400' :'text-gray-900'} mb-3`}>
                 About</h3>
             <p className={`${isDark ? "text-gray-500" : "text-gray-600"} roboto-family`}>
-             {gardener.bio}
+             {gardener?.bio}
             </p>
             
           </div>
@@ -134,7 +134,7 @@ const Gardener_profile = () => {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
-                {gardener.services.map((service, index) => (
+                {gardener?.services?.map((service, index) => (
                   <div
                   key={index }
                   className={`border ${isDark ? "" : 'border-gray-200'} rounded-lg p-4`}
@@ -155,11 +155,11 @@ const Gardener_profile = () => {
                       />
                     </svg>
                     <h4 className={`ml-2 font-medium nunito-family ${isDark ? 'text-gray-400' : 'text-gray-900'}`}>
-                      {service.name}
+                      {service?.name}
                     </h4>
                   </div>
                   <p className={`text-sm roboto-family ${isDark ? 'text-gray-500' 
-                    :'text-gray-600'} `}>{service.description}</p>
+                    :'text-gray-600'} `}>{service?.description}</p>
                 </div>
                 ))}
         
@@ -239,37 +239,37 @@ const Gardener_profile = () => {
 };
 
 
-import { Star } from "lucide-react";
+// import { Star } from "lucide-react";
 
-const gardener={
-    id: "g001",
-    name: "Sara Ahmed",
-    username: "sara_gardens",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    bio: "Urban gardening enthusiast.",
-    location: "Dhaka, Bangladesh",
-    joinedAt: "2023-08-15T10:30:00Z",
-    yearsOfExperience: 5,
-    age: 29,
-    sex: "Female",
-    specialist: ["Herbs", "Succulents", "Organic Gardening"],
-    services: [
-      {
-        name: "Tree Service",
-        description: "Expert in pruning, removal, and tree health assessments.",
-      },
-      {
-        name: "Soil Testing",
-        description: "Improving soil quality for optimized plant growth.",
-      },
-    ],
-    totalTipsShared: 42,
-    followersCount: 350,
-    followingCount: 75,
-    favoritePlants: ["Basil", "Aloe Vera", "Mint"],
-    isActive: true,
-    rating: 4.7,
-  }
+// const gardener={
+//     id: "g001",
+//     name: "Sara Ahmed",
+//     username: "sara_gardens",
+//     avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+//     bio: "Urban gardening enthusiast.",
+//     location: "Dhaka, Bangladesh",
+//     joinedAt: "2023-08-15T10:30:00Z",
+//     yearsOfExperience: 5,
+//     age: 29,
+//     sex: "Female",
+//     specialist: ["Herbs", "Succulents", "Organic Gardening"],
+//     services: [
+//       {
+//         name: "Tree Service",
+//         description: "Expert in pruning, removal, and tree health assessments.",
+//       },
+//       {
+//         name: "Soil Testing",
+//         description: "Improving soil quality for optimized plant growth.",
+//       },
+//     ],
+//     totalTipsShared: 42,
+//     followersCount: 350,
+//     followingCount: 75,
+//     favoritePlants: ["Basil", "Aloe Vera", "Mint"],
+//     isActive: true,
+//     rating: 4.7,
+//   }
 
 
 // const Gardener_profile = () => {
