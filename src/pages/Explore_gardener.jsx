@@ -168,6 +168,7 @@ const Explore_gardener = () => {
 
 const FeaturedGardenerCard = ({ gardener }) => {
   const {
+    _id,
     bio,
     rating,
     isActive,
@@ -198,7 +199,7 @@ const FeaturedGardenerCard = ({ gardener }) => {
                     className="text-xs  text-[#2BC854]
                     py-1 rounded-full roboto-family"
                     >
-                    {specialist[0]}
+                    {specialist[0] || ''}
                     </span>}
                 </div> 
             </div>
@@ -219,7 +220,7 @@ const FeaturedGardenerCard = ({ gardener }) => {
       <div className="flex flex-col flex-grow justify-between">
         {/* Bio */}
         <p className="text-sm text-left text-[#4b5563] line-clamp-3 roboto-family ">
-          {bio.length > 100 ? `${bio.slice(0, 100)}...` : bio}
+          {bio?.length > 100 ? `${bio?.slice(0, 100)}...` : bio}
         </p>
 
         {/* Footer */}
@@ -232,14 +233,13 @@ const FeaturedGardenerCard = ({ gardener }) => {
                 >
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.974a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.974c.3.92-.755 1.688-1.54 1.118L10 13.347l-3.385 2.46c-.784.57-1.838-.197-1.539-1.118l1.286-3.974a1 1 0 00-.364-1.118L3.613 9.4c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.974z" />
                 </svg>
-            <span className="ml-2 font-semibold">{rating.toFixed(1)}</span>
+            <span className="ml-2 font-semibold">{rating?.toFixed(1)}</span>
           </div>
-          <button
+        <Link to={`/gardener/${_id}`} ></Link>  <button
             type="button"
             className="roboto-family cursor-pointer sm:w-auto 
             px-3 py-1 rounded-lg bg-[#2BC854] text-white 
             text-[16px] hover:bg-[#0A6B01] transition"
-            onClick={() => alert(`View profile of ${name}`)}
           >
             View Profile
           </button>

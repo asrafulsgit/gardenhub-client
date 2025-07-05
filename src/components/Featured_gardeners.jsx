@@ -115,7 +115,7 @@ export default Featured_gardeners
 
 const FeaturedGardenerCard = ({ gardener }) => {
   const {
-    avatar,
+    _id,
     name,
     bio,
     rating,
@@ -132,8 +132,8 @@ const FeaturedGardenerCard = ({ gardener }) => {
       <div className="flex justify-between w-full mb-3">
             <div className="flex items-center gap-4">
                 <img
-                src={user.avatar.length === 0 ? '	https://i.ibb.co/PsHDfWt8/user-icon-illustration-f…-logo-web-site-social-media-mobile-app-ui-png.png'
-                  : !user.avatar ? 'https://i.ibb.co/PsHDfWt8/user-icon-illustration-f…-logo-web-site-social-media-mobile-app-ui-png.png' : user.avatar
+                src={user?.avatar?.length === 0 ? '	https://i.ibb.co/PsHDfWt8/user-icon-illustration-f…-logo-web-site-social-media-mobile-app-ui-png.png'
+                  : !user?.avatar ? 'https://i.ibb.co/PsHDfWt8/user-icon-illustration-f…-logo-web-site-social-media-mobile-app-ui-png.png' : user.avatar
                 }
                 alt={`${name}'s avatar`}
                 className="w-18 h-18 rounded-full object-cover border-4 border-[#0A6B01]"

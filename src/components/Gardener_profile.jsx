@@ -9,40 +9,15 @@ import { apiRequiest } from "../utils/ApiCall";
 import Loader from "../utils/Loader";
 import { Helmet } from "react-helmet";
 
+
+
+
 const Gardener_profile = () => {
   const {id} = useParams()
   const navigate = useNavigate()
   const {isDark} = useContext(AuthContext) 
 
-  const [gardener,setGardener] = useState({
-    id: "g001",
-    name: "Sara Ahmed",
-    username: "sara_gardens",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    bio: "Urban gardening enthusiast.",
-    location: "Dhaka, Bangladesh",
-    joinedAt: "2023-08-15T10:30:00Z",
-    yearsOfExperience: 5,
-    age: 29,
-    sex: "Female",
-    specialist: ["Herbs", "Succulents", "Organic Gardening"],
-    services: [
-      {
-        name: "Tree Service",
-        description: "Expert in pruning, removal, and tree health assessments.",
-      },
-      {
-        name: "Soil Testing",
-        description: "Improving soil quality for optimized plant growth.",
-      },
-    ],
-    totalTipsShared: 42,
-    followersCount: 350,
-    followingCount: 75,
-    favoritePlants: ["Basil", "Aloe Vera", "Mint"],
-    isActive: true,
-    rating: 4.7,
-  })
+  const [gardener,setGardener] = useState(null)
   const [message, setMessage] = useState("gardener not found!");
   const [loading, setLoading] = useState(true);
   
@@ -50,45 +25,46 @@ const Gardener_profile = () => {
     if (!id) {
       toast.error("id is Required! please Reload your page or login again!");
       setMessage("gardener not found!");
-      setGardener([]);
+      setGardener({});
       return;
     }
-    setLoading(true)
+   
     try {
       const data = await apiRequiest(
         "get",
         `/gardener/${id}`
       );
        setGardener(data?.gardener);
-       setLoading(false)
     } catch (error) {
   
       navigate('/')
       setGardener([]);
       setMessage("Gardener not found!");
+      
+    }finally{
       setLoading(false)
     }
   };
 
   useEffect(()=>{
-      // getGardenerDetials()
+      getGardenerDetials()
   },[])
 
-  // if(loading){
-  //   return <>
-  //     <Loader /> 
-  //   </>
-  // }
+  if(loading){
+    return <>
+      <Loader /> 
+    </>
+  }
   return (
    <>
    <Helmet>
-      <title>Gardener Profile</title>
+      <title>Garden Hub | Gardener Details</title>
     </Helmet> 
     <section className={`py-10 px-5  ${isDark? "bg-black" :""} `}>
       <div className={`border ${isDark? "border-gray-900" :"border-gray-300"}  rounded-lg overflow-hidden`}>
       <div className="h-48 bg-green-600 ">
         <img
-          src={gardener.thumnail ||  "https://placehold.co/1200x400?text=Garden+Cover"}
+          src={gardener?.thumnail ||  "https://placehold.co/1200x400?text=Garden+Cover"}
           alt="Garden cover"
           className="w-full h-full object-cover"
         />
@@ -99,7 +75,7 @@ const Gardener_profile = () => {
         <div className="flex flex-col md:flex-row md:items-end -mt-12">
           <div className="flex-shrink-0">
             <img
-              src={gardener.avatar || "https://placehold.co/150x150?text=Sarah"}
+              src={gardener?.avatar || "https://placehold.co/150x150?text=Sarah"}
               alt="Sarah Johnson"
               className="h-24 w-24 rounded-full ring-4 ring-white bg-white object-cover"
             />
@@ -109,10 +85,10 @@ const Gardener_profile = () => {
               <div>
                 <h2 className={`text-2xl font-bold ${isDark ? 'text-gray-400' :
                    'text-gray-900'} nunito-family`}>
-                  {gardener.name}
+                  {gardener?.name}
                 </h2>
                 <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-500'} roboto-family`}>
-                  {gardener.specialist[0]} • {gardener.yearsOfExperience} years experience • Age : {gardener.age} • {gardener.sex}
+                  {gardener?.specialist[0] || ''} • {gardener?.yearsOfExperience || '0'} years experience • Age : {gardener?.age | '0'} • {gardener?.sex | ''}
                 </p>
               </div>
               <div className="flex items-center nunito-family">
@@ -126,9 +102,9 @@ const Gardener_profile = () => {
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   <span className={`ml-1 ${isDark ? 'text-gray-500' : 'text-gray-700'} font-medium`}>
-                    {gardener.rating}</span>
+                    {gardener?.rating}</span>
                 </div>
-                {gardener.isActive  ? <div className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                {gardener?.isActive  ? <div className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                   Active
                 </div> : <div className="bg-yellow-500 text-gray-300 text-xs font-bold px-2 py-1 rounded-full">
                   Inactive
