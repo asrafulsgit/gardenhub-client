@@ -96,7 +96,7 @@ const Events = () => {
       {/* Events Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 
       lg:grid-cols-3 gap-6  mx-auto">
-        {gardeningEvents.map((event) => (
+        {gardeningEvents?.map((event) => (
           <div
             key={event._id}
             className={`shadow rounded-lg ${isDark ? "border border-gray-900" : 'bg-white'}

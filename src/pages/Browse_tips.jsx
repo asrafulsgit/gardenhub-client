@@ -22,11 +22,12 @@ const Browse_tips = () => {
           '/browse-tips'
         );
         setBrowseTips(data?.tips);
-        setLoading(false)
+        
       } catch (error) {
-  
         toast.error(error.message);
         setMessage("tips not found!");
+         
+      }finally{
         setLoading(false)
       }
     };
@@ -114,7 +115,7 @@ const Browse_tips = () => {
               <h3 className={`text-lg font-medium ${isDark ? 'text-gray-400' : 'text-gray-900'} mb-2 nunito-family`}>Filter by Difficulty Level</h3>
              <div className='flex flex-col gap-2 md:gap-0 md:flex-row md:justify-between'>
               <div className="flex flex-wrap gap-2">
-                {levels.map((item,index)=>(
+                {levels?.map((item,index)=>(
                   <button key={index}
                   onClick={()=>{
                     handleFilter(item)
@@ -179,7 +180,7 @@ const Browse_tips = () => {
               <tbody className={`${isDark ? "bg-black divide-gray-900": 'bg-white divide-gray-200' } divide-y nunito-family`}>
              
                 
-              {browseTips.map((tip,index)=>{
+              {browseTips?.map((tip,index)=>{
                 return(
                   <tr className="tip-row" key={index} data-difficulty="Easy">
                   <td className="px-6 py-4 whitespace-nowrap">
