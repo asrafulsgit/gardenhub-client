@@ -34,9 +34,8 @@ const Gardener_profile = () => {
         "get",
         `/gardener/${id}`
       );
-       setGardener(data?.gardener);
+       setGardener(data?.profile);
     } catch (error) {
-  
       navigate('/')
       setGardener([]);
       setMessage("Gardener not found!");
