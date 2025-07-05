@@ -1,6 +1,6 @@
 # 🌱 Garden Hub
 
-**Live Site:** [https://vocal-pavlova-1c4875.netlify.app] 
+**Live Site:** [https://gardenhub25.netlify.app/] 
 
 ---
 
