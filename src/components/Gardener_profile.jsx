@@ -63,7 +63,7 @@ const Gardener_profile = () => {
       <div className={`border ${isDark? "border-gray-900" :"border-gray-300"}  rounded-lg overflow-hidden`}>
       <div className="h-48 bg-green-600 ">
         <img
-          src={gardener?.thumnail ||  "https://placehold.co/1200x400?text=Garden+Cover"}
+          src={gardener?.user?.avatar ||  "https://placehold.co/1200x400?text=Garden+Cover"}
           alt="Garden cover"
           className="w-full h-full object-cover"
         />
@@ -74,7 +74,7 @@ const Gardener_profile = () => {
         <div className="flex flex-col md:flex-row md:items-end -mt-12">
           <div className="flex-shrink-0">
             <img
-              src={gardener?.avatar || "https://placehold.co/150x150?text=Sarah"}
+              src={gardener?.user?.avatar || "https://placehold.co/150x150?text=Sarah"}
               alt="Sarah Johnson"
               className="h-24 w-24 rounded-full ring-4 ring-white bg-white object-cover"
             />
@@ -84,7 +84,7 @@ const Gardener_profile = () => {
               <div>
                 <h2 className={`text-2xl font-bold ${isDark ? 'text-gray-400' :
                    'text-gray-900'} nunito-family`}>
-                  {gardener?.name}
+                  {gardener?.user?.name}
                 </h2>
                 <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-500'} roboto-family`}>
                   {gardener?.specialist[0] || ''} • {gardener?.yearsOfExperience || '0'} years experience • Age : {gardener?.age | '0'} • {gardener?.sex | ''}
