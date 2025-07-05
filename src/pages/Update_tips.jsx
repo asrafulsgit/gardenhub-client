@@ -80,7 +80,7 @@ if(loading){
  }
   return (
    <><Helmet>
-        <title>Update Tip</title>
+        <title>Gargen Hub |Update Tip</title>
       </Helmet> 
       <section  
     className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 

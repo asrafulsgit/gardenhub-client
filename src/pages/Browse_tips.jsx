@@ -96,7 +96,7 @@ const Browse_tips = () => {
   return (
    <> 
         <Helmet>
-           <title>Browse Tips</title>
+           <title>Gargen Hub | Browse Tips</title>
          </Helmet>
    <section className={`page-section min-h-screen 
     ${isDark ? 'bg-black' :'bg-gray-100'} py-12 px-5 `}>

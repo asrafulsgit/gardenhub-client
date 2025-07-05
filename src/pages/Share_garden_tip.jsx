@@ -59,7 +59,7 @@ const Share_garden_tip = () => {
   
   return (
    <><Helmet>
-        <title>Share Tips</title>
+        <title>Gargen Hub  Share Tips</title>
       </Helmet> 
       <section
       className={`page-section min-h-screen ${isDark ? 'bg-black' : 'bg-gray-100'} 

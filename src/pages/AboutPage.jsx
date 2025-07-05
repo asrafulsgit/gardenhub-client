@@ -1,10 +1,16 @@
 import { useContext } from "react";
 import { AuthContext } from "../config/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const AboutPage = () => {
   const { isDark } = useContext(AuthContext);
   return (
-    <div className={`page-section min-h-screen 
+   <> 
+   <Helmet>
+      <title>Gargen Hub | About Us </title>
+    </Helmet>
+   
+   <div className={`page-section min-h-screen 
     ${isDark ? "bg-black" : "bg-gray-100"} py-12 px-5 `}>
       {/* Header */}
       <section className="max-w-5xl mx-auto text-center mb-10">
@@ -98,7 +104,7 @@ const AboutPage = () => {
         </h2>
         You can add team member cards here if needed
       </section> */}
-    </div>
+    </div></>
   );
 };
 

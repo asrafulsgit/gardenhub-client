@@ -6,6 +6,8 @@ import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../config/AuthProvider';
 import { Star } from "lucide-react";
 import { apiRequiestWithCredentials } from '../../utils/ApiCall';
+import { toast } from 'react-toastify';
+import Loader from '../../utils/Loader';
 // const Profile = () => {
 //   const {userInfo}=useContext(AuthContext)
 //   const [activeTab, setActiveTab] = useState('overview');
@@ -258,9 +260,11 @@ const Profile = () => {
           ...profileInfo
         }
       })
-      setPageLoading(false)
+      
     } catch (error) {
-
+      toast.error(error?.response?.data?.message)
+      
+    }finally{
       setPageLoading(false)
     }
   }
@@ -268,10 +272,16 @@ const Profile = () => {
   useEffect(()=>{
     getProfileInfo();
   },[])
-
+if (pageLoading) {
+    return <Loader />;
+  }
   
   return (
-    <section className={`py-10 px-5  ${isDark? "bg-black " :"bg-[#E4FEEC] "} `}>
+  <>  
+    <Helmet>
+      <title>Gargen Hub | Profile </title>
+    </Helmet>
+  <section className={`py-10 px-5  ${isDark? "bg-black " :"bg-[#E4FEEC] "} `}>
       <div className={`relative max-w-4xl mx-auto ${isDark? "border"
          :"bg-white "}  shadow rounded-xl overflow-hidden`}>
         {/* Action Buttons */}
@@ -402,7 +412,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </section>
+    </section></>
   );
 };
 

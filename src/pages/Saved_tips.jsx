@@ -37,12 +37,12 @@ const Saved_tips = () => {
     }
   };
   if (pageLoading) {
-    return <p>Loading...</p>;
+    return <><Loader /> </>
   }
   return (
     <>
       <Helmet>
-        <title>Saved Tips</title>
+        <title>Gargen Hub | Saved Tips</title>
       </Helmet>{" "}
       <section className={`min-h-[70vh] px-5 ${isDark ? 'bg-black' : 'bg-gray-50'}  py-8 block`}>
         <div className="max-w-7xl mx-auto ">

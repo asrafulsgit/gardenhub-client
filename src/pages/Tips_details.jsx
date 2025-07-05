@@ -178,7 +178,7 @@ const Tips_details = () => {
   if (loading) {
     return (
       <>
-        <Loader />{" "}
+        <Loader /> 
       </>
     );
   }
@@ -186,7 +186,7 @@ const Tips_details = () => {
   return (
     <>
       <Helmet>
-        <title>Tip Details</title>
+        <title>Gargen Hub |Tip Details</title>
       </Helmet>
 <section
   id="tipDetails"

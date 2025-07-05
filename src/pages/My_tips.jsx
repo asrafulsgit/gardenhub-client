@@ -73,7 +73,7 @@ const My_tips = () => {
   return (
     <>
     <Helmet>
-        <title>My Tips</title>
+        <title>Gargen Hub | Manage Tips</title>
       </Helmet>
     <section
       id="myTips"

@@ -4,6 +4,7 @@ import { apiRequiest } from "../utils/ApiCall";
 import { toast } from "react-toastify";
 import { Link } from "react-router";
 import Loader from "../utils/Loader";
+import { Helmet } from "react-helmet";
 
 
 
@@ -32,7 +33,11 @@ const Events = () => {
     return<><Loader /> </>
   }
   return (
-    <div
+  <>  
+  <Helmet>
+      <title>Gargen Hub | Events </title>
+    </Helmet>
+  <div
       className={`page-section min-h-screen 
     ${isDark ? "bg-black" : "bg-gray-100"} py-12 px-5 `}
     >
@@ -164,7 +169,7 @@ const Events = () => {
           </button>
         </nav>
       </div>
-    </div>
+    </div></>
   );
 };
 

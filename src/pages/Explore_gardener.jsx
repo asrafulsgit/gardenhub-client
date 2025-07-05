@@ -75,8 +75,9 @@ const Explore_gardener = () => {
   return (
    <>
    <Helmet>
-        <title> Explore Gardeners</title>
-      </Helmet> <section
+        <title>Gargen Hub | Explore Gardeners</title>
+      </Helmet> 
+    <section
       id="gardener-listings"
       className={`py-8 px-5  ${isDark ? 'bg-black' : 'bg-white'}`}
       style={{ display: "block" }}
