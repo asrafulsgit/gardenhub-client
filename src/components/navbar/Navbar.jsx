@@ -39,10 +39,10 @@ const Navbar = () => {
   };
 
   return (
-    <header className=" z-50 px-4  bg-[#0A6B01] text-white shadow-md nunito-family">
+    <header className=" z-50   bg-[#0A6B01] text-white shadow-md nunito-family">
       {/* desktop Menu */}
       <div
-        className="max-w-7xl mx-auto  
+        className="  
        py-4 flex items-center justify-between"
       >
         {/* Mobile Menu Button */}
