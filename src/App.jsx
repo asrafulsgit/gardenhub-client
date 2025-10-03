@@ -38,11 +38,12 @@ const App = () => {
     <>
       <Toastify />
       <ScrollVehaviour />
+      <div class="container mx-auto">
       <div className="sticky top-0 z-50">
         <Navbar />
       </div>
       <Outlet />
-      <Footer />
+      <Footer /></div>
     </>
   );
 };
